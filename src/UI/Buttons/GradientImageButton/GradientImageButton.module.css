@@ -1,0 +1,45 @@
+.container {
+    position: relative;
+    width: 100%;
+    margin: 15px 0;
+}
+.link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+
+}
+.background {
+    top: 0;
+    right: 0;
+    z-index: -10;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+.btnImg {
+    margin-left: 30px ;
+}
+.btnText {
+    width: 80%;
+    margin: 0;
+    text-align: center;
+
+}
+
+.green {
+    background: linear-gradient(90deg, #9AFF8A 0%, #8AFFE3 100%);
+    border-radius: 10px;
+}
+
+.red {
+    background: linear-gradient(90deg, #F77C7C 0%, #FFF48E 100%);
+    border-radius: 10px;
+}
+
+.violet {
+    background: linear-gradient(90deg, #99A9FF 0%, #D886FF 100%);
+    border-radius: 10px;
+}

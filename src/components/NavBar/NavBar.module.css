@@ -1,0 +1,22 @@
+.navbar {
+    background-color: #141414;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.menuItems {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 30px;
+    list-style: none;
+}
+.brand {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    margin-left: 30px;
+    color: white;
+    text-decoration: none;
+    white-space: nowrap
+
+}

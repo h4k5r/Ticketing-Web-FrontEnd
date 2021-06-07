@@ -1,0 +1,11 @@
+.navDefault {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-around;
+    width: 5vw;
+    margin: 0 10px;
+}
+.active {
+    border-bottom: 1px solid #ffffff;
+}
