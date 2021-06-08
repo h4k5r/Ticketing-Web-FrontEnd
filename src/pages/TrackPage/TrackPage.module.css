@@ -1,0 +1,15 @@
+.trackContainer {
+    position: relative;
+    padding: 60px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.map {
+    z-index: -20;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+
+}

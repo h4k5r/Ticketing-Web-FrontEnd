@@ -1,0 +1,50 @@
+.container {
+    display: block;
+    position: relative;
+}
+.text {
+    margin: 0;
+    width: 80%;
+
+    text-align: center;
+}
+.image {
+    margin-left: 30px;
+}
+.btn {
+    padding: 10px;
+    height: 100%;
+    width: 100%;
+    border: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: -10;
+    height: 100%;
+    width: 100%;
+    border: none;
+
+}
+.blur {
+    filter: blur(10px);
+}
+.green {
+    background: linear-gradient(90deg, #9AFF8A 0%, #8AFFE3 100%);
+    border-radius: 10px;
+}
+
+.red {
+    background: linear-gradient(90deg, #F77C7C 0%, #FFF48E 100%);
+    border-radius: 10px;
+}
+
+.violet {
+    background: linear-gradient(90deg, #99A9FF 0%, #D886FF 100%);
+    border-radius: 10px;
+}

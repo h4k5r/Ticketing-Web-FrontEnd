@@ -1,8 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import classes from "./GradientButton.module.css";
+import classes from "./LinkGradientButton.module.css";
 
-const GradientButton:React.FC<{
+const LinkGradientButton:React.FC<{
     location:string,
     text:string,
     buttonColor:string, cssClasses?:string[] | undefined}> = (props) => {
@@ -29,5 +29,5 @@ const GradientButton:React.FC<{
         </div>
     );
 };
-export default GradientButton;
+export default LinkGradientButton;
 

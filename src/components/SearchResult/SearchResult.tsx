@@ -1,6 +1,7 @@
 import React from "react";
 import classes from './Search.module.css'
 import blackBus from '../../images/la_bus-1.svg'
+import NormalGradientButton from "../../UI/Buttons/NormalButtons/NormalGradientButton/NormalGradientButton";
 
 const SearchResult:React.FC<{busId:string,busNumber:string,approxTime:string}> = props => {
     return (
@@ -17,7 +18,7 @@ const SearchResult:React.FC<{busId:string,busNumber:string,approxTime:string}> =
                 <button className={classes.controlButtons}>-</button>
                 <p className={`${classes.pText} ${classes.ticketCount}`}>1</p>
                 <button className={classes.controlButtons}>+</button>
-                <button className={classes.buyButton}>Buy Now</button>
+                <NormalGradientButton text={'BuyNow'} buttonColor={'green'} cssClasses={[classes.buyButton]}/>
             </div>
             <div className={classes.background}/>
         </div>

@@ -54,11 +54,8 @@
 }
 .buyButton {
     display: block;
-    background: linear-gradient(90deg, #9AFF8A 0%, #8AFFE3 100%);
     border: 1px #a5a5a5 solid ;
     border-radius: 10px;
-    padding: 10px;
     margin-left: 30px;
     font-weight: bold;
-    white-space: nowrap;
 }

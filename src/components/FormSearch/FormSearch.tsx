@@ -1,10 +1,10 @@
 import React from "react";
 import GrayCard from "../../UI/GrayCard/GrayCard";
-import classes from "./SearchForm.module.css";
+import classes from "./FormSearch.module.css";
 import TextInput from "../../UI/TextInput/TextInput";
-import GradientButton from "../../UI/Buttons/GradientButton/GradientButton";
+import NormalGradientButton from "../../UI/Buttons/NormalButtons/NormalGradientButton/NormalGradientButton";
 
-const SearchForm:React.FC<{}> = () => {
+const FormSearch:React.FC<{}> = () => {
     return (
         <GrayCard cssClasses={[classes.searchCard]}>
             <h1 className={classes.headingText}>Search Buses</h1>
@@ -13,10 +13,11 @@ const SearchForm:React.FC<{}> = () => {
                            label={'Source Location'}/>
                 <TextInput cssClasses={[classes.inputs]} type={'text'} color={'red'} placeHolder={'Enter Destination'}
                            label={'Destination Location'}/>
-                <GradientButton cssClasses={[classes.searchButton]} location={'/search'} text={'Search'}
-                                buttonColor={'red'}/>
+                <NormalGradientButton text={'Search'} buttonColor={'red'} cssClasses={[classes.searchButton]}/>
+                {/*<LinkGradientButton cssClasses={[classes.searchButton]} location={'/search'} text={'Search'}*/}
+                {/*                    buttonColor={'red'}/>*/}
             </form>
         </GrayCard>
     );
 }
-export default SearchForm;
+export default FormSearch;

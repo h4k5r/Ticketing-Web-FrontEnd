@@ -7,10 +7,10 @@ import FormImage from "../../UI/FormImage/FormImage";
 import LoginUI from "../../components/LoginUI/LoginUI";
 import {Route} from "react-router-dom";
 import EmailLogin from "../../components/FormEmailLoginForm/EmailLogin";
-import EmailRegister from "../../components/FormEmailRegister/EmailRegister";
-import EmailPasswordReset from "../../components/FormEmailPasswordReset/EmailPasswordReset";
-import PhoneRegister from "../../components/FormPhoneRegister/PhoneRegister";
-import PhoneOTP from "../../components/FormPhoneOTP/PhoneOTP";
+import FormEmailRegister from "../../components/FormEmailRegister/FormEmailRegister";
+import FormEmailPasswordReset from "../../components/FormEmailPasswordReset/FormEmailPasswordReset";
+import FormPhoneRegister from "../../components/FormPhoneRegister/FormPhoneRegister";
+import FormPhoneOTP from "../../components/FormPhoneOTP/FormPhoneOTP";
 import {
     emailLoginLink,
     emailPasswordResetLink,
@@ -30,10 +30,10 @@ const LoginPage:React.FC<{}> = () => {
                         <h1 className={classes.mainText}>Welcome To App Name</h1>
                         <Route path={loginLink} exact><LoginUI/></Route>
                         <Route path={emailLoginLink}><EmailLogin/></Route>
-                        <Route path={emailPasswordResetLink}><EmailPasswordReset/></Route>
-                        <Route path={emailRegisterLink}><EmailRegister/></Route>
-                        <Route path={phoneRegisterLink}><PhoneRegister/></Route>
-                        <Route path={phoneOtpLink}><PhoneOTP/></Route>
+                        <Route path={emailPasswordResetLink}><FormEmailPasswordReset/></Route>
+                        <Route path={emailRegisterLink}><FormEmailRegister/></Route>
+                        <Route path={phoneRegisterLink}><FormPhoneRegister/></Route>
+                        <Route path={phoneOtpLink}><FormPhoneOTP/></Route>
                     </div>
                 </div>
             </GrayCard>

@@ -1,10 +1,10 @@
 import React from "react";
 import TextInput from "../../UI/TextInput/TextInput";
-import GradientButton from "../../UI/Buttons/GradientButton/GradientButton";
+import LinkGradientButton from "../../UI/Buttons/LinkButtons/LinkGradientButton/LinkGradientButton";
 import {Link} from "react-router-dom";
 import {emailLoginLink, emailPasswordResetLink, loginLink} from "../../LinkPaths";
 
-const EmailRegister:React.FC<{}> = () => {
+const FormEmailRegister:React.FC<{}> = () => {
     const color:string = 'red'
     return (
         <div className={'formContainer'}>
@@ -13,7 +13,7 @@ const EmailRegister:React.FC<{}> = () => {
                 <TextInput label={'Email'} type={'text'} color={color} placeHolder={'Enter Email'}/>
                 <TextInput label={'Password'} type={'password'} color={color} placeHolder={'Enter Password'}/>
                 <TextInput label={'Confirm Password'} type={'password'} color={color} placeHolder={'Enter Password again'}/>
-                <GradientButton location={''} text={'Register'} buttonColor={color}/>
+                <LinkGradientButton location={''} text={'Register'} buttonColor={color}/>
                 <Link className={'link'} to={emailLoginLink}>Already Have an Account? Click Here.</Link>
                 <Link className={'link'} to={emailPasswordResetLink}>Forgot Password?</Link>
                 <Link className={'link'} to={loginLink}>Get in With Other Methods</Link>
@@ -21,4 +21,4 @@ const EmailRegister:React.FC<{}> = () => {
         </div>
     );
 }
-export default EmailRegister;
+export default FormEmailRegister;
