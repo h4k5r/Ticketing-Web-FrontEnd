@@ -1,0 +1,7 @@
+.searchSection {
+    display: flex;
+    flex-direction: column;
+    margin: 0 150px;
+    height: 100%;
+    padding:60px 0 ;
+}

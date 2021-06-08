@@ -1,0 +1,64 @@
+.pText {
+    margin:0;
+}
+.boldFont {
+    font-weight: bold;
+}
+.container {
+    margin-top: 10px;
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+}
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #F77C7C 0%, #FFF48E 100%);
+    border-radius: 10px;
+    z-index: -20;
+}
+
+.busDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.busTime {
+    display: flex;
+}
+.controls {
+    flex-grow: 0.4;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+}
+.controlButtons {
+    font-size: 20px;
+    color: white;
+    background-color:black;
+    min-height: 40px;
+    min-width: 40px;
+    border-radius: 20px;
+}
+.ticketCount {
+    min-width: 20%;
+    height: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #5A5A5A;
+    color: white;
+    text-align: center;
+    margin: 0 10px
+}
+.buyButton {
+    display: block;
+    background: linear-gradient(90deg, #9AFF8A 0%, #8AFFE3 100%);
+    border: 1px #a5a5a5 solid ;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 30px;
+    font-weight: bold;
+    white-space: nowrap;
+}

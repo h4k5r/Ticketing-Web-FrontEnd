@@ -5,7 +5,7 @@ import classes from "./GradientButton.module.css";
 const GradientButton:React.FC<{
     location:string,
     text:string,
-    buttonColor:string,}> = (props) => {
+    buttonColor:string, cssClasses?:string[] | undefined}> = (props) => {
     let colorClass:string;
     switch (props.buttonColor){
         case 'green':
@@ -22,7 +22,7 @@ const GradientButton:React.FC<{
             break;
     }
     return(
-        <div className={classes.container}>
+        <div className={`${classes.container} ${props.cssClasses}`}>
             <Link className={classes.link} to={props.location}>{props.text}</Link>
             <div className={`${classes.background} ${colorClass}`}/>
             <div className={`${classes.background} ${colorClass} ${classes.blur}`}/>

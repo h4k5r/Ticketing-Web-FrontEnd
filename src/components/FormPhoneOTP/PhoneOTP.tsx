@@ -9,7 +9,7 @@ const PhoneOTP:React.FC<{}>= () => {
         <div className={'formContainer'}>
             <p className={'subText'}>Enter Received OTP</p>
             <form className={'formStyle'}>
-                <TextInput type={'number'} color={color} placeHolder={'Enter OTP'}/>
+                <TextInput label={'OTP'} type={'number'} color={color} placeHolder={'Enter OTP'}/>
                 <GradientButton location={searchLink} text={'Verify OTP'} buttonColor={color}/>
             </form>
         </div>

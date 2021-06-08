@@ -10,8 +10,8 @@ const EmailLogin:React.FC<{}> = () => {
         <div className={'formContainer'}>
             <p className={'subText'}>Enter Your Credentials</p>
             <form className={'formStyle'}>
-                <TextInput type={'text'} color={color} placeHolder={'Enter Email'}/>
-                <TextInput type={'password'} color={color} placeHolder={'Enter Password'}/>
+                <TextInput label={'Email'} type={'text'} color={color} placeHolder={'Enter Email'}/>
+                <TextInput label={'Password'} type={'password'} color={color} placeHolder={'Enter Password'}/>
                 <GradientButton location={'/search'} text={'Login'} buttonColor={color}/>
                 <Link className={'link'} to={emailRegisterLink}>New User? Click here to Register.</Link>
                 <Link className={'link'} to={emailPasswordResetLink}>Forgot Password?</Link>

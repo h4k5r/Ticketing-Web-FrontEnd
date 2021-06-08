@@ -10,7 +10,7 @@ const PhoneRegister:React.FC<{}> = () => {
         <div className={'formContainer'}>
             <p className={'subText'}>Enter Phone Number Without country Code</p>
             <form className={'formStyle'}>
-                <TextInput type={'number'} color={color} placeHolder={'Enter Phone Number'}/>
+                <TextInput label={'Phone Number'} type={'number'} color={color} placeHolder={'Enter Phone Number'}/>
                 <GradientButton location={phoneOtpLink} text={'Get OTP'} buttonColor={color}/>
                 <Link className={'link'} to={loginLink}>Get in With Other Methods</Link>
             </form>

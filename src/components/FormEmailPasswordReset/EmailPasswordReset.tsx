@@ -10,7 +10,7 @@ const EmailPasswordReset:React.FC<{}> = () => {
         <div className={'formContainer'}>
             <p className={'subText'}>Enter your email to reset password</p>
             <form className={'formStyle'}>
-                <TextInput type={'text'} color={color} placeHolder={'Enter Email'}/>
+                <TextInput label={'Email'} type={'text'} color={color} placeHolder={'Enter Email'}/>
                 <GradientButton location={''} text={'Send Reset Link'} buttonColor={color}/>
                 <Link className={'link'} to={emailLoginLink}>Click Here to Login.</Link>
             </form>

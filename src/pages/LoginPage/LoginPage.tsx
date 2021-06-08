@@ -6,11 +6,11 @@ import GrayCard from "../../UI/GrayCard/GrayCard";
 import FormImage from "../../UI/FormImage/FormImage";
 import LoginUI from "../../components/LoginUI/LoginUI";
 import {Route} from "react-router-dom";
-import EmailLogin from "../../components/EmailLogin/EmailLogin";
-import EmailRegister from "../../components/EmailRegister/EmailRegister";
-import EmailPasswordReset from "../../components/EmailPasswordReset/EmailPasswordReset";
-import PhoneRegister from "../../components/PhoneRegister/PhoneRegister";
-import PhoneOTP from "../../components/PhoneOTP/PhoneOTP";
+import EmailLogin from "../../components/FormEmailLoginForm/EmailLogin";
+import EmailRegister from "../../components/FormEmailRegister/EmailRegister";
+import EmailPasswordReset from "../../components/FormEmailPasswordReset/EmailPasswordReset";
+import PhoneRegister from "../../components/FormPhoneRegister/PhoneRegister";
+import PhoneOTP from "../../components/FormPhoneOTP/PhoneOTP";
 import {
     emailLoginLink,
     emailPasswordResetLink,
