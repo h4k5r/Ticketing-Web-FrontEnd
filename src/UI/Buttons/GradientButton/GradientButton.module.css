@@ -1,0 +1,39 @@
+.container {
+    position: relative;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.link {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+
+}
+.background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -10;
+    height: 100%;
+    width: 100%;
+}
+.blur {
+    filter: blur(10px);
+}
+.green {
+    background: linear-gradient(90deg, #9AFF8A 0%, #8AFFE3 100%);
+    border-radius: 10px;
+}
+
+.red {
+    background: linear-gradient(90deg, #F77C7C 0%, #FFF48E 100%);
+    border-radius: 10px;
+}
+
+.violet {
+    background: linear-gradient(90deg, #99A9FF 0%, #D886FF 100%);
+    border-radius: 10px;
+}

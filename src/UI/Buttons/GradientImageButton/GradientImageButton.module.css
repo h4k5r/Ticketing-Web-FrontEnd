@@ -1,7 +1,8 @@
 .container {
     position: relative;
     width: 100%;
-    margin: 15px 0;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 .link {
     display: flex;
@@ -28,7 +29,9 @@
     text-align: center;
 
 }
-
+.blur {
+    filter: blur(10px);
+}
 .green {
     background: linear-gradient(90deg, #9AFF8A 0%, #8AFFE3 100%);
     border-radius: 10px;

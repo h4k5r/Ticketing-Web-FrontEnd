@@ -31,6 +31,7 @@ const GradientImageButton:React.FC<
                 <p className={classes.btnText}>{props.text}</p>
             </Link>
             <div className={`${classes.background} ${colorClass}`}/>
+            <div className={`${classes.background} ${colorClass} ${classes.blur}`}/>
         </div>
     )
 }

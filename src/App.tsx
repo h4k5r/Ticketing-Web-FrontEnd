@@ -18,11 +18,11 @@ function App() {
         <NavBar/>
         <Switch>
             <Route path={'/'} exact><LandingPage/></Route>
-            <Route path={'/login'} exact><LoginPage/></Route>
-            <Route path={'/profile'} exact><ProfilePage/></Route>
-            <Route path={'/search'} exact><SearchPage/></Route>
-            <Route path={'/history'} exact><TicketHistoryPage/></Route>
-            <Route path={'/track'} exact><TrackPage/></Route>
+            <Route path={'/login'} ><LoginPage/></Route>
+            <Route path={'/profile'} ><ProfilePage/></Route>
+            <Route path={'/search'} ><SearchPage/></Route>
+            <Route path={'/history'} ><TicketHistoryPage/></Route>
+            <Route path={'/track'} ><TrackPage/></Route>
             <Route path={'/'}> 404</Route>
         </Switch>
         <div className={'back'}>

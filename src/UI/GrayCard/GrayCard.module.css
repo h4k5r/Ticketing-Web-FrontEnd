@@ -1,12 +1,12 @@
 .card {
-    padding: 1vh 1vh 1vw 1vw;
+
     flex-grow: 1;
     position: relative;
     top:0;
 }
 .cardBackground {
     position: absolute;
-    top:0;
+    align-self: center;
     background-color: #141414;
     opacity: 50%;
     width: 100%;
