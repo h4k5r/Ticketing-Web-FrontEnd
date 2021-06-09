@@ -9,3 +9,30 @@
 .active {
     border-bottom: 1px solid #ffffff;
 }
+.subItemList {
+    position: absolute;
+    list-style: unset;
+    right: 0;
+    background: #141414;
+    border: 1px solid #313131;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+.subItemLink {
+    text-decoration: none;
+    background: #313131;
+    border-radius: 10px;
+    color: white;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+.image {
+    margin-right: 10px;
+}
+.logout {
+    margin: 10px 0 0;
+}

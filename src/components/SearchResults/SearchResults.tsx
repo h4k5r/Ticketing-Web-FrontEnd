@@ -11,22 +11,22 @@ const SearchResults:React.FC<{}> = () => {
     }
     const buses: bus[] = [
         {
-            id: 'sdfsdf',
+            id: 'sdfsdf1',
             number: 'TN 00 H4 K5R0',
             approxTime: '12:00PM'
         },
         {
-            id: 'sdfsdf',
+            id: 'sdfsdf2',
             number: 'TN 00 H4 K5R0',
             approxTime: '12:00PM'
         },
         {
-            id: 'sdfsdf',
+            id: 'sdfsdf3',
             number: 'TN 00 H4 K5R0',
             approxTime: '12:00PM'
         },
         {
-            id: 'sdfsdf',
+            id: 'sdfsdf4',
             number: 'TN 00 H4 K5R0',
             approxTime: '12:00PM'
         },
@@ -36,7 +36,7 @@ const SearchResults:React.FC<{}> = () => {
             <h1 className={classes.headingText}>Results</h1>
             <div className={classes.results}>
                 {buses.map((bus) => {
-                    return <SearchResult busId={bus.id} busNumber={bus.number} approxTime={bus.approxTime}/>
+                    return <SearchResult key={bus.id} busId={bus.id} busNumber={bus.number} approxTime={bus.approxTime}/>
                 })}
             </div>
         </GrayCard>

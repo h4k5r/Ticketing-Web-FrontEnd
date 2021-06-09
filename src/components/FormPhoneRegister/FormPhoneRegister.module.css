@@ -1,0 +1,16 @@
+.formSubContainer {
+    display: flex;
+    align-items: flex-end;
+}
+.numberInput {
+    width: 100%;
+    flex-grow: 1;
+}
+.codeSelector {
+    height: 60%;
+    margin-right: 20px;
+    border-radius: 10px;
+    background-color: #313131;
+    color: white;
+    outline: none;
+}

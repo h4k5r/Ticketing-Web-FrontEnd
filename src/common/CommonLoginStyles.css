@@ -22,3 +22,7 @@
     text-align: center;
     color: white;
 }
+.error {
+    font-weight: bold;
+    color: red;
+}
