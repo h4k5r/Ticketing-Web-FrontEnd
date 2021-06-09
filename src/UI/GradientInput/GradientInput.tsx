@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import classes from './TextInput.module.css'
-const TextInput:React.FC<{type:string,color:string,placeHolder:string,label:string,cssClasses?: string[] | undefined}> = props => {
+import classes from './GradientInput.module.css'
+const GradientInput:React.FC<{type:string,color:string,placeHolder:string,label:string,cssClasses?: string[] | undefined}> = props => {
     const [InputClasses,setInputClasses] = useState(`${classes.background}`);
 
     let colorClass:string;
@@ -36,4 +36,4 @@ const TextInput:React.FC<{type:string,color:string,placeHolder:string,label:stri
         </div>
     );
 }
-export default TextInput
+export default GradientInput

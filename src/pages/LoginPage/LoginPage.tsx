@@ -6,7 +6,7 @@ import GrayCard from "../../UI/GrayCard/GrayCard";
 import FormImage from "../../UI/FormImage/FormImage";
 import LoginUI from "../../components/LoginUI/LoginUI";
 import {Route} from "react-router-dom";
-import EmailLogin from "../../components/FormEmailLoginForm/EmailLogin";
+import EmailLogin from "../../components/FormEmailLogin/EmailLogin";
 import FormEmailRegister from "../../components/FormEmailRegister/FormEmailRegister";
 import FormEmailPasswordReset from "../../components/FormEmailPasswordReset/FormEmailPasswordReset";
 import FormPhoneRegister from "../../components/FormPhoneRegister/FormPhoneRegister";

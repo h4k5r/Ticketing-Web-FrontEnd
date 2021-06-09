@@ -1,0 +1,22 @@
+.container {
+    padding: 60px;
+    flex-grow: 1;
+}
+.subContainer {
+    padding: 60px;
+}
+.mainText {
+    color: white;
+}
+.formContainer {
+    display: flex;
+    align-items: flex-end;
+}
+.nameInput {
+    flex-grow: 1;
+    margin-right: 30px;
+}
+.updateButton {
+    flex-grow: 1;
+    margin: 10px 0 ;
+}
