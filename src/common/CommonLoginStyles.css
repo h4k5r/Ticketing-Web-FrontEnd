@@ -21,8 +21,10 @@
     text-decoration: none;
     text-align: center;
     color: white;
+    padding: 10px;
 }
 .error {
     font-weight: bold;
     color: red;
+    margin:0;
 }

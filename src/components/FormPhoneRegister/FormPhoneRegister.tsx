@@ -1,17 +1,19 @@
-import React, {useRef, useState} from "react";
+import React, {useReducer, useRef} from "react";
 import classes from './FormPhoneRegister.module.css'
 import GradientInput from "../../UI/GradientInput/GradientInput";
 import {Link,useHistory} from "react-router-dom";
 import {loginLink, phoneOtpLink} from "../../LinkPaths";
 import NormalGradientButton from "../../UI/Buttons/NormalButtons/NormalGradientButton/NormalGradientButton";
-
+import {initialPhoneFormState, phoneFormReducer} from "../../store/reducers/phone-form-reducer";
+import {phoneNumberValidator} from "../../utils/validators";
+const color:string = 'red';
 const FormPhoneRegister:React.FC<{}> = () => {
     const history = useHistory();
     const phoneNumberRef = useRef<HTMLInputElement>(document.createElement('input'));
     const codeRef = useRef<HTMLSelectElement>(document.createElement('select'));
-    const [errorState,setErrorState] = useState({error:true,errorMessage:''});
+    const [state,dispatch] = useReducer(phoneFormReducer,initialPhoneFormState);
 
-    const color:string = 'red';
+
     const onSubmitHandler = (event:React.FormEvent) => {
         event.preventDefault();
         const code = codeRef.current.value;
@@ -19,19 +21,12 @@ const FormPhoneRegister:React.FC<{}> = () => {
         history.push(phoneOtpLink);
     }
     const onNumberChangeHandler = () => {
-        setErrorState({error: false,errorMessage:''});
+        dispatch({type:'setIsPhoneNumberValid',payload:true});
+        dispatch({type:'setPhoneNumberErrorMessage',payload:''});
     }
     const onBlurHandler = (event:React.FocusEvent<HTMLInputElement>) => {
-        const enteredValue = +event.target.value;
-        if(isNaN(enteredValue)) {
-            setErrorState({error: true,errorMessage:'Enter A valid Number'});
-            return
-        }
-        if (enteredValue.toString().length > 10 || enteredValue.toString().length < 10) {
-            setErrorState({error: true,errorMessage:'Enter A 10 Digit Number'});
-            return;
-        }
-        setErrorState({error: false,errorMessage:''});
+        const enteredValue = event.target.value;
+        phoneNumberValidator(enteredValue,dispatch);
     }
     return (
         <div className={'formContainer'}>
@@ -46,8 +41,8 @@ const FormPhoneRegister:React.FC<{}> = () => {
                                    ref={phoneNumberRef}
                                    onChangeHandler={onNumberChangeHandler} onBlurHandler={onBlurHandler}/>
                 </div>
-                {errorState.error && <p className={'error'}>{errorState.errorMessage}</p>}
-                <NormalGradientButton text={'Get OTP'} buttonColor={'red'} type={'submit'} disabled={errorState.error}/>
+                {!state.isPhoneNumberValid && <p className={'error'}>{state.phoneNumberErrorMessage}</p>}
+                <NormalGradientButton text={'Get OTP'} buttonColor={'red'} type={'submit'} disabled={!state.isPhoneNumberValid}/>
                 <Link className={'link'} to={loginLink}>Get in With Other Methods</Link>
             </form>
         </div>
