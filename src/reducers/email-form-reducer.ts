@@ -1,6 +1,6 @@
 import React from "react";
 
-type formState = {
+export type emailFormState = {
     isEmailValid:boolean,
     emailErrorMessage:string,
     isPasswordValid:boolean,
@@ -17,7 +17,7 @@ export type emailFormAction =
     { type: 'setEmailErrorMessage' | 'setPasswordErrorMessage' | 'setConfirmPasswordErrorMessage', payload:string} |
     { type: 'setEmail' | 'setPassword' | 'setConfirmPassword', payload:string}
 
-export const emailFormReducer:React.Reducer<formState, emailFormAction> = (state, action) => {
+export const emailFormReducer:React.Reducer<emailFormState, emailFormAction> = (state, action) => {
     const updatedState = {...state}
     switch (action.type) {
         case "setEmail":
@@ -57,7 +57,8 @@ export const emailFormReducer:React.Reducer<formState, emailFormAction> = (state
             return updatedState
     }
 }
-export const initialEmailFormState: formState = {
+
+export const initialEmailFormState: emailFormState = {
     isEmailValid:false,
     isPasswordValid:false,
     isConfirmPasswordValid:false,

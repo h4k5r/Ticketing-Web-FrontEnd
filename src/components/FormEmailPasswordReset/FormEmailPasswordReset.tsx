@@ -1,17 +1,37 @@
-import React from "react";
+import React, {useReducer} from "react";
 import GradientInput from "../../UI/GradientInput/GradientInput";
-import LinkGradientButton from "../../UI/Buttons/LinkButtons/LinkGradientButton/LinkGradientButton";
 import {Link} from "react-router-dom";
 import {emailLoginLink} from "../../LinkPaths";
+import {emailFormReducer, initialEmailFormState} from "../../reducers/email-form-reducer";
+import {emailValidator} from "../../utils/validators";
+import NormalGradientButton from "../../UI/Buttons/NormalButtons/NormalGradientButton/NormalGradientButton";
+
 
 const FormEmailPasswordReset:React.FC<{}> = () => {
-    const color:string = 'violet'
+    const color:string = 'violet';
+    const [state,dispatch] = useReducer(emailFormReducer,initialEmailFormState);
+
+    const emailOnChangeHandler = () => {
+        dispatch({type:'setEmailIsValid',payload:true});
+        dispatch({type:'setEmailErrorMessage',payload:''});
+    }
+    const emailOnBlurHandler = (event:React.FocusEvent<HTMLInputElement>) => {
+        const enteredEmail = event.target.value;
+        emailValidator(enteredEmail,dispatch);
+    };
+    const onSubmitHandler = (event:React.FormEvent) => {
+        event.preventDefault();
+        // authContext.passwordReset(state.email,
+        //     () => {},
+        //     () => {})
+    }
     return (
         <div className={'formContainer'}>
             <p className={'subText'}>Enter your email to reset password</p>
-            <form className={'formStyle'}>
-                <GradientInput label={'Email'} type={'text'} color={color} placeHolder={'Enter Email'}/>
-                <LinkGradientButton location={''} text={'Send Reset Link'} buttonColor={color}/>
+            <form className={'formStyle'} onSubmit={onSubmitHandler}>
+                <GradientInput label={'Email'} type={'text'} color={color} placeHolder={'Enter Email'}
+                               onBlurHandler={emailOnBlurHandler}  onChangeHandler={emailOnChangeHandler}/>
+                <NormalGradientButton text={'Send Reset Link'} buttonColor={color} disabled={!state.isEmailValid}/>
                 <Link className={'link'} to={emailLoginLink}>Click Here to Login.</Link>
             </form>
         </div>

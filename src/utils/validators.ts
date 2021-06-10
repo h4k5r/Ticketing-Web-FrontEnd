@@ -1,6 +1,6 @@
 import React from "react";
-import {emailFormAction} from "../store/reducers/email-form-reducer";
-import {phoneFormAction} from "../store/reducers/phone-form-reducer";
+import {emailFormAction} from "../reducers/email-form-reducer";
+import {phoneFormAction} from "../reducers/phone-form-reducer";
 
 const callbackChecker = (callback?: () => void) => {
     if(callback){

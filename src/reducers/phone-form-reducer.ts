@@ -1,6 +1,6 @@
 import React from "react";
 
-type phoneForm = {
+export type phoneFormState = {
     isPhoneNumberValid:boolean,
     phoneNumberErrorMessage:string,
     isOTPValid:boolean,
@@ -13,7 +13,7 @@ export type phoneFormAction =
     {type: 'setPhoneNumberErrorMessage' | 'setOTPErrorMessage', payload:string } |
     {type: 'setPhoneNumber' | 'setOTP', payload:number }
 
-export const phoneFormReducer:React.Reducer<phoneForm, phoneFormAction> = (state, action) => {
+export const phoneFormReducer:React.Reducer<phoneFormState, phoneFormAction> = (state, action) => {
     const updatedState = {...state}
     switch (action.type) {
         case "setIsPhoneNumberValid":
@@ -38,7 +38,7 @@ export const phoneFormReducer:React.Reducer<phoneForm, phoneFormAction> = (state
             return updatedState;
     }
 }
-export const initialPhoneFormState:phoneForm = {
+export const initialPhoneFormState:phoneFormState = {
     isPhoneNumberValid:false,
     phoneNumberErrorMessage:'',
     isOTPValid:false,

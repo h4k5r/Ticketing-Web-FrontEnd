@@ -1,15 +1,18 @@
-import React, {useEffect, useReducer, useRef} from "react";
+import React, {useEffect, useReducer} from "react";
 import classes from './EmailLogin.module.css'
 import GradientInput from "../../UI/GradientInput/GradientInput";
-import { Link } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {emailPasswordResetLink, emailRegisterLink, loginLink} from "../../LinkPaths";
 import NormalGradientButton from "../../UI/Buttons/NormalButtons/NormalGradientButton/NormalGradientButton";
-import {emailFormReducer, initialEmailFormState} from "../../store/reducers/email-form-reducer";
+import {emailFormReducer, initialEmailFormState} from "../../reducers/email-form-reducer";
 import {emailValidator, passwordValidator} from "../../utils/validators";
+import {useDispatch} from "react-redux";
+import {emailLogin} from "../../store/auth-slice";
+
 const color:string = 'green';
 const EmailLogin:React.FC<{}> = () => {
-    const emailRef = useRef<HTMLInputElement>(document.createElement('input'))
-    const passwordRef = useRef<HTMLInputElement>(document.createElement('input'));
+    const history = useHistory();
+    const reduxDispatch = useDispatch();
     const [state,dispatch] = useReducer(emailFormReducer,initialEmailFormState);
     const {isEmailValid,isPasswordValid} = state;
     useEffect(() => {
@@ -35,20 +38,28 @@ const EmailLogin:React.FC<{}> = () => {
     };
     const formSubmitHandler = (event:React.FormEvent) => {
         event.preventDefault();
+        reduxDispatch(
+            emailLogin(state.email,state.password,
+                () => {
+                console.log('login Successful');
+                history.replace('/search');
+            },
+                () => {
+                console.log('login Failed');
+            })
+        );
     };
 
     return (
         <div className={'formContainer'}>
             <p className={'subText'}>Enter Your Credentials</p>
             <form className={'formStyle'} onSubmit={formSubmitHandler}>
-                <GradientInput  label={'Email'} type={'text'} color={color}
-                                placeHolder={'Enter Email'} ref={emailRef}
+                <GradientInput  label={'Email'} type={'text'} color={color} placeHolder={'Enter Email'}
                                 onBlurHandler={emailBlurHandler} onChangeHandler={emailOnchangeHandler}/>
                 {!state.isEmailValid &&
                 state.emailErrorMessage.length > 0 &&
                 <p className={'error'}>{state.emailErrorMessage}</p>}
-                <GradientInput label={'Password'} type={'password'} color={color}
-                               placeHolder={'Enter Password'} ref={passwordRef}
+                <GradientInput label={'Password'} type={'password'} color={color} placeHolder={'Enter Password'}
                                onBlurHandler={passwordBlurHandler} onChangeHandler={passwordOnChangeHandler}/>
                 {!state.isPasswordValid &&
                 state.passwordErrorMessage.length > 0 &&

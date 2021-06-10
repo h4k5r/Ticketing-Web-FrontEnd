@@ -9,10 +9,12 @@ import busIcon from '../../images/la_bus.svg'
 import classes from './NavBar.module.css'
 
 import NavBarItem from "./NavBarItem/NavBarItem";
-import {useAuthContext} from "../../store/authStore/auth-context";
+import {useSelector} from "react-redux";
+import {authObjectType} from "../../store/auth-slice";
+
 
 const NavBar:React.FC = () => {
-    const authContext = useAuthContext();
+    const authStatus = useSelector<authObjectType>(state => state.isLoggedIn)
     return (
         <>
             <div className={classes.navbar}>
@@ -23,8 +25,8 @@ const NavBar:React.FC = () => {
                 <ul className={classes.menuItems}>
                     <NavBarItem imageLocation={searchIcon} text={'Search'} location={'/search'}/>
                     <NavBarItem imageLocation={trackIcon} text={'Track'} location={'/track'} />
-                    {!authContext.isLoggedIn && <NavBarItem imageLocation={profileIcon} text={'Login'} location={'/login'}/> }
-                    {authContext.isLoggedIn && <NavBarItem imageLocation={profileIcon} text={'Account'} /> }
+                    {!authStatus && <NavBarItem imageLocation={profileIcon} text={'Login'} location={'/login'}/> }
+                    {authStatus && <NavBarItem imageLocation={profileIcon} text={'Account'} /> }
                 </ul>
             </div>
         </>

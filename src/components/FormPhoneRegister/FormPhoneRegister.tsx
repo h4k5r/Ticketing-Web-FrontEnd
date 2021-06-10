@@ -4,12 +4,12 @@ import GradientInput from "../../UI/GradientInput/GradientInput";
 import {Link,useHistory} from "react-router-dom";
 import {loginLink, phoneOtpLink} from "../../LinkPaths";
 import NormalGradientButton from "../../UI/Buttons/NormalButtons/NormalGradientButton/NormalGradientButton";
-import {initialPhoneFormState, phoneFormReducer} from "../../store/reducers/phone-form-reducer";
+import {initialPhoneFormState, phoneFormReducer} from "../../reducers/phone-form-reducer";
 import {phoneNumberValidator} from "../../utils/validators";
+
 const color:string = 'red';
 const FormPhoneRegister:React.FC<{}> = () => {
     const history = useHistory();
-    const phoneNumberRef = useRef<HTMLInputElement>(document.createElement('input'));
     const codeRef = useRef<HTMLSelectElement>(document.createElement('select'));
     const [state,dispatch] = useReducer(phoneFormReducer,initialPhoneFormState);
 
@@ -17,7 +17,17 @@ const FormPhoneRegister:React.FC<{}> = () => {
     const onSubmitHandler = (event:React.FormEvent) => {
         event.preventDefault();
         const code = codeRef.current.value;
-        console.log(code)
+        const numberString = code + state.phoneNumber.toString();
+        fetch('',{
+            method:'POST',
+            body:JSON.stringify(+numberString)
+        })
+            .then((response) => {
+                console.log(response)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
         history.push(phoneOtpLink);
     }
     const onNumberChangeHandler = () => {
@@ -38,7 +48,6 @@ const FormPhoneRegister:React.FC<{}> = () => {
                     </select>
                     <GradientInput label={'Phone Number'} type={'string'} color={color}
                                    placeHolder={'Enter Phone Number'} cssClasses={[classes.numberInput]}
-                                   ref={phoneNumberRef}
                                    onChangeHandler={onNumberChangeHandler} onBlurHandler={onBlurHandler}/>
                 </div>
                 {!state.isPhoneNumberValid && <p className={'error'}>{state.phoneNumberErrorMessage}</p>}

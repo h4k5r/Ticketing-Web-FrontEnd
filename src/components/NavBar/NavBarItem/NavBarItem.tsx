@@ -4,12 +4,19 @@ import history from '../../../images/ant-design_history-outlined.svg';
 import logout from '../../../images/ic_round-logout.svg';
 import classes from'./NavBarItem.module.css';
 import {Link, NavLink} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {authActions} from "../../../store/auth-slice";
+import {Dispatch} from "@reduxjs/toolkit";
 
 const NavBarItem:React.FC<{imageLocation:string,text:string,location?:string}> = (props) => {
     let NavItem;
+    const dispatch:Dispatch = useDispatch();
     const [isMouseOn,setIsMouseOn] = useState(false)
     const onclickHandler = () => {
         setIsMouseOn((prevState => !prevState));
+    }
+    const onLogoutClickHandler = () => {
+        dispatch(authActions.logout);
     }
     const NavSubItems = (
         <div className={classes.subItemList}>
@@ -21,7 +28,7 @@ const NavBarItem:React.FC<{imageLocation:string,text:string,location?:string}> =
                 <img className={classes.image} src={gear} alt={'settings-icon'}/>
                 View Profile Settings
             </Link>
-            <p className={`${classes.subItemLink} ${classes.logout}`}>
+            <p className={`${classes.subItemLink} ${classes.logout}`} onClick={onLogoutClickHandler}>
                 <img className={classes.image} src={logout} alt={'logout-icon'}/>
                 Logout
             </p>
@@ -40,8 +47,8 @@ const NavBarItem:React.FC<{imageLocation:string,text:string,location?:string}> =
     else {
         NavItem = (
             <>
-                <li className={classes.navItem} onClick={onclickHandler}>
-                        <p className={classes.navDefault} >
+                <li className={classes.navItem} >
+                        <p className={classes.navDefault} onClick={onclickHandler}>
                             <img src={props.imageLocation} alt={props.text}/>
                             {props.text}
                         </p>

@@ -1,18 +1,17 @@
-import React, {useEffect, useReducer, useRef} from "react";
+import React, {useEffect, useReducer} from "react";
 import classes from './FormEmailRegister.module.css'
 import GradientInput from "../../UI/GradientInput/GradientInput";
 import {Link} from "react-router-dom";
 import {emailLoginLink, emailPasswordResetLink, loginLink} from "../../LinkPaths";
-import {emailFormReducer, initialEmailFormState} from "../../store/reducers/email-form-reducer";
+import {emailFormReducer, initialEmailFormState} from "../../reducers/email-form-reducer";
 import {confirmPasswordValidator, emailValidator, passwordValidator} from "../../utils/validators";
 import NormalGradientButton from "../../UI/Buttons/NormalButtons/NormalGradientButton/NormalGradientButton";
+
 
 const color:string = 'red';
 
 const FormEmailRegister:React.FC<{}> = () => {
-    const emailRef = useRef<HTMLInputElement>(document.createElement('input'));
-    const passwordRef = useRef<HTMLInputElement>(document.createElement('input'));
-    const confirmPasswordRef = useRef<HTMLInputElement>(document.createElement('input'));
+
     const [state,dispatch] = useReducer(emailFormReducer,initialEmailFormState);
     const {isEmailValid,isPasswordValid,isConfirmPasswordValid} = state;
     useEffect(() => {
@@ -49,30 +48,34 @@ const FormEmailRegister:React.FC<{}> = () => {
     }
     const onsubmitHandler = (event:React.FormEvent) => {
         event.preventDefault();
+        // authContext.emailRegister(state.email,state.password,
+        //     () => {
+        //         console.log('registration Successful')
+        //     },
+        //     () => {
+        //         console.log('registration Failed')
+        //     });
     }
     return (
         <div className={'formContainer'}>
             <p className={'subText'}>Enter Your Credentials to Register</p>
             <form className={'formStyle'} onSubmit={onsubmitHandler}>
 
-                <GradientInput label={'Email'} type={'text'} color={color}
-                               placeHolder={'Enter Email'} ref={emailRef}
+                <GradientInput label={'Email'} type={'text'} color={color} placeHolder={'Enter Email'}
                                onChangeHandler={onEmailChangeHandler} onBlurHandler={onEmailBlurHandler}/>
 
                 {!state.isEmailValid &&
                 state.emailErrorMessage.length > 0 &&
                 <p className={'error'}>{state.emailErrorMessage}</p>}
 
-                <GradientInput label={'Password'} type={'password'} color={color}
-                               placeHolder={'Enter Password'} ref={passwordRef}
+                <GradientInput label={'Password'} type={'password'} color={color} placeHolder={'Enter Password'}
                                onChangeHandler={onPasswordChangeHandler} onBlurHandler={onPasswordBlurHandler}/>
 
                 {!state.isPasswordValid &&
                 state.passwordErrorMessage.length > 0 &&
                 <p className={'error'}>{state.passwordErrorMessage}</p>}
 
-                <GradientInput label={'Confirm Password'} type={'password'} color={color}
-                               placeHolder={'Enter Password again'} ref={confirmPasswordRef}
+                <GradientInput label={'Confirm Password'} type={'password'} color={color} placeHolder={'Enter Password again'}
                                onChangeHandler={onConfirmPasswordChangeHandler} onBlurHandler={onConfirmPasswordBlurHandler}/>
 
                 {!state.isConfirmPasswordValid &&
