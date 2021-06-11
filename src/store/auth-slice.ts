@@ -1,5 +1,5 @@
 import {createSlice, Dispatch} from "@reduxjs/toolkit";
-type fun = () => void ;
+
 export type authObjectType = {
     isLoggedIn: boolean,
     isAdmin: boolean,
@@ -10,7 +10,6 @@ const initAuth:authObjectType = {
 }
 
 export const authSlice = createSlice({
-    extraReducers: undefined,
     initialState: initAuth,
     name: 'AuthSlice',
     reducers: {
@@ -25,36 +24,34 @@ export const authSlice = createSlice({
         },
         logout (state) {
             state.isLoggedIn = false;
-        },
+        }
     }
 });
 
+type fun = () => void ;
 export const emailLogin =  (email:string,password:string,successHandler:fun,failureHandler:fun) => {
     return (dispatch:Dispatch) => {
-        //send request to server
-        //receive JWT and type of user
-        //if user type is admin check set isAdmin to true
+        console.log('in action creator');
         fetch('')
             .then((response) => {
-                dispatch(authActions.login)
                 console.log(response)
-                // dispatch(authActions.adminIn);
+                dispatch(authActions.login());
                 successHandler();
             })
             .catch((error) => {
                 console.log(error)
                 failureHandler();
             })
-        console.log(email,password);
     }
 }
 export const otpVerify = (otp:number,successHandler:fun,failureHandler:fun) => {
     return (dispatch:Dispatch) => {
+        dispatch({type: "AuthSlice/login", payload: undefined});
         fetch('')
             .then((response) => {
                 console.log(response)
-                dispatch(authActions.login);
-                dispatch(authActions.adminOut);
+                dispatch(authActions.login());
+                dispatch(authActions.adminOut());
                 successHandler();
             })
             .catch((error) => {
@@ -69,7 +66,7 @@ export const googleLogin = (successHandler:fun,failureHandler:fun) => {
         fetch('')
             .then((response) => {
                 console.log(response)
-                dispatch(authActions.login)
+                dispatch(authActions.login())
                 successHandler();
             })
             .catch((error) => {

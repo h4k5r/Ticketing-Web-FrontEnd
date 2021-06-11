@@ -12,7 +12,7 @@ import {emailLogin} from "../../store/auth-slice";
 const color:string = 'green';
 const EmailLogin:React.FC<{}> = () => {
     const history = useHistory();
-    const reduxDispatch = useDispatch();
+    const reduxDispatch = useDispatch<any>();
     const [state,dispatch] = useReducer(emailFormReducer,initialEmailFormState);
     const {isEmailValid,isPasswordValid} = state;
     useEffect(() => {
@@ -41,7 +41,6 @@ const EmailLogin:React.FC<{}> = () => {
         reduxDispatch(
             emailLogin(state.email,state.password,
                 () => {
-                console.log('login Successful');
                 history.replace('/search');
             },
                 () => {
