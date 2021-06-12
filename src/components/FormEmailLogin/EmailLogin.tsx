@@ -2,12 +2,12 @@ import React, {useEffect, useReducer} from "react";
 import classes from './EmailLogin.module.css'
 import {Link, useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {emailFormReducer, initialEmailFormState} from "../../../../reducers/email-form-reducer";
-import { emailValidator, passwordValidator } from "../../../../utils/validators";
-import { emailLogin } from "../../../../store/auth-slice";
-import GradientInput from "../../../../UI/GradientInput/GradientInput";
-import NormalGradientButton from "../../../../UI/Buttons/NormalButtons/NormalGradientButton/NormalGradientButton";
-import {emailPasswordResetLink, emailRegisterLink, loginLink} from "../../../../LinkPaths";
+import {emailFormReducer, initialEmailFormState} from "../../reducers/email-form-reducer";
+import { emailValidator, passwordValidator } from "../../utils/validators";
+import { emailLogin } from "../../store/auth-slice";
+import GradientInput from "../../UI/GradientInput/GradientInput";
+import NormalGradientButton from "../../UI/Buttons/NormalButtons/NormalGradientButton/NormalGradientButton";
+import {emailPasswordResetLink, emailRegisterLink, loginLink} from "../../LinkPaths";
 
 
 
@@ -73,7 +73,7 @@ const EmailLogin:React.FC<{}> = () => {
                 state.passwordErrorMessage.length > 0 &&
                 <p className={'error'}>{state.passwordErrorMessage}</p>}
                 <NormalGradientButton text={'Login'} buttonColor={color} type={'submit'}
-                                      disabled={!state.isFormValid} cssClasses={[classes.btn]}/>
+                                      disabled={!state.isFormValid} cssClassesOnContainer={[classes.btn]}/>
                 <Link className={'link'} to={emailRegisterLink}>New User? Click here to Register.</Link>
                 <Link className={'link'} to={emailPasswordResetLink}>Forgot Password?</Link>
                 <Link className={'link'} to={loginLink}>Get in With Other Methods</Link>

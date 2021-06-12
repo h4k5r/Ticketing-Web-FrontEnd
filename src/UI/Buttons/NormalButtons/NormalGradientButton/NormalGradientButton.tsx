@@ -2,7 +2,7 @@ import React from "react";
 import classes from './NormalGradientButton.module.css'
 
 const NormalGradientButton:React.FC<{text:string,buttonColor:string,
-    cssClasses?:string[],type?:string,disabled?:boolean}> = props => {
+    cssClassesOnContainer?:string[],cssClassesOnButton?:string[],type?:string,disabled?:boolean}> = props => {
     let colorClass:string;
     switch (props.buttonColor){
         case 'green':
@@ -23,23 +23,23 @@ const NormalGradientButton:React.FC<{text:string,buttonColor:string,
         case 'submit':
 
             topButton = <button type={"submit"} disabled={props.disabled}
-                                className={`${classes.btn} ${colorClass}`}>{props.text}</button>
+                                className={`${classes.btn} ${colorClass} ${props.cssClassesOnButton}`}>{props.text}</button>
             break;
         case 'reset':
             topButton =<button type={"reset"} disabled={props.disabled}
-                               className={`${classes.btn} ${colorClass}`}>{props.text}</button>
+                               className={`${classes.btn} ${colorClass} ${props.cssClassesOnButton}`}>{props.text}</button>
             break;
         case 'button':
             topButton =<button type={"button"} disabled={props.disabled}
-                               className={`${classes.btn} ${colorClass}`}>{props.text}</button>
+                               className={`${classes.btn} ${colorClass} ${props.cssClassesOnButton}`}>{props.text}</button>
             break;
         default:
             topButton =<button disabled={props.disabled}
-                               className={`${classes.btn} ${colorClass}`}>{props.text}</button>
+                               className={`${classes.btn} ${colorClass} ${props.cssClassesOnButton}`}>{props.text}</button>
             break
     }
     return (
-        <div className={`${classes.container} ${props.cssClasses}`}>
+        <div className={`${classes.container} ${props.cssClassesOnContainer}`}>
             {topButton}
             <button className={`${classes.background} ${colorClass} ${classes.blur}`}
                     disabled={props.disabled}>{props.text}</button>

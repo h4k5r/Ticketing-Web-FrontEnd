@@ -38,8 +38,8 @@ export const emailLogin =  (email:string,password:string,successHandler:funParam
             .then((response) => {
                 console.log(response)
                 dispatch(authActions.login());
-                // dispatch(authActions.adminIn());
-                successHandler(false);
+                dispatch(authActions.adminIn());
+                successHandler(true);
             })
             .catch((error) => {
                 console.log(error)

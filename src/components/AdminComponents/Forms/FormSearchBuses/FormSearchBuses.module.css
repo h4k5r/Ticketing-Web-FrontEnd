@@ -1,0 +1,28 @@
+.overAllContainer {
+    padding: 30px;
+}
+.formContainer {
+    display: flex;
+}
+
+.formSubContainer {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-bottom: 30px;
+}
+.grow {
+    flex-grow: 1;
+}
+.orText {
+    color: white;
+    padding-top: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.searchBtn {
+    height: 60%;
+}
+.mainText {
+    color: white;
+}

@@ -83,7 +83,7 @@ const FormEmailRegister:React.FC<{}> = () => {
                 state.confirmPasswordErrorMessage.length > 0 &&
                 <p className={'error'}>{state.confirmPasswordErrorMessage}</p>}
 
-                <NormalGradientButton text={'Register'} buttonColor={color} cssClasses={[classes.btn]}
+                <NormalGradientButton text={'Register'} buttonColor={color} cssClassesOnContainer={[classes.btn]}
                                       disabled={!state.isFormValid} type={'submit'}/>
                 <Link className={'link'} to={emailLoginLink}>Already Have an Account? Click Here.</Link>
                 <Link className={'link'} to={emailPasswordResetLink}>Forgot Password?</Link>

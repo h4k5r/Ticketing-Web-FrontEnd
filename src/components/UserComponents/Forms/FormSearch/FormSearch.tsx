@@ -23,7 +23,7 @@ const FormSearch:React.FC<{}> = () => {
                                label={'Source Location'} ref={sourceRef}/>
                 <GradientInput cssClasses={[classes.inputs]} type={'text'} color={'red'} placeHolder={'Enter Destination'}
                                label={'Destination Location'} ref={destinationRef}/>
-                <NormalGradientButton text={'Search'} buttonColor={'red'} cssClasses={[classes.searchButton]}/>
+                <NormalGradientButton text={'Search'} buttonColor={'red'} cssClassesOnContainer={[classes.searchButton]}/>
             </form>
         </GrayCard>
     );

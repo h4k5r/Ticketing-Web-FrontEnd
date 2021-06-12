@@ -7,7 +7,7 @@ import '../../../common/CommonLoginStyles.css'
 import GrayCard from "../../../UI/GrayCard/GrayCard";
 import FormImage from "../../../UI/FormImage/FormImage";
 import LoginUI from "../../../components/LoginUI/LoginUI";
-import EmailLogin from "../../../components/UserComponents/Forms/FormEmailLogin/EmailLogin";
+import EmailLogin from "../../../components/FormEmailLogin/EmailLogin";
 import FormEmailPasswordReset from "../../../components/UserComponents/Forms/FormEmailPasswordReset/FormEmailPasswordReset";
 import FormEmailRegister from "../../../components/UserComponents/Forms/FormEmailRegister/FormEmailRegister";
 import FormPhoneRegister from "../../../components/UserComponents/Forms/FormPhoneRegister/FormPhoneRegister";

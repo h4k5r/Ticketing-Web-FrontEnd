@@ -13,7 +13,7 @@ const FormTrack:React.FC<{}> = () => {
                 <h1 className={classes.heading}>Bus Tracker</h1>
                 <form className={classes.trackForm}>
                     <GradientInput type={'text'} color={'green'} placeHolder={'Enter Bus ID to Track'} label={'Bus ID'}/>
-                    <NormalGradientButton text={'Track'} buttonColor={'green'} cssClasses={[classes.trackBtn]}/>
+                    <NormalGradientButton text={'Track'} buttonColor={'green'} cssClassesOnContainer={[classes.trackBtn]}/>
                 </form>
             </GrayCard>
         </div>

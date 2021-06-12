@@ -1,0 +1,19 @@
+.overAllContainer {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+}
+.mainText {
+    color: white;
+}
+.inputs {
+    margin-bottom: 15px;
+}
+.searchBtn {
+    margin-top: 15px;
+}

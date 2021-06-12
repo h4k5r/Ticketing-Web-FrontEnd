@@ -1,0 +1,27 @@
+.overAllContainer {
+    padding:30px;
+}
+.mainText {
+    color: white;
+}
+.fomContainer {
+    display: flex;
+    margin-bottom: 30px;
+    align-items: flex-end;
+}
+.searchBtnContainer {
+    margin-left: 30px;
+}
+.searchBtn {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.orText {
+    color: white;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.textInputs {
+    flex-grow: 1;
+}
+

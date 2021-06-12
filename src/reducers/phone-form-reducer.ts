@@ -8,6 +8,7 @@ export type phoneFormState = {
     phoneNumber:number,
     OTP:number,
 }
+
 export type phoneFormAction =
     {type: 'setIsPhoneNumberValid' | 'setIsOTPValid', payload:boolean } |
     {type: 'setPhoneNumberErrorMessage' | 'setOTPErrorMessage', payload:string } |

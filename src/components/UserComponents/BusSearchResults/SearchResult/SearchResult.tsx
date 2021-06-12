@@ -19,7 +19,7 @@ const SearchResult:React.FC<{busId:string,busNumber:string,approxTime:string}> =
                 <button className={classes.controlButtons}>-</button>
                 <p className={`${classes.pText} ${classes.ticketCount}`}>1</p>
                 <button className={classes.controlButtons}>+</button>
-                <NormalGradientButton text={'BuyNow'} buttonColor={'green'} cssClasses={[classes.buyButton]}/>
+                <NormalGradientButton text={'BuyNow'} buttonColor={'green'} cssClassesOnContainer={[classes.buyButton]}/>
             </div>
             <div className={classes.background}/>
         </div>

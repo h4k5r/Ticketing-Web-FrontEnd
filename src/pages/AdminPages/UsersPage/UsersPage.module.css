@@ -1,0 +1,7 @@
+.usersSection {
+    padding:5vh 5vw 5vh 5vw;
+    display: flex;
+}
+.cardContainer {
+    flex-grow: 1;
+}
