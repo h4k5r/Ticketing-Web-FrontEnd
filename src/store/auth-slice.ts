@@ -14,7 +14,7 @@ export const authSlice = createSlice({
     name: 'AuthSlice',
     reducers: {
         adminIn (state) {
-            state.isAdmin = true
+            state.isAdmin = true;
         },
         adminOut (state) {
             state.isAdmin = false
@@ -24,19 +24,22 @@ export const authSlice = createSlice({
         },
         logout (state) {
             state.isLoggedIn = false;
+            state.isAdmin = false
         }
     }
 });
 
 type fun = () => void ;
-export const emailLogin =  (email:string,password:string,successHandler:fun,failureHandler:fun) => {
+type funParam = (checkIsAdmin:boolean) => void;
+export const emailLogin =  (email:string,password:string,successHandler:funParam,failureHandler:fun) => {
     return (dispatch:Dispatch) => {
         console.log('in action creator');
         fetch('')
             .then((response) => {
                 console.log(response)
                 dispatch(authActions.login());
-                successHandler();
+                // dispatch(authActions.adminIn());
+                successHandler(false);
             })
             .catch((error) => {
                 console.log(error)

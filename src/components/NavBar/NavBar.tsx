@@ -1,5 +1,16 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React,{Fragment} from "react";
+
+import {Link, useHistory} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {Dispatch} from "@reduxjs/toolkit";
+
+import NavBarItem, {subItem} from "./NavBarItem/NavBarItem";
+import {authActions, authObjectType} from "../../store/auth-slice";
+import {
+    searchLink,trackLink,loginLink,
+    busesLink,stopsLink,staffLink,usersLink
+} from '../../LinkPaths'
+
 
 import searchIcon from '../../images/bx_bx-search-alt.svg'
 import trackIcon from '../../images/bx_bx-current-location.svg'
@@ -8,18 +19,21 @@ import busIcon from '../../images/la_bus.svg'
 import gear from '../../images/carbon_settings.svg';
 import history from '../../images/ant-design_history-outlined.svg';
 import logout from '../../images/ic_round-logout.svg';
+import users from '../../images/clarity_users-line.svg';
+import buses from '../../images/fa-solid_bus-alt.svg';
+import staff from '../../images/medical-icon_care-staff-area.svg';
+import stop from '../../images/ic_round-place.svg';
 import classes from './NavBar.module.css'
 
-import NavBarItem, {subItem} from "./NavBarItem/NavBarItem";
-import {useDispatch, useSelector} from "react-redux";
-import {authActions, authObjectType} from "../../store/auth-slice";
-import {Dispatch} from "@reduxjs/toolkit";
+
 
 
 const NavBar:React.FC = () => {
     const dispatch:Dispatch = useDispatch();
-    const authStatus = useSelector<{auth:authObjectType}>(state => state.auth.isLoggedIn)
-    const accountSubItems:subItem[] = [
+    const pathHistory = useHistory();
+    const isAdmin:boolean = useSelector<{auth:authObjectType},boolean>(state => state.auth.isAdmin);
+    const authStatus = useSelector<{auth:authObjectType},boolean>(state => state.auth.isLoggedIn);
+    const userAccountSubItems:subItem[] = [
         {
             type:'link',
             imgLocation:history,
@@ -38,9 +52,20 @@ const NavBar:React.FC = () => {
             text:'Logout',
             onClickHandler: () => {
                 dispatch(authActions.logout());
+                pathHistory.replace('/')
             }
         }
     ]
+    const adminAccountSubItems:subItem[] = [
+        {
+            type:'normal',
+            imgLocation:logout,
+            text:'Logout',
+            onClickHandler: () => {
+                dispatch(authActions.logout());
+            }
+        }
+    ];
     return (
         <>
             <div className={classes.navbar}>
@@ -49,10 +74,26 @@ const NavBar:React.FC = () => {
                     <p>App Name</p>
                 </Link>
                 <ul className={classes.menuItems}>
-                    <NavBarItem imageLocation={searchIcon} text={'Search'} location={'/search'}/>
-                    <NavBarItem imageLocation={trackIcon} text={'Track'} location={'/track'} />
-                    {!authStatus && <NavBarItem imageLocation={profileIcon} text={'Login'} location={'/login'}/> }
-                    {authStatus && <NavBarItem imageLocation={profileIcon} text={'Account'} subItems={accountSubItems} /> }
+                    {
+                        !isAdmin &&
+                        <Fragment>
+                            <NavBarItem imageLocation={searchIcon} text={'Search'} location={searchLink}/>
+                            <NavBarItem imageLocation={trackIcon} text={'Track'} location={trackLink} />
+                            {!authStatus && <NavBarItem imageLocation={profileIcon} text={'Login'} location={loginLink}/> }
+                            {authStatus && <NavBarItem imageLocation={profileIcon} text={'Account'} subItems={userAccountSubItems} /> }
+                        </Fragment>
+                    }
+                    {
+                        isAdmin && authStatus &&
+                        <Fragment>
+                            <NavBarItem imageLocation={buses} text={'Buses'} location={busesLink}/>
+                            <NavBarItem imageLocation={stop} text={'Stops'} location={stopsLink}/>
+                            <NavBarItem imageLocation={staff} text={'Staff'} location={staffLink}/>
+                            <NavBarItem imageLocation={users} text={'Users'} location={usersLink}/>
+                            <NavBarItem imageLocation={profileIcon} text={'Account'} subItems={adminAccountSubItems}/>
+                        </Fragment>
+                    }
+
                 </ul>
             </div>
         </>

@@ -38,18 +38,6 @@ const NavBarItem:React.FC<{imageLocation:string,text:string,location?:string,sub
                     }
                     return null;
                 })}
-                {/*<Link className={classes.subItemLink} to={'/history'}>*/}
-                {/*    <img className={classes.image} src={history} alt={'history-icon'}/>*/}
-                {/*    View Ticket History*/}
-                {/*</Link>*/}
-                {/*<Link className={classes.subItemLink} to={'/profile'}>*/}
-                {/*    <img className={classes.image} src={gear} alt={'settings-icon'}/>*/}
-                {/*    View Profile Settings*/}
-                {/*</Link>*/}
-                {/*<p className={`${classes.subItemLink} ${classes.logout}`} onClick={onLogoutClickHandler}>*/}
-                {/*    <img className={classes.image} src={logout} alt={'logout-icon'}/>*/}
-                {/*    Logout*/}
-                {/*</p>*/}
             </div>
         )
     }
@@ -66,7 +54,7 @@ const NavBarItem:React.FC<{imageLocation:string,text:string,location?:string,sub
     else {
         NavItem = (
             <>
-                <li className={classes.navItem} >
+                <li className={classes.navItem}>
                         <p className={classes.navDefault} onClick={onclickHandler}>
                             <img src={props.imageLocation} alt={props.text}/>
                             {props.text}
