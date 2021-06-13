@@ -62,7 +62,7 @@ const FormEmailRegister:React.FC<{}> = () => {
             <p className={'subText'}>Enter Your Credentials to Register</p>
             <form className={'formStyle'} onSubmit={onsubmitHandler}>
 
-                <GradientInput label={'Email'} type={'text'} color={color} placeHolder={'Enter Email'}
+                <GradientInput label={'Email'} type={'email'} color={color} placeHolder={'Enter Email'}
                                onChangeHandler={onEmailChangeHandler} onBlurHandler={onEmailBlurHandler}/>
 
                 {!state.isEmailValid &&

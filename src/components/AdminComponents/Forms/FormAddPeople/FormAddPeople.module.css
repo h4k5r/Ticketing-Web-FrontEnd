@@ -1,0 +1,14 @@
+.overAllContainer {
+    padding: 30px;
+    z-index: 101;
+}
+.titleContainer {
+    display: flex;
+    color: white;
+}
+.formContainer {
+    text-align: left;
+}
+.addBtn {
+    margin-top: 30px;
+}

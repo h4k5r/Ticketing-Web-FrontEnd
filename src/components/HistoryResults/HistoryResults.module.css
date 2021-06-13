@@ -3,7 +3,7 @@
     flex-direction: column;
     height: 100%;
 }
-.container {
+.subContainer {
     flex-grow: 1;
     contain: strict;
     overflow-y: scroll;

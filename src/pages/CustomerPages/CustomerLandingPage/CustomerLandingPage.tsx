@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import classes from './CustomerLandingPage.module.css'
 import BackDrop from "../../../UI/BackDrop/BackDrop";
-import FormResetPassword from "../../../components/AdminComponents/Forms/FormResetPassword/FormResetPassword";
+import FormAddOrEditBus from "../../../components/AdminComponents/Forms/FormAddOrEditBus/FormAddOrEditBus";
 
 const CustomerLandingPage:React.FC<{}> = () => {
     return (
@@ -13,7 +13,7 @@ const CustomerLandingPage:React.FC<{}> = () => {
                     <h1>Public Buses</h1>
                 </div>
                 <BackDrop visibility={'show'}>
-                    <FormResetPassword email={'test@test.com'} onReset={() => {}} onClose={() => {}}/>
+                    <FormAddOrEditBus mode={'Add'} onSaveHandler={() => {}}/>
                 </BackDrop>
                 <div className={`${classes.subText}`}>
                     <p>Make your travel hassle free and elegant</p>

@@ -4,6 +4,7 @@ const GradientInput = React.forwardRef<HTMLInputElement,{type:string,
     color:string,
     placeHolder:string,
     label:string,
+    value?:any,
     cssClasses?: string[] | undefined,
     onBlurHandler?:(e:React.FocusEvent<HTMLInputElement>) => void,
     onChangeHandler?: (e:React.ChangeEvent<HTMLInputElement>) => void }>((props,
@@ -38,7 +39,7 @@ const GradientInput = React.forwardRef<HTMLInputElement,{type:string,
             <div className={`${classes.inputContainer} ${props.cssClasses}`}>
                 <label className={classes.labelText}>{props.label}</label>
                 <div className={classes.inputSubContainer}>
-                    <input ref={ref} onFocus={onFocusHandler} onBlur={onBlurHandler} onChange={props.onChangeHandler}
+                    <input value={props.value} ref={ref} onFocus={onFocusHandler} onBlur={onBlurHandler} onChange={props.onChangeHandler}
                            className={classes.normal} type={props.type} placeholder={props.placeHolder}/>
                     <div className={InputClasses}/>
                 </div>

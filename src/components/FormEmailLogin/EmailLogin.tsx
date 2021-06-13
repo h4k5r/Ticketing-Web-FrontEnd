@@ -61,7 +61,7 @@ const EmailLogin:React.FC<{}> = () => {
         <div className={'formContainer'}>
             <p className={'subText'}>Enter Your Credentials</p>
             <form className={'formStyle'} onSubmit={formSubmitHandler}>
-                <GradientInput  label={'Email'} type={'text'} color={color} placeHolder={'Enter Email'}
+                <GradientInput  label={'Email'} type={'email'} color={color} placeHolder={'Enter Email'}
                                 onBlurHandler={emailBlurHandler} onChangeHandler={emailOnchangeHandler}/>
                 {!state.isEmailValid &&
                 state.emailErrorMessage.length > 0 &&
