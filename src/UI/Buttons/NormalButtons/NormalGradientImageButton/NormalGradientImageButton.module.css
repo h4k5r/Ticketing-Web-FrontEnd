@@ -48,3 +48,7 @@
     background: linear-gradient(90deg, #99A9FF 0%, #D886FF 100%);
     border-radius: 10px;
 }
+.transparent {
+    background: rgba(255, 255, 255, 0);
+    border-radius: 10px;
+}

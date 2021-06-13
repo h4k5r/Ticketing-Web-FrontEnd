@@ -43,7 +43,6 @@ const EmailLogin:React.FC<{}> = () => {
         reduxDispatch(
             emailLogin(state.email,state.password,
                 (checkIsAdmin) => {
-                    console.log(checkIsAdmin);
                 if(checkIsAdmin) {
                     history.replace('/');
                 }

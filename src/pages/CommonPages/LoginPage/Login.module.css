@@ -6,6 +6,9 @@
     display: flex;
     justify-content: space-around;
 }
+.card{
+    flex-grow: 1;
+}
 .loginFormContainer {
     min-width: 50%;
     padding-top:30px;

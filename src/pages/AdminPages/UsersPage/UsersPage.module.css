@@ -10,9 +10,9 @@
     flex-grow: 1;
 }
 .topCard {
-    flex-grow: 0;
 }
 .bottomCard {
     margin-top: 30px;
     display: flex;
+    flex-grow: 1;
 }

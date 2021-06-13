@@ -27,7 +27,7 @@ import {
 const LoginPage:React.FC<{}> = () => {
     return (
         <section className={classes.loginSection}>
-            <GrayCard>
+            <GrayCard cssClasses={[classes.card]}>
                 <div className={classes.loginFlexContainer}>
                     <FormImage/>
                     <div className={classes.loginFormContainer}>
