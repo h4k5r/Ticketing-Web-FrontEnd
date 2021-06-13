@@ -35,3 +35,8 @@
     background: linear-gradient(90deg, #99A9FF 0%, #D886FF 100%);
     border-radius: 10px;
 }
+
+.pink {
+    background:linear-gradient(90deg, #FF9797 0%, #FF96D5 93.75%);
+    border-radius: 10px;
+}

@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    background: linear-gradient(90deg, #F77C7C 0%, #FFF48E 100%);
+    border-radius: 15px;
+    margin: 10px 0;
+}
+.image {
+
+}
+
+.text {
+    margin: 0;
+}
+.propText {
+    font-weight: bold;
+    margin-left: 10px;
+}
+.detailsContainer {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-around;
+    align-items: center;
+}
+.detailsSubContainer {
+    display: inline-flex;
+    flex-grow: 1;
+}
+.buttonContainer {
+    display: flex;
+    flex-grow: 0.5;
+    padding: 10px 0;
+    justify-content: space-evenly;
+
+}

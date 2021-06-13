@@ -1,8 +1,8 @@
 import React from "react";
 
 import classes from "./SearchResults.module.css";
-import SearchResult from "../SearchResult/SearchResult";
-import GrayCard from "../../../../UI/GrayCard/GrayCard";
+import SearchResult from "./BusSearchResult/SearchResult";
+import GrayCard from "../../../UI/GrayCard/GrayCard";
 
 const SearchResults:React.FC<{}> = () => {
     type bus = {

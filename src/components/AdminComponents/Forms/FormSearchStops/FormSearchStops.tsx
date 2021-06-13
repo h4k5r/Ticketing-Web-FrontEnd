@@ -7,10 +7,13 @@ const FormSearchStops:React.FC = () => {
         <div className={classes.overAllContainer}>
             <h1 className={classes.mainText}>Search Stops</h1>
             <form className={classes.formContainer}>
-                <GradientInput type={'text'} color={'red'} placeHolder={'Enter Stop Name'} label={'Stop Name'}
-                               cssClasses={[classes.inputs]}/>
-                <GradientInput type={'text'} color={'red'} placeHolder={'Enter Stop ID'} label={'Stop ID'}
-                               cssClasses={[classes.inputs]}/>
+                <div className={classes.formSubContainer}>
+                    <GradientInput type={'text'} color={'red'} placeHolder={'Enter Stop Name'} label={'Stop Name'}
+                                   cssClasses={[classes.inputs]}/>
+                    <p className={classes.orText}>OR</p>
+                    <GradientInput type={'text'} color={'red'} placeHolder={'Enter Stop ID'} label={'Stop ID'}
+                                   cssClasses={[classes.inputs]}/>
+                </div>
                 <NormalGradientButton text={'Search'} buttonColor={'red'} cssClassesOnContainer={[classes.searchBtn]}/>
             </form>
             <NormalGradientButton text={'Add New Stop'} buttonColor={'green'}/>

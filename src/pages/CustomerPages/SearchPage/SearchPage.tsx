@@ -1,5 +1,5 @@
 import React from "react";
-import SearchResults from "../../../components/UserComponents/BusSearchResults/SearchResults/SearchResults";
+import SearchResults from "../../../components/UserComponents/BusSearchResults/SearchResults";
 import FormSearch from "../../../components/UserComponents/Forms/FormSearch/FormSearch";
 import classes from './SearchPage.module.css';
 

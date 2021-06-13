@@ -1,0 +1,17 @@
+.busesContainer {
+    padding:5vh 5vw 5vh 5vw;
+    flex-grow: 1;
+}
+.subContainer {
+    height: 100%;
+}
+.bottomCard{
+    display: flex;
+}
+.topCard {
+
+}
+.bottomCard {
+    margin-top: 30px;
+    height: 50%;
+}

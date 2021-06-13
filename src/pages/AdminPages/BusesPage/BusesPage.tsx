@@ -1,18 +1,18 @@
 import React from "react";
-import classes from './BusPage.module.css'
+import classes from './BusesPage.module.css'
 import FormSearchBuses from "../../../components/AdminComponents/Forms/FormSearchBuses/FormSearchBuses";
 import GrayCard from "../../../UI/GrayCard/GrayCard";
+import BusesList from "../../../components/AdminComponents/Lists/BusesList/BusesList";
 
 const BusesPage:React.FC<{}> = () => {
     return(
         <section className={classes.busesContainer}>
-
-            <div className={classes.cardContainer}>
-                <GrayCard>
+            <div className={classes.subContainer}>
+                <GrayCard cssClasses={[classes.topCard]}>
                     <FormSearchBuses/>
                 </GrayCard>
-                <GrayCard>
-
+                <GrayCard cssClasses={[classes.bottomCard]}>
+                    <BusesList/>
                 </GrayCard>
             </div>
         </section>

@@ -8,11 +8,20 @@
     flex-direction: column;
     margin-bottom: 60px;
 }
+.formSubContainer {
+    display: flex;
+    align-items: center;
+}
 .mainText {
     color: white;
 }
+.orText {
+    color: white;
+    margin: 0 15px;
+}
 .inputs {
     margin-bottom: 15px;
+    flex-grow: 1;
 }
 .searchBtn {
     margin-top: 15px;

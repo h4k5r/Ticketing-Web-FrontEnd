@@ -1,8 +1,13 @@
 import React from "react";
 import classes from './NormalGradientButton.module.css'
 
-const NormalGradientButton:React.FC<{text:string,buttonColor:string,
-    cssClassesOnContainer?:string[],cssClassesOnButton?:string[],type?:string,disabled?:boolean}> = props => {
+const NormalGradientButton:React.FC<{
+    text:string,buttonColor:string,
+    cssClassesOnContainer?:string[],
+    cssClassesOnButton?:string[],
+    type?:string,
+    disabled?:boolean,
+    onClick?: () => void } > = props => {
     let colorClass:string;
     switch (props.buttonColor){
         case 'green':
@@ -13,6 +18,9 @@ const NormalGradientButton:React.FC<{text:string,buttonColor:string,
             break;
         case 'violet':
             colorClass = classes.violet;
+            break;
+        case 'pink':
+            colorClass = classes.pink;
             break;
         default:
             colorClass = "";
@@ -42,7 +50,7 @@ const NormalGradientButton:React.FC<{text:string,buttonColor:string,
         <div className={`${classes.container} ${props.cssClassesOnContainer}`}>
             {topButton}
             <button className={`${classes.background} ${colorClass} ${classes.blur}`}
-                    disabled={props.disabled}>{props.text}</button>
+                    disabled={props.disabled} onClick={props.onClick}>{props.text}</button>
         </div>
     );
 }
