@@ -10,8 +10,8 @@ const ConfirmationCard:React.FC<{
     message:string,
     leftButtonText:string,
     rightButtonText:string,
-    leftButtonClickHandler:() => void,
-    rightButtonClickHandler: () => void,
+    leftButtonClickHandler:(...params: any[]) => void,
+    rightButtonClickHandler: (...params: any[]) => void,
     onClose: () => void }> = props => {
     return (
         <GrayCard cssClasses={[classes.card]}>

@@ -7,6 +7,7 @@
 .titleContainer {
     display: flex;
     color: white;
+    justify-content: space-between;
 }
 .message {
     color: white;

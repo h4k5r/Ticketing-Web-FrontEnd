@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import classes from './BackDrop.module.css'
 
-const BackDrop:React.FC<{visibility:'show' | 'hide'}> = props => {
+const BackDrop:React.FC<{visibility:'show' | 'hide',onClick?:() => void}> = props => {
     const [backdropClasses, setBackDropClasses] = useState('');
     useEffect(() => {
         if (props.visibility === "show") {
@@ -13,6 +13,9 @@ const BackDrop:React.FC<{visibility:'show' | 'hide'}> = props => {
     }, [props.visibility])
     const backDropOnClick = () => {
         setBackDropClasses(`${classes.modal} ${classes.hide}`)
+        if(props.onClick) {
+            props.onClick();
+        }
     }
     return (
         <div className={backdropClasses}>
