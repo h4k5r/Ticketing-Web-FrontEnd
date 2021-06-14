@@ -15,7 +15,7 @@ const FormAddOrEditBus:React.FC<{mode:'Add' | 'Edit',
     busNumber?:string,
     stops?:stop[],
     onCloseHandler:() => void,
-    stopsSetter?:any}> = props => {
+    stopsSetter?:React.Dispatch<React.SetStateAction<stop[]>>,busNumberSetter?:React.Dispatch<React.SetStateAction<string>>}> = props => {
     const onSaveHandler = () => {
          if(props.mode === 'Add') {
              //send Post request and create new fields in DB
@@ -25,11 +25,18 @@ const FormAddOrEditBus:React.FC<{mode:'Add' | 'Edit',
          }
     }
     const onStopsClickHandler = (id:string) => {
-        props.stopsSetter((prevState:stop[]) => {
-            return prevState.filter((stop) => {
-                return id !== stop.id;
-            });
-        })
+        if(props.stopsSetter) {
+            props.stopsSetter((prevState:stop[]) => {
+                return prevState.filter((stop) => {
+                    return id !== stop.id;
+                });
+            })
+        }
+    }
+    const onBusNumberChangeHandler = (event:React.ChangeEvent<HTMLInputElement>) => {
+        if(props.busNumberSetter) {
+            props.busNumberSetter(event.target.value);
+        }
     }
     return (
         <GrayCard cssClasses={[classes.overAllContainer]}>
@@ -37,8 +44,8 @@ const FormAddOrEditBus:React.FC<{mode:'Add' | 'Edit',
                 <h1>{props.mode} Bus</h1>
                 <NormalGradientImageButton buttonColor={''} imageLocation={close} onClick={props.onCloseHandler}/>
             </div>
-            <GradientInput type={'text'} value={props.busNumber} color={'red'} placeHolder={'Enter Bus Number'} label={'Bus Number'}
-                           cssClasses={[classes.overAllInput]}/>
+            <GradientInput type={'text'} value={props.busNumber} color={'red'} placeHolder={'Enter Bus Number'}
+                           label={'Bus Number'} cssClasses={[classes.overAllInput]} onChangeHandler={onBusNumberChangeHandler}/>
             <div className={classes.stopsContainer}>
                 <p className={classes.stopsText}>Stops</p>
                 <div className={classes.stopsSubContainer}>

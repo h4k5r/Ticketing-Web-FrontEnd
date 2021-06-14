@@ -41,7 +41,7 @@ const BusesPage:React.FC<{}> = () => {
             <BackDrop visibility={`${isEditOpen?'show':'hide'}`}
                       onClick={onCloseHandler}>
                 <FormAddOrEditBus mode={'Edit'} onCloseHandler={onCloseHandler} busNumber={busNumber}
-                                  stops={stops} stopsSetter={setStops}/>
+                                  stops={stops} stopsSetter={setStops} busNumberSetter={setBusNumber}/>
             </BackDrop>
             <BackDrop visibility={`${isDeleteOpen?'show':'hide'}`}
                       onClick={onCloseHandler}>

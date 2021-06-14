@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    z-index: 101;
+    min-width: 50vw;
 }
 .subContainer {
     flex-grow: 1;
@@ -10,4 +12,8 @@
 }
 .mainText {
     color: white;
+}
+.titleContainer {
+    display: flex;
+    justify-content: space-between;
 }

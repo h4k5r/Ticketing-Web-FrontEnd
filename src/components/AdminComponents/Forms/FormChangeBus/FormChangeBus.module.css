@@ -1,0 +1,59 @@
+.overAllContainer {
+    padding: 30px;
+    z-index: 101;
+}
+.titleContainer {
+    display: flex;
+    color: white;
+    justify-content: space-between;
+}
+.stopsContainer {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    color: white;
+}
+.formContainer {
+    color: white;
+}
+.formTitle {
+    margin: 0;
+    text-align: left;
+}
+.formText {
+    text-align: left;
+}
+.formButton {
+    margin-top: 30px;
+}
+.overAllInput {
+    text-align: left;
+}
+.overAllButton {
+    margin-top: 40px;
+    min-width: 25vw;
+}
+.stopsSubContainer {
+    background-color: #313131;
+    border: 1px solid #5A5A5A;
+    padding: 10px 20px;
+    border-radius: 10px;
+    contain: strict;
+    overflow-x: scroll;
+    display: flex;
+    min-height: 60px;
+    flex-grow: 1;
+}
+.stopsText {
+    margin: 10px 0;
+}
+.stop {
+    background: #5A5A5A;
+    white-space: nowrap;
+    margin: 0 5px;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+
+}

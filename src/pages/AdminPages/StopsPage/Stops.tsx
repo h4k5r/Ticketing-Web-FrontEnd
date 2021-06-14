@@ -1,21 +1,58 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import classes from './Stops.module.css'
 import GrayCard from "../../../UI/GrayCard/GrayCard";
 import FormSearchStops from "../../../components/AdminComponents/Forms/FormSearchStops/FormSearchStops";
 import StopsList from "../../../components/AdminComponents/Lists/StopsList/StopsList";
+import { Fragment } from "react";
+import BackDrop from "../../../UI/BackDrop/BackDrop";
+import FormAddOrEditStop from "../../../components/AdminComponents/Forms/FormAddOrEditStop/FormAddOrEditStop";
+import {useDispatch, useSelector} from "react-redux";
+import {stopListType, stopsListAction} from "../../../store/stops-list-slice";
+import ConfirmationCard from "../../../UI/ConfirmationCard/ConfirmationCard";
 
 const Stops:React.FC<{}> = () => {
+    const [stopName,setStopName] = useState('')
+    const dispatch = useDispatch();
+    const isEditOpen = useSelector<{stopsList:stopListType}>(state => state.stopsList.isEditOpen);
+    const isDeleteOpen = useSelector<{stopsList:stopListType}>(state => state.stopsList.isDeleteOpen);
+    const stopId = useSelector<{stopsList:stopListType}>(state => state.stopsList.selectedStopId);
+    useEffect(() => {
+        if(isEditOpen) {
+            //fetch stop Name
+            setStopName('test')
+        }
+    },[isEditOpen]);
+    console.log(stopName);
+    const onCloseHandler = () => {
+        dispatch(stopsListAction.closeAll());
+    }
+    const deleteBusHandler = () => {
+        console.log(`${stopId} delete clicked`)
+        //send delete request to serve with busId
+    }
     return(
-        <section className={classes.stopsSection}>
-            <div className={classes.cardContainer}>
-                <GrayCard cssClasses={[classes.topCard]}>
-                    <FormSearchStops/>
-                </GrayCard>
-                <GrayCard cssClasses={[classes.bottomCard]}>
-                    <StopsList/>
-                </GrayCard>
-            </div>
-        </section>
+        <Fragment>
+            <BackDrop visibility={`${isEditOpen? 'show':'hide'}`}>
+                <FormAddOrEditStop mode={'Edit'} onCloseHandler={onCloseHandler}
+                                   stopName={stopName} stopNameSetter={setStopName}/>
+            </BackDrop>
+            <BackDrop visibility={`${isDeleteOpen? 'show':'hide'}`} onClick={onCloseHandler}>
+                <ConfirmationCard title={'Delete Stop'} message={'Do you want to delete the stop'}
+                                  leftButtonText={'No'} rightButtonText={'Yes'}
+                                  leftButtonClickHandler={onCloseHandler} rightButtonClickHandler={deleteBusHandler}
+                                  onClose={onCloseHandler}/>
+            </BackDrop>
+            <section className={classes.stopsSection}>
+                <div className={classes.cardContainer}>
+                    <GrayCard cssClasses={[classes.topCard]}>
+                        <FormSearchStops/>
+                    </GrayCard>
+                    <GrayCard cssClasses={[classes.bottomCard]}>
+                        <StopsList/>
+                    </GrayCard>
+                </div>
+            </section>
+        </Fragment>
     )
 }
 export default Stops;

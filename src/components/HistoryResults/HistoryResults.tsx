@@ -1,75 +1,27 @@
 import React from "react";
 import classes from './HistoryResults.module.css';
+import close from'../../images/close.svg'
 import HistoryResult from "../HistoryResult/HistoryResult";
+export type ticketHistory = {
+    busId:string,
+    ticketId:string,
+    busNumber:string,
+    numberOfTickets:string,
+    source:string,
+    destination:string,
+    bookedTime:string,
+    hasUsed:boolean
+}
+const HistoryResults:React.FC<{history:ticketHistory[],close?:boolean,closeHandler?: () => void}> = (props) => {
 
-const HistoryResults:React.FC<{}> = () => {
-    type ticketHistory = {
-        busId:string,
-        ticketId:string,
-        busNumber:string,
-        numberOfTickets:string,
-        source:string,
-        destination:string,
-        bookedTime:string,
-        hasUsed:boolean
-    }
-    const history:ticketHistory[] = [
-        {
-            busId:'0000',
-            ticketId:'00001',
-            busNumber:'0000',
-            source:'srirangam',
-            destination:'tolgate',
-            numberOfTickets:'5',
-            bookedTime:'12:00',
-            hasUsed:true
-        },
-        {
-            busId:'0000',
-            ticketId:'00002',
-            busNumber:'0000',
-            source:'srirangam',
-            destination:'tolgate',
-            numberOfTickets:'5',
-            bookedTime:'12:00',
-            hasUsed:true
-        },
-        {
-            busId:'0000',
-            ticketId:'00003',
-            busNumber:'0000',
-            source:'srirangam',
-            destination:'tolgate',
-            numberOfTickets:'5',
-            bookedTime:'12:00',
-            hasUsed:true
-        },
-        {
-            busId:'0000',
-            ticketId:'00004',
-            busNumber:'0000',
-            source:'srirangam',
-            destination:'tolgate',
-            numberOfTickets:'5',
-            bookedTime:'12:00',
-            hasUsed:true
-        },
-        {
-            busId:'0000',
-            ticketId:'00005',
-            busNumber:'0000',
-            source:'srirangam',
-            destination:'tolgate',
-            numberOfTickets:'5',
-            bookedTime:'12:00',
-            hasUsed:true
-        },
-    ];
     return(
         <div className={classes.container}>
-            <h1 className={classes.mainText}>History results</h1>
+            <div className={classes.titleContainer}>
+                <h1 className={classes.mainText}>History results</h1>
+                {props.close && props.close && <img src={close} onClick={props.closeHandler} alt={'close'}/>}
+            </div>
             <div className={classes.subContainer}>
-                {history.map((ticketHistory) => {
+                {props.history.map((ticketHistory) => {
                     return(
                         <HistoryResult key={ticketHistory.ticketId} busId={ticketHistory.busId} ticketId={ticketHistory.ticketId}
                                        busNumber={ticketHistory.busNumber} numberOfTickets={ticketHistory.numberOfTickets}

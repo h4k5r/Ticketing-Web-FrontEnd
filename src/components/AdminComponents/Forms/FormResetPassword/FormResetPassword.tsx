@@ -7,7 +7,12 @@ import NormalGradientImageButton
 import GradientInput from "../../../../UI/GradientInput/GradientInput";
 import NormalGradientButton from "../../../../UI/Buttons/NormalButtons/NormalGradientButton/NormalGradientButton";
 
-const FormResetPassword:React.FC<{email:string,onReset:() => void,onClose:() => void}> = (props) => {
+const FormResetPassword:React.FC<{
+    email:string,
+    onClose:() => void}> = (props) => {
+    const onReset = () => {
+
+    }
     return (
         <GrayCard cssClasses={[classes.overAllContainer]}>
             <div className={classes.titleContainer}>
@@ -23,7 +28,7 @@ const FormResetPassword:React.FC<{email:string,onReset:() => void,onClose:() => 
                                placeHolder={'Enter Password'} label={'Password'}/>
                 <GradientInput type={'password'} color={'red'}
                                placeHolder={'Enter Confirm Password'} label={'Confirm Password'}/>
-                <NormalGradientButton text={'Reset'} buttonColor={'violet'} onClick={props.onReset}
+                <NormalGradientButton text={'Reset'} buttonColor={'violet'} onClick={onReset}
                                       cssClassesOnContainer={[classes.resetButton]}/>
             </form>
         </GrayCard>
