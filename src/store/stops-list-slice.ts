@@ -1,14 +1,18 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {stop} from "../components/AdminComponents/Lists/StopsList/StopsList";
+
 
 export type stopListType = {
     isEditOpen:boolean,
     isDeleteOpen:boolean,
-    selectedStopId:string
+    selectedStopId:string,
+    results:stop[]
 }
 const initStopListState:stopListType = {
     isEditOpen:false,
     isDeleteOpen:false,
-    selectedStopId:''
+    selectedStopId:'',
+    results:[]
 }
 const stopsListSlice = createSlice({
     initialState: initStopListState,
@@ -28,6 +32,9 @@ const stopsListSlice = createSlice({
             state.isEditOpen = false;
             state.isDeleteOpen = false;
             state.selectedStopId = '';
+        },
+        addStopResults (state,action) {
+            state.results = action.payload.results;
         }
     }
 });

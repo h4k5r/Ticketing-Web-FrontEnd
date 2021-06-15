@@ -4,18 +4,20 @@ import FormSearchBuses from "../../../components/AdminComponents/Forms/FormSearc
 import GrayCard from "../../../UI/GrayCard/GrayCard";
 import BusesList from "../../../components/AdminComponents/Lists/BusesList/BusesList";
 import BackDrop from "../../../UI/BackDrop/BackDrop";
-import {busesListAction, busListType} from "../../../store/buses-list-slice";
+import {busesListAction} from "../../../store/buses-list-slice";
 import {Dispatch} from "@reduxjs/toolkit";
 import {useDispatch, useSelector} from "react-redux";
 import { Fragment } from "react";
 import ConfirmationCard from "../../../UI/ConfirmationCard/ConfirmationCard";
 import FormAddOrEditBus, {stop} from "../../../components/AdminComponents/Forms/FormAddOrEditBus/FormAddOrEditBus";
+import {RootState} from "../../../store";
 
 const BusesPage:React.FC<{}> = () => {
     const dispatch:Dispatch = useDispatch();
-    const isEditOpen = useSelector<{busesList:busListType}>(state => state.busesList.isEditOpen);
-    const isDeleteOpen = useSelector<{busesList:busListType}>(state => state.busesList.isDeleteOpen);
-    const busId = useSelector<{busesList:busListType}>(state => state.busesList.selectedBusId);
+    const isAddOpen = useSelector((state:RootState) => state.busesList.isAddOpen);
+    const isEditOpen = useSelector((state:RootState) => state.busesList.isEditOpen);
+    const isDeleteOpen = useSelector((state:RootState) => state.busesList.isDeleteOpen);
+    const busId = useSelector((state:RootState) => state.busesList.selectedBusId);
     const [busNumber,setBusNumber] = useState<string>('');
     const [stops,setStops] = useState<stop[]>([])
 
@@ -38,6 +40,9 @@ const BusesPage:React.FC<{}> = () => {
     const onCloseHandler = () => dispatch(busesListAction.closeAll())
     return(
         <Fragment>
+            <BackDrop visibility={`${isAddOpen?'show':'hide'}`}>
+                <FormAddOrEditBus mode={'Add'} onCloseHandler={onCloseHandler}/>
+            </BackDrop>
             <BackDrop visibility={`${isEditOpen?'show':'hide'}`}
                       onClick={onCloseHandler}>
                 <FormAddOrEditBus mode={'Edit'} onCloseHandler={onCloseHandler} busNumber={busNumber}

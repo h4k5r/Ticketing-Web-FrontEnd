@@ -5,18 +5,21 @@ import FormSearchStaff from "../../../components/AdminComponents/Forms/FormSearc
 import StaffList from "../../../components/AdminComponents/Lists/StaffList/StaffList";
 import BackDrop from "../../../UI/BackDrop/BackDrop";
 import {useDispatch, useSelector} from "react-redux";
-import {staffListAction, staffListType} from "../../../store/staff-list-slice";
+import {staffListAction} from "../../../store/staff-list-slice";
 import FormResetPassword from "../../../components/AdminComponents/Forms/FormResetPassword/FormResetPassword";
 import ConfirmationCard from "../../../UI/ConfirmationCard/ConfirmationCard";
 import FormChangeBus from "../../../components/AdminComponents/Forms/FormChangeBus/FormChangeBus";
+import {RootState} from "../../../store";
+import FormAddPeople from "../../../components/AdminComponents/Forms/FormAddPeople/FormAddPeople";
 
 const StaffPage:React.FC<{}> = () => {
     const [staffEmail,setStaffEmail] = useState('');
     const [busNumber,setBusNumber] = useState('')
     const dispatch = useDispatch();
-    const isChangeBusOpen = useSelector<{staffList:staffListType}>(state => state.staffList.isChangeBusOpen);
-    const isResetPasswordOpen = useSelector<{staffList:staffListType}>(state => state.staffList.isResetOpen);
-    const isDeleteOpen = useSelector<{staffList:staffListType}>(state => state.staffList.isDeleteOpen);
+    const isAddOpen = useSelector((state:RootState) => state.staffList.isAddOpen);
+    const isChangeBusOpen = useSelector((state:RootState) => state.staffList.isChangeBusOpen);
+    const isResetPasswordOpen = useSelector((state:RootState) => state.staffList.isResetOpen);
+    const isDeleteOpen = useSelector((state:RootState) => state.staffList.isDeleteOpen);
     useEffect(() => {
         if(isResetPasswordOpen) {
             //fetch email from server
@@ -38,6 +41,9 @@ const StaffPage:React.FC<{}> = () => {
     }
     return(
         <Fragment>
+            <BackDrop visibility={`${isAddOpen ? 'show': 'hide'}`} onClick={onCloseHandler}>
+                <FormAddPeople type={'Staff'} onCloseHandler={onCloseHandler}/>
+            </BackDrop>
             <BackDrop visibility={`${isChangeBusOpen ? 'show': 'hide'}`} onClick={onCloseHandler}>
                 <FormChangeBus onCloseHandler={onCloseHandler} busNumberSetter={setBusNumber} busNumber={busNumber}/>
             </BackDrop>
