@@ -55,7 +55,7 @@ const FormSearchStops:React.FC = () => {
         }
     }
     const onAddStopHandler = () => {
-
+        dispatch(stopsListAction.openAdd())
     }
     return (
         <div className={classes.overAllContainer}>

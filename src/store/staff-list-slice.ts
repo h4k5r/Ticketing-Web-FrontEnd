@@ -19,7 +19,7 @@ const initStaffListState:staffListType = {
 }
 const staffListSlice = createSlice({
     initialState: initStaffListState,
-    name: 'adminListSlice',
+    name: 'staffListSlice',
     reducers: {
         openAdd (state) {
             state.isAddOpen = true;

@@ -13,6 +13,7 @@ import ConfirmationCard from "../../../UI/ConfirmationCard/ConfirmationCard";
 const Stops:React.FC<{}> = () => {
     const [stopName,setStopName] = useState('')
     const dispatch = useDispatch();
+    const isAddOpen = useSelector<{stopsList:stopListType}>(state => state.stopsList.isAddOpen);
     const isEditOpen = useSelector<{stopsList:stopListType}>(state => state.stopsList.isEditOpen);
     const isDeleteOpen = useSelector<{stopsList:stopListType}>(state => state.stopsList.isDeleteOpen);
     const stopId = useSelector<{stopsList:stopListType}>(state => state.stopsList.selectedStopId);
@@ -22,7 +23,6 @@ const Stops:React.FC<{}> = () => {
             setStopName('test')
         }
     },[isEditOpen]);
-    console.log(stopName);
     const onCloseHandler = () => {
         dispatch(stopsListAction.closeAll());
     }
@@ -32,6 +32,10 @@ const Stops:React.FC<{}> = () => {
     }
     return(
         <Fragment>
+            <BackDrop visibility={`${isAddOpen? 'show':'hide'}`}>
+                <FormAddOrEditStop mode={'Add'} onCloseHandler={onCloseHandler}
+                                   stopName={stopName} stopNameSetter={setStopName}/>
+            </BackDrop>
             <BackDrop visibility={`${isEditOpen? 'show':'hide'}`}>
                 <FormAddOrEditStop mode={'Edit'} onCloseHandler={onCloseHandler}
                                    stopName={stopName} stopNameSetter={setStopName}/>

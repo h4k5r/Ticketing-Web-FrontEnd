@@ -23,14 +23,14 @@ const initUserListState:userListType = {
 }
 const userListSlice = createSlice({
     initialState: initUserListState,
-    name: 'adminListSlice',
+    name: 'userListSlice',
     reducers: {
-        openAdd (state,action) {
+        openAdd (state) {
             state.isAddOpen = true;
             state.isResetOpen = false;
             state.isDeleteOpen = false;
             state.isHistoryOpen = false;
-            state.selectedUserId = action.payload.userId;
+            state.selectedUserId = '';
         },
         openReset (state,action) {
             state.isAddOpen = false;

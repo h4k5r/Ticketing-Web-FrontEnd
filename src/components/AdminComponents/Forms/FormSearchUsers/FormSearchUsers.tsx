@@ -33,6 +33,9 @@ const FormSearchUsers:React.FC = () => {
         }
         return;
     }
+    const onAddUserHandler = () => {
+        dispatch(userListAction.openAdd())
+    }
     return (
         <div className={classes.overAllContainer}>
             <h1 className={classes.mainText}>Search users</h1>
@@ -46,7 +49,7 @@ const FormSearchUsers:React.FC = () => {
                                       cssClassesOnButton={[classes.searchBtn]}
                                       cssClassesOnContainer={[classes.searchBtnContainer]}/>
             </form>
-            <NormalGradientButton text={'Add New User'} buttonColor={'green'}/>
+            <NormalGradientButton text={'Add New User'} buttonColor={'green'} onClick={onAddUserHandler}/>
         </div>
     )
 }

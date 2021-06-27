@@ -10,11 +10,13 @@ import {userListAction, userListType} from "../../../store/users-list-slice";
 import ConfirmationCard from "../../../UI/ConfirmationCard/ConfirmationCard";
 import FormResetPassword from "../../../components/AdminComponents/Forms/FormResetPassword/FormResetPassword";
 import HistoryResults, {ticketHistory} from "../../../components/HistoryResults/HistoryResults";
+import FormAddPeople from "../../../components/AdminComponents/Forms/FormAddPeople/FormAddPeople";
 
 const UsersPage:React.FC<{}> = () => {
     const [email,setEmail] = useState('');
     const [history,setHistory] = useState<ticketHistory[]>([]);
     const dispatch = useDispatch();
+    const isAddOpen = useSelector<{usersList:userListType}>(state => state.usersList.isAddOpen);
     const isHistoryOpen = useSelector<{usersList:userListType}>(state => state.usersList.isHistoryOpen);
     const isResetOpen = useSelector<{usersList:userListType}>(state => state.usersList.isResetOpen);
     const isDeleteOpen = useSelector<{usersList:userListType}>(state => state.usersList.isDeleteOpen);
@@ -93,6 +95,9 @@ const UsersPage:React.FC<{}> = () => {
     }
     return(
         <Fragment>
+            <BackDrop visibility={`${isAddOpen ? 'show' : 'hide'}` } onClick={onCloseHandler}>
+                <FormAddPeople type={'User'} onCloseHandler={onCloseHandler}/>
+            </BackDrop>
             <BackDrop visibility={`${isHistoryOpen ? 'show' : 'hide'}` } onClick={onCloseHandler}>
                 <HistoryResults history={history} close={true} closeHandler={onCloseHandler}/>
             </BackDrop>

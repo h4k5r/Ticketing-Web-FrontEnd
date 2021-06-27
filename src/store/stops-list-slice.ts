@@ -3,12 +3,14 @@ import {stop} from "../components/AdminComponents/Lists/StopsList/StopsList";
 
 
 export type stopListType = {
+    isAddOpen:boolean,
     isEditOpen:boolean,
     isDeleteOpen:boolean,
     selectedStopId:string,
     results:stop[]
 }
 const initStopListState:stopListType = {
+    isAddOpen:false,
     isEditOpen:false,
     isDeleteOpen:false,
     selectedStopId:'',
@@ -16,19 +18,28 @@ const initStopListState:stopListType = {
 }
 const stopsListSlice = createSlice({
     initialState: initStopListState,
-    name: 'adminListSlice',
+    name: 'stopsListSlice',
     reducers: {
+        openAdd (state) {
+            state.isAddOpen = true;
+            state.isEditOpen = false;
+            state.isDeleteOpen = false;
+            state.selectedStopId = '';
+        },
         openEdit (state,action) {
+            state.isAddOpen = false;
             state.isEditOpen = true;
             state.isDeleteOpen = false;
             state.selectedStopId = action.payload.stopId;
         },
         openDelete (state,action) {
+            state.isAddOpen = false;
             state.isEditOpen = false;
             state.isDeleteOpen = true;
             state.selectedStopId = action.payload.stopId;
         },
         closeAll (state) {
+            state.isAddOpen = false;
             state.isEditOpen = false;
             state.isDeleteOpen = false;
             state.selectedStopId = '';

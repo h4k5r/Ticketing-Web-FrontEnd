@@ -17,7 +17,7 @@ const initBusListState:busListType = {
 }
 const busesListSlice = createSlice({
     initialState: initBusListState,
-    name: 'adminListSlice',
+    name: 'busesListSlice',
     reducers: {
         openAdd (state) {
             state.isAddOpen = true;
