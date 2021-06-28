@@ -1,16 +1,14 @@
-import React from "react";
-import SearchResults from "../../../components/UserComponents/BusSearchResults/SearchResults";
-import FormSearch from "../../../components/UserComponents/Forms/FormSearch/FormSearch";
+import React, {useState} from "react";
+import SearchResults, {bus} from "../../../components/UserComponents/BusSearchResults/SearchResults";
+import FormSearchBus from "../../../components/UserComponents/Forms/FormSearchBus/FormSearchBus";
 import classes from './SearchPage.module.css';
 
-
-
-
 const SearchPage : React.FC<{}> = () => {
+    const [buses,setBuses] = useState<bus[]>([]);
     return (
         <section className={classes.searchSection}>
-            <FormSearch/>
-            <SearchResults/>
+            <FormSearchBus setBuses={setBuses}/>
+            <SearchResults buses={buses}/>
         </section>
     );
 };

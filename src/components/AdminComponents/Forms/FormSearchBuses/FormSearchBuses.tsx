@@ -5,68 +5,75 @@ import NormalGradientButton from "../../../../UI/Buttons/NormalButtons/NormalGra
 import {useDispatch} from "react-redux";
 import {Dispatch} from "@reduxjs/toolkit";
 import {busesListAction} from "../../../../store/buses-list-slice";
+import fetch from "node-fetch";
 
-const FormSearchBuses:React.FC = () => {
-    const dispatch:Dispatch = useDispatch();
+const FormSearchBuses: React.FC = () => {
+    const dispatch: Dispatch = useDispatch();
     const sourceRef = useRef<HTMLInputElement>(document.createElement('input'));
     const destinationRef = useRef<HTMLInputElement>(document.createElement('input'));
     const busNumberRef = useRef<HTMLInputElement>(document.createElement('input'));
-    const onSubmitHandler = (event:FormEvent) => {
+    const onSubmitHandler = (event: FormEvent) => {
         event.preventDefault();
         const sourceVal = sourceRef.current.value,
             destinationVal = destinationRef.current.value,
-            busNumberVal=busNumberRef.current.value;
-        console.log(sourceVal,destinationVal)
-        if(sourceVal.length > 0 && destinationVal.length > 0) {
+            busNumberVal = busNumberRef.current.value;
+        console.log(sourceVal, destinationVal)
+        if (sourceVal.length > 0 && destinationVal.length > 0) {
             //send fetch request with source and destination if results found return
             console.log('form submitted');
-            dispatch(busesListAction.addBusResults({
-                results:[
-                    {
-                        busNumber: 'TN 00 69 0000',
-                        busId:'1',
-                        assignedAccount:'test@test.com'
-                    },
-                    {
-                        busNumber: 'TN 00 69 0000',
-                        busId:'2',
-                        assignedAccount:'test@test.com'
-                    },
-                    {
-                        busNumber: 'TN 00 69 0000',
-                        busId:'3',
-                        assignedAccount:'test@test.com'
-                    },
-                ]
-            }));
+            fetch('http://localhost:8080/admin/searchBuses', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    source: sourceVal,
+                    destination: destinationVal,
+                })
+            })
+                .then(result => {
+                    return result.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    dispatch(busesListAction.addBusResults({
+                        results: data
+                    }));
+                })
+                .catch(err => {
+                    console.log(err);
+                })
             return;
         }
-        if(busNumberVal.length > 0) {
+        if (busNumberVal.length > 0) {
             //send fetch request with bus number if result found return
-            dispatch(busesListAction.addBusResults({
-                results:[
-                    {
-                        busNumber: 'TN 00 69 0000',
-                        busId:'1',
-                        assignedAccount:'test@test.com'
-                    },
-                    {
-                        busNumber: 'TN 00 69 0000',
-                        busId:'2',
-                        assignedAccount:'test@test.com'
-                    },
-                    {
-                        busNumber: 'TN 00 69 0000',
-                        busId:'3',
-                        assignedAccount:'test@test.com'
-                    },
-                ]
-            }));
+            fetch('http://localhost:8080/admin/searchBuses', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    busNumber: busNumberVal
+                })
+            })
+                .then(result => {
+                    return result.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    dispatch(busesListAction.addBusResults({
+                        results: data
+                    }));
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+
             return;
         }
         return
     }
-    const onAddBusHandler =  () => {
+    const onAddBusHandler = () => {
         dispatch(busesListAction.openAdd())
     }
     return (
@@ -85,7 +92,7 @@ const FormSearchBuses:React.FC = () => {
                                    ref={busNumberRef} label={'Bus Number'} cssClasses={[classes.grow]}/>
 
                     <NormalGradientButton text={'Search'} buttonColor={'red'} type={'submit'}
-                                          cssClassesOnContainer={[classes.grow,classes.searchBtn]}/>
+                                          cssClassesOnContainer={[classes.grow, classes.searchBtn]}/>
                 </div>
             </form>
             <NormalGradientButton text={'Add New Bus'} buttonColor={'green'} onClick={onAddBusHandler}/>

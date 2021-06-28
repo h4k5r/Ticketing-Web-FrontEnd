@@ -6,7 +6,7 @@ import {RootState} from "../../../../store";
 
 export type busItem = {
     busNumber:string,
-    busId:string,
+    _id:string,
     assignedAccount:string
 }
 
@@ -19,7 +19,7 @@ const BusesList:React.FC<{}> = () => {
             <div className={classes.subContainer}>
                 {
                     buses.map((busItem) => {
-                        return <BusesListItem key={busItem.busId} busNumber={busItem.busNumber} busId={busItem.busId}
+                        return <BusesListItem key={busItem._id} busNumber={busItem.busNumber} busId={busItem._id}
                                               assignedAccount={busItem.assignedAccount}/>
                     })
                 }

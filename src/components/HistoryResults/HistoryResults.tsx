@@ -29,12 +29,6 @@ const HistoryResults:React.FC<{history:ticketHistory[],close?:boolean,closeHandl
                                        bookedTime={ticketHistory.bookedTime} hasUsed={ticketHistory.hasUsed}/>
                     )
                 })}
-                <HistoryResult busId={'0000'} ticketId={'0006'} busNumber={'0000'}
-                               source={'srirangam'} destination={'tolgate'}
-                               numberOfTickets={'5'} bookedTime={'12:00'} hasUsed={true}/>
-                <HistoryResult busId={'0000'} ticketId={'0007'} busNumber={'0000'}
-                               source={'srirangam'} destination={'tolgate'}
-                               numberOfTickets={'5'} bookedTime={'12:00'} hasUsed={true}/>
             </div>
         </div>
     )
