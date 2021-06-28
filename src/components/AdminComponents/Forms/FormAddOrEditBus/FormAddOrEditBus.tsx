@@ -9,75 +9,66 @@ import NormalGradientButton from "../../../../UI/Buttons/NormalButtons/NormalGra
 import fetch from "node-fetch";
 
 export type stop = {
-    name:string,
-    _id:string
+    name: string,
+    _id: string
 }
-const FormAddOrEditBus:React.FC<{mode:'Add' | 'Edit',
-    _id?:string,
-    busNumber?:string,
-    stops?:stop[],
-    onCloseHandler:() => void,
-    stopsSetter?:React.Dispatch<React.SetStateAction<stop[]>>,busNumberSetter?:React.Dispatch<React.SetStateAction<string>>}> = props => {
+const FormAddOrEditBus: React.FC<{
+    mode: 'Add' | 'Edit',
+    _id?: string,
+    busNumber?: string,
+    stops?: stop[],
+    onCloseHandler: () => void,
+    stopsSetter?: React.Dispatch<React.SetStateAction<stop[]>>, busNumberSetter?: React.Dispatch<React.SetStateAction<string>>
+}> = props => {
     // const stops = props.stops ? props.stops : [];
-    const [stops,setStops] = useState<stop[]>([])
+    const [stops, setStops] = useState<stop[]>([])
     const busNumberInputRef = useRef(document.createElement('input'))
-    const {stops:propStops} = props;
+    const {stops: propStops} = props;
     useEffect(() => {
-        if(propStops) {
+        if (propStops) {
             setStops(propStops);
         }
-    },[propStops])
+    }, [propStops])
     const stopIdInputRef = useRef(document.createElement('input'));
-    const onSaveHandler = () => {
-         if(props.mode === 'Add') {
-             //send Post request and create new fields in DB
-             fetch('http://localhost:8080/admin/addNewBus',{
-                 method:'POST',
-                 headers: {
-                     'Content-type': 'application/json'
-                 },
-                 body:JSON.stringify({
-                     busNumber: busNumberInputRef.current.value,
-                     stops:stops
-                 })
-             })
-                 .then(result => {
-                     result.json()
-                 })
-                 .then(data => {
-                     console.log(data)
-                     props.onCloseHandler();
-                 })
-                 .catch(err => {
-                     console.log(err)
-                 })
-         }
-         if(props.mode === 'Edit') {
-             //send Put request and replace the existing Bus
-             fetch('http://localhost:8080/admin/editBus',{
-                 method:'POST',
-                 headers: {
-                     'Content-type': 'application/json'
-                 },
-                 body:JSON.stringify({
-                     _id:props._id,
-                     busNumber: busNumberInputRef.current.value,
-                     stops:stops
-                 })
-             })
-                 .then(result => {
-                     result.json()
-                 })
-                 .then(data => {
-                     console.log(data)
-                     props.onCloseHandler();
-                 })
-                 .catch(err => {
-                     console.log(err)
-                 })
-         }
+    const saveBus = (link: string, body: {}, method: 'POST' | 'PUT') => {
+        return fetch(link, {
+            method: method,
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        })
+            .then(result => {
+                return result.json()
+            })
+            .then(data => {
+                console.log(data)
+                props.onCloseHandler();
+            })
+
     }
-    const onAddStopHandler = (event:React.FormEvent) => {
+    const onSaveHandler = () => {
+        if (props.mode === 'Add') {
+            //send Post request and create new fields in DB
+            saveBus('http://localhost:8080/admin/addNewBus', {
+                busNumber: busNumberInputRef.current.value,
+                stops: stops
+            }, 'POST').catch(err => {
+                console.log(err)
+            })
+        }
+        if (props.mode === 'Edit') {
+            //send Put request and replace the existing Bus
+            saveBus('http://localhost:8080/admin/editBus', {
+                _id: props._id,
+                busNumber: busNumberInputRef.current.value,
+                stops: stops
+            }, 'PUT').catch(err => {
+                console.log(err)
+            })
+        }
+    }
+    const onAddStopHandler = (event: React.FormEvent) => {
         event.preventDefault();
         const enteredStopId = stopIdInputRef.current.value;
         fetch(`http://localhost:8080/admin/searchStop/${enteredStopId}`)
@@ -86,13 +77,13 @@ const FormAddOrEditBus:React.FC<{mode:'Add' | 'Edit',
             })
             .then(data => {
                 setStops(prevState => {
-                    const existingStop =  prevState.find(stop => {
+                    const existingStop = prevState.find(stop => {
                         return stop._id === data._id
                     })
                     if (existingStop) {
                         return [...prevState]
                     }
-                    return [...prevState,data]
+                    return [...prevState, data]
                 })
                 console.log(stops);
             })
@@ -101,17 +92,17 @@ const FormAddOrEditBus:React.FC<{mode:'Add' | 'Edit',
             })
 
     }
-    const onStopsClickHandler = (id:string) => {
-        if(props.stopsSetter) {
-            props.stopsSetter((prevState:stop[]) => {
+    const onStopsClickHandler = (id: string) => {
+        if (props.stopsSetter) {
+            props.stopsSetter((prevState: stop[]) => {
                 return prevState.filter((stop) => {
                     return id !== stop._id;
                 });
             })
         }
     }
-    const onBusNumberChangeHandler = (event:React.ChangeEvent<HTMLInputElement>) => {
-        if(props.busNumberSetter) {
+    const onBusNumberChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (props.busNumberSetter) {
             props.busNumberSetter(event.target.value);
         }
     }

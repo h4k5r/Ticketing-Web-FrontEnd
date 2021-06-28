@@ -9,48 +9,42 @@ const FormSearchStops:React.FC = () => {
     const dispatch:Dispatch = useDispatch();
     const stopNameRef = useRef<HTMLInputElement>(document.createElement('input'));
     const stopIdRef = useRef<HTMLInputElement>(document.createElement('input'));
+    const fetchStops = (body:{}) => {
+        fetch('http://localhost:8080/admin/searchStops', {
+            method:'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body:JSON.stringify(body)
+        })
+            .then(result => {
+                return result.json();
+            })
+            .then(data => {
+                dispatch(stopsListAction.addStopResults({
+                    results:data
+                }));
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
     const onSubmitHandler = (event:React.FormEvent) => {
         event.preventDefault();
-        const stopNameValue = stopNameRef.current.value,
-            stopIdValue = stopIdRef.current.value;
-        if(stopNameValue.length > 0){
+        const enteredStopName = stopNameRef.current.value,
+            enteredStopId = stopIdRef.current.value;
+        if(enteredStopName.length > 0){
             //fetch Request with stopName
-            dispatch(stopsListAction.addStopResults({
-                results:[
-                    {
-                        stopName:'stop 1',
-                        stopId:'1'
-                    },
-                    {
-                        stopName:'stop 2',
-                        stopId:'2'
-                    },
-                    {
-                        stopName:'stop 3',
-                        stopId:'3'
-                    },
-                ]
-            }));
+            fetchStops({
+                stopName:enteredStopName
+            })
             return;
         }
-        if(stopIdValue.length > 0) {
+        if(enteredStopId.length > 0) {
             //fetch request with stop id
-            dispatch(stopsListAction.addStopResults({
-                results:[
-                    {
-                        stopName:'stop 1',
-                        stopId:'1'
-                    },
-                    {
-                        stopName:'stop 2',
-                        stopId:'2'
-                    },
-                    {
-                        stopName:'stop 3',
-                        stopId:'3'
-                    },
-                ]
-            }));
+            fetchStops({
+                stopId:enteredStopId
+            })
             return;
         }
     }

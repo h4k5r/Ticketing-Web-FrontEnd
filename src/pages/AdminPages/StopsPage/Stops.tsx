@@ -3,44 +3,69 @@ import classes from './Stops.module.css'
 import GrayCard from "../../../UI/GrayCard/GrayCard";
 import FormSearchStops from "../../../components/AdminComponents/Forms/FormSearchStops/FormSearchStops";
 import StopsList from "../../../components/AdminComponents/Lists/StopsList/StopsList";
-import { Fragment } from "react";
+import {Fragment} from "react";
 import BackDrop from "../../../UI/BackDrop/BackDrop";
 import FormAddOrEditStop from "../../../components/AdminComponents/Forms/FormAddOrEditStop/FormAddOrEditStop";
 import {useDispatch, useSelector} from "react-redux";
-import {stopListType, stopsListAction} from "../../../store/stops-list-slice";
+import {stopsListAction} from "../../../store/stops-list-slice";
 import ConfirmationCard from "../../../UI/ConfirmationCard/ConfirmationCard";
+import {RootState} from "../../../store";
+import fetch from "node-fetch";
 
-const Stops:React.FC<{}> = () => {
-    const [stopName,setStopName] = useState('')
+const Stops: React.FC<{}> = () => {
+    const [stopName, setStopName] = useState('')
     const dispatch = useDispatch();
-    const isAddOpen = useSelector<{stopsList:stopListType}>(state => state.stopsList.isAddOpen);
-    const isEditOpen = useSelector<{stopsList:stopListType}>(state => state.stopsList.isEditOpen);
-    const isDeleteOpen = useSelector<{stopsList:stopListType}>(state => state.stopsList.isDeleteOpen);
-    const stopId = useSelector<{stopsList:stopListType}>(state => state.stopsList.selectedStopId);
+    const isAddOpen = useSelector((state: RootState) => state.stopsList.isAddOpen);
+    const isEditOpen = useSelector((state: RootState) => state.stopsList.isEditOpen);
+    const isDeleteOpen = useSelector((state: RootState) => state.stopsList.isDeleteOpen);
+    const stopId = useSelector((state: RootState) => state.stopsList.selectedStopId);
     useEffect(() => {
-        if(isEditOpen) {
+        if (isEditOpen) {
             //fetch stop Name
-            setStopName('test')
+            fetch(`http://localhost:8080/admin/searchStop/${stopId}`)
+                .then(result => {
+                    return result.json();
+                })
+                .then(data => {
+                    setStopName(data.name)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+
         }
-    },[isEditOpen]);
+    }, [isEditOpen, stopId]);
     const onCloseHandler = () => {
         dispatch(stopsListAction.closeAll());
     }
     const deleteBusHandler = () => {
         console.log(`${stopId} delete clicked`)
+        fetch(`http://localhost:8080/admin/deleteStop/${stopId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+            .then(result => {
+                return result.json();
+            })
+            .then(data => {
+                console.log(data);
+                onCloseHandler();
+            })
         //send delete request to serve with busId
     }
-    return(
+    return (
         <Fragment>
-            <BackDrop visibility={`${isAddOpen? 'show':'hide'}`}>
+            <BackDrop visibility={`${isAddOpen ? 'show' : 'hide'}`}>
                 <FormAddOrEditStop mode={'Add'} onCloseHandler={onCloseHandler}
-                                   stopName={stopName} stopNameSetter={setStopName}/>
+                                   stopNameSetter={setStopName}/>
             </BackDrop>
-            <BackDrop visibility={`${isEditOpen? 'show':'hide'}`}>
+            <BackDrop visibility={`${isEditOpen ? 'show' : 'hide'}`}>
                 <FormAddOrEditStop mode={'Edit'} onCloseHandler={onCloseHandler}
-                                   stopName={stopName} stopNameSetter={setStopName}/>
+                                   stopName={stopName} stopNameSetter={setStopName} _id={stopId}/>
             </BackDrop>
-            <BackDrop visibility={`${isDeleteOpen? 'show':'hide'}`} onClick={onCloseHandler}>
+            <BackDrop visibility={`${isDeleteOpen ? 'show' : 'hide'}`} onClick={onCloseHandler}>
                 <ConfirmationCard title={'Delete Stop'} message={'Do you want to delete the stop'}
                                   leftButtonText={'No'} rightButtonText={'Yes'}
                                   leftButtonClickHandler={onCloseHandler} rightButtonClickHandler={deleteBusHandler}

@@ -41,6 +41,23 @@ const BusesPage: React.FC<{}> = () => {
     }, [isEditOpen, busId]);
     const deleteBusHandler = () => {
         //send delete request to serve with busId
+        fetch(`http://localhost:8080/admin/deleteBus/${busId}`,{
+            method:'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+            .then(result => {
+                return result.json();
+            })
+            .then(data => {
+                setBusNumber(data.busNumber)
+                setStops(data.stops);
+                onCloseHandler();
+            })
+            .catch(err => {
+                console.log(err)
+            });
     }
     const onCloseHandler = () => dispatch(busesListAction.closeAll())
     return (

@@ -12,63 +12,48 @@ const FormSearchBuses: React.FC = () => {
     const sourceRef = useRef<HTMLInputElement>(document.createElement('input'));
     const destinationRef = useRef<HTMLInputElement>(document.createElement('input'));
     const busNumberRef = useRef<HTMLInputElement>(document.createElement('input'));
+
+    const fetchBuses = (body: {}) => {
+        fetch('http://localhost:8080/admin/searchBuses', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        })
+            .then(result => {
+                return result.json();
+            })
+            .then(data => {
+                console.log(data);
+                dispatch(busesListAction.addBusResults({
+                    results: data
+                }));
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
     const onSubmitHandler = (event: FormEvent) => {
         event.preventDefault();
         const sourceVal = sourceRef.current.value,
             destinationVal = destinationRef.current.value,
             busNumberVal = busNumberRef.current.value;
-        console.log(sourceVal, destinationVal)
         if (sourceVal.length > 0 && destinationVal.length > 0) {
             //send fetch request with source and destination if results found return
-            console.log('form submitted');
-            fetch('http://localhost:8080/admin/searchBuses', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                    source: sourceVal,
-                    destination: destinationVal,
-                })
+            fetchBuses({
+                source: sourceVal,
+                destination: destinationVal,
             })
-                .then(result => {
-                    return result.json();
-                })
-                .then(data => {
-                    console.log(data);
-                    dispatch(busesListAction.addBusResults({
-                        results: data
-                    }));
-                })
-                .catch(err => {
-                    console.log(err);
-                })
+            console.log('form submitted');
             return;
         }
+
         if (busNumberVal.length > 0) {
             //send fetch request with bus number if result found return
-            fetch('http://localhost:8080/admin/searchBuses', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                    busNumber: busNumberVal
-                })
+            fetchBuses({
+                busNumber: busNumberVal
             })
-                .then(result => {
-                    return result.json();
-                })
-                .then(data => {
-                    console.log(data);
-                    dispatch(busesListAction.addBusResults({
-                        results: data
-                    }));
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-
             return;
         }
         return
