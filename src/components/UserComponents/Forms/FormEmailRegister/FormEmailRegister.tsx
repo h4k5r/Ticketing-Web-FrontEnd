@@ -9,46 +9,49 @@ import NormalGradientButton from "../../../../UI/Buttons/NormalButtons/NormalGra
 import {confirmPasswordValidator, emailValidator, passwordValidator} from "../../../../utils/validators";
 
 
-const color:string = 'red';
+const color: string = 'red';
 
-const FormEmailRegister:React.FC<{}> = () => {
+const FormEmailRegister: React.FC<{}> = () => {
 
-    const [state,dispatch] = useReducer(emailFormReducer,initialEmailFormState);
-    const {isEmailValid,isPasswordValid,isConfirmPasswordValid} = state;
+    const [state, dispatch] = useReducer(emailFormReducer, initialEmailFormState);
+    const {isEmailValid, isPasswordValid, isConfirmPasswordValid, isFormValid} = state;
     useEffect(() => {
-        if(isEmailValid && isPasswordValid && isConfirmPasswordValid) {
-            dispatch({type:'setFormIsValid',payload:true})
+        if (isEmailValid && isPasswordValid && isConfirmPasswordValid) {
+            dispatch({type: 'setFormIsValid', payload: true})
         }
-    },[isEmailValid,isPasswordValid,isConfirmPasswordValid])
-    const onEmailChangeHandler =  () => {
-        dispatch({type:'setEmailIsValid',payload:true});
-        dispatch({type:'setEmailErrorMessage',payload:''});
+    }, [isEmailValid, isPasswordValid, isConfirmPasswordValid])
+    const onEmailChangeHandler = () => {
+        dispatch({type: 'setEmailIsValid', payload: true});
+        dispatch({type: 'setEmailErrorMessage', payload: ''});
     }
-    const onEmailBlurHandler = (event:React.FocusEvent<HTMLInputElement>) => {
+    const onEmailBlurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
         const enteredEmail = event.target.value;
-        emailValidator(enteredEmail,dispatch);
+        emailValidator(enteredEmail, dispatch);
     }
     const onPasswordChangeHandler = () => {
-        dispatch({type:'setPasswordIsValid',payload:true});
-        dispatch({type:'setPasswordErrorMessage',payload:''});
+        dispatch({type: 'setPasswordIsValid', payload: true});
+        dispatch({type: 'setPasswordErrorMessage', payload: ''});
     }
-    const onPasswordBlurHandler = (event:React.FocusEvent<HTMLInputElement>) => {
+    const onPasswordBlurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
         const enteredPassword = event.target.value;
-        passwordValidator(enteredPassword,dispatch);
-        confirmPasswordValidator(enteredPassword,state.confirmPassword,dispatch);
-        console.log(enteredPassword===state.confirmPassword)
+        passwordValidator(enteredPassword, dispatch);
+        confirmPasswordValidator(enteredPassword, state.confirmPassword, dispatch);
+        console.log(enteredPassword === state.confirmPassword)
 
     }
     const onConfirmPasswordChangeHandler = () => {
-        dispatch({type:'setConfirmPasswordIsValid',payload:true});
-        dispatch({type:'setConfirmPasswordErrorMessage',payload:''});
+        dispatch({type: 'setConfirmPasswordIsValid', payload: true});
+        dispatch({type: 'setConfirmPasswordErrorMessage', payload: ''});
     }
-    const onConfirmPasswordBlurHandler = (event:React.FocusEvent<HTMLInputElement>) => {
+    const onConfirmPasswordBlurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
         const enteredConfirmPassword = event.target.value;
-        confirmPasswordValidator(state.password,enteredConfirmPassword,dispatch)
+        confirmPasswordValidator(state.password, enteredConfirmPassword, dispatch)
     }
-    const onsubmitHandler = (event:React.FormEvent) => {
+    const onsubmitHandler = (event: React.FormEvent) => {
         event.preventDefault();
+        if (!isFormValid) {
+            return;
+        }
         // authContext.emailRegister(state.email,state.password,
         //     () => {
         //         console.log('registration Successful')
@@ -76,8 +79,10 @@ const FormEmailRegister:React.FC<{}> = () => {
                 state.passwordErrorMessage.length > 0 &&
                 <p className={'error'}>{state.passwordErrorMessage}</p>}
 
-                <GradientInput label={'Confirm Password'} type={'password'} color={color} placeHolder={'Enter Password again'}
-                               onChangeHandler={onConfirmPasswordChangeHandler} onBlurHandler={onConfirmPasswordBlurHandler}/>
+                <GradientInput label={'Confirm Password'} type={'password'} color={color}
+                               placeHolder={'Enter Password again'}
+                               onChangeHandler={onConfirmPasswordChangeHandler}
+                               onBlurHandler={onConfirmPasswordBlurHandler}/>
 
                 {!state.isConfirmPasswordValid &&
                 state.confirmPasswordErrorMessage.length > 0 &&

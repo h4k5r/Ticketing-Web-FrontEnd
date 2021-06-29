@@ -46,6 +46,13 @@ const stopsListSlice = createSlice({
         },
         addStopResults (state,action) {
             state.results = action.payload.results;
+        },
+        clearAll (state) {
+            state.isAddOpen = false;
+            state.isEditOpen = false;
+            state.isDeleteOpen = false;
+            state.selectedStopId = '';
+            state.results = [];
         }
     }
 });

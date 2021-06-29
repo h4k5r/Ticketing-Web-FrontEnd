@@ -1,110 +1,79 @@
 import React, {useEffect, useState} from "react";
-import classes from'./UsersPage.module.css'
+import classes from './UsersPage.module.css'
 import FormSearchUsers from "../../../components/AdminComponents/Forms/FormSearchUsers/FormSearchUsers";
 import GrayCard from "../../../UI/GrayCard/GrayCard";
 import UsersList from "../../../components/AdminComponents/Lists/UsersList/UsersList";
-import { Fragment } from "react";
+import {Fragment} from "react";
 import BackDrop from "../../../UI/BackDrop/BackDrop";
 import {useDispatch, useSelector} from "react-redux";
-import {userListAction, userListType} from "../../../store/users-list-slice";
+import {userListAction} from "../../../store/users-list-slice";
 import ConfirmationCard from "../../../UI/ConfirmationCard/ConfirmationCard";
 import FormResetPassword from "../../../components/AdminComponents/Forms/FormResetPassword/FormResetPassword";
 import HistoryResults, {ticketHistory} from "../../../components/HistoryResults/HistoryResults";
 import FormAddPeople from "../../../components/AdminComponents/Forms/FormAddPeople/FormAddPeople";
+import {RootState} from "../../../store";
+import fetch from "node-fetch";
 
-const UsersPage:React.FC<{}> = () => {
-    const [email,setEmail] = useState('');
-    const [history,setHistory] = useState<ticketHistory[]>([]);
+const UsersPage: React.FC<{}> = () => {
+    const [email, setEmail] = useState('');
+    const [history, setHistory] = useState<ticketHistory[]>([]);
     const dispatch = useDispatch();
-    const isAddOpen = useSelector<{usersList:userListType}>(state => state.usersList.isAddOpen);
-    const isHistoryOpen = useSelector<{usersList:userListType}>(state => state.usersList.isHistoryOpen);
-    const isResetOpen = useSelector<{usersList:userListType}>(state => state.usersList.isResetOpen);
-    const isDeleteOpen = useSelector<{usersList:userListType}>(state => state.usersList.isDeleteOpen);
-    const userId = useSelector<{usersList:userListType}>(state => state.usersList.selectedUserId);
+    const isAddOpen = useSelector((state: RootState) => state.usersList.isAddOpen);
+    const isHistoryOpen = useSelector((state: RootState) => state.usersList.isHistoryOpen);
+    const isResetOpen = useSelector((state: RootState) => state.usersList.isResetOpen);
+    const isDeleteOpen = useSelector((state: RootState) => state.usersList.isDeleteOpen);
+    const selectedUserId = useSelector((state: RootState) => state.usersList.selectedUserId);
     useEffect(() => {
-        if(isResetOpen) {
+        if (isResetOpen) {
             //fetch email
             setEmail('test@test.com')
         }
-    },[isResetOpen])
+    }, [isResetOpen])
     useEffect(() => {
-        if(isHistoryOpen){
+        if (isHistoryOpen) {
             //fetch history
-            setHistory((prevState) => {
-                const history:ticketHistory[] = [
-                    {
-                        busId:'0000',
-                        ticketId:'00001',
-                        busNumber:'0000',
-                        source:'srirangam',
-                        destination:'tolgate',
-                        numberOfTickets:'5',
-                        bookedTime:'12:00',
-                        hasUsed:true
-                    },
-                    {
-                        busId:'0000',
-                        ticketId:'00002',
-                        busNumber:'0000',
-                        source:'srirangam',
-                        destination:'tolgate',
-                        numberOfTickets:'5',
-                        bookedTime:'12:00',
-                        hasUsed:true
-                    },
-                    {
-                        busId:'0000',
-                        ticketId:'00003',
-                        busNumber:'0000',
-                        source:'srirangam',
-                        destination:'tolgate',
-                        numberOfTickets:'5',
-                        bookedTime:'12:00',
-                        hasUsed:true
-                    },
-                    {
-                        busId:'0000',
-                        ticketId:'00004',
-                        busNumber:'0000',
-                        source:'srirangam',
-                        destination:'tolgate',
-                        numberOfTickets:'5',
-                        bookedTime:'12:00',
-                        hasUsed:true
-                    },
-                    {
-                        busId:'0000',
-                        ticketId:'00005',
-                        busNumber:'0000',
-                        source:'srirangam',
-                        destination:'tolgate',
-                        numberOfTickets:'5',
-                        bookedTime:'12:00',
-                        hasUsed:true
-                    }
-                ];
-                return [...prevState,...history]
-            })
+            fetch(`http://localhost:8080/admin/userHistory/${selectedUserId}`)
+                .then(result => {
+                    return result.json()
+                })
+                .then(data => {
+                    setHistory(data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         }
-    },[isHistoryOpen])
+    }, [isHistoryOpen,selectedUserId])
     const onCloseHandler = () => {
         dispatch(userListAction.closeAll());
     }
     const onDeleteHandler = () => {
-        console.log(`${userId} deleted`)
+        fetch(`http://localhost:8080/admin/deleteUser/${selectedUserId}`,{
+            method:'DELETE'
+        })
+            .then(result => {
+                return result.json();
+            })
+            .then(data => {
+                console.log(data);
+                onCloseHandler();
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
-    return(
+    return (
         <Fragment>
-            <BackDrop visibility={`${isAddOpen ? 'show' : 'hide'}` } onClick={onCloseHandler}>
+            <BackDrop visibility={`${isAddOpen ? 'show' : 'hide'}`} onClick={onCloseHandler}>
                 <FormAddPeople type={'User'} onCloseHandler={onCloseHandler}/>
             </BackDrop>
-            <BackDrop visibility={`${isHistoryOpen ? 'show' : 'hide'}` } onClick={onCloseHandler}>
+            <BackDrop visibility={`${isHistoryOpen ? 'show' : 'hide'}`} onClick={onCloseHandler}>
                 <HistoryResults history={history} close={true} closeHandler={onCloseHandler}/>
             </BackDrop>
-            <BackDrop visibility={`${isResetOpen ? 'show' : 'hide'}` } onClick={onCloseHandler}>
-                <FormResetPassword email={email} onClose={onCloseHandler}/>
+            <BackDrop visibility={`${isResetOpen ? 'show' : 'hide'}`} onClick={onCloseHandler}>
+                <FormResetPassword id={selectedUserId} email={email} type={'staff'} onCloseHandler={onCloseHandler}/>
             </BackDrop>
-            <BackDrop visibility={`${isDeleteOpen ? 'show' : 'hide'}` } onClick={onCloseHandler}>
+            <BackDrop visibility={`${isDeleteOpen ? 'show' : 'hide'}`} onClick={onCloseHandler}>
                 <ConfirmationCard title={'Delete User'} message={'Are you sure do you want to delete user'}
                                   leftButtonText={'No'} rightButtonText={'Yes'}
                                   leftButtonClickHandler={onCloseHandler} rightButtonClickHandler={onDeleteHandler}

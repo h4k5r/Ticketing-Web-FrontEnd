@@ -18,7 +18,7 @@ const HistoryResults:React.FC<{history:ticketHistory[],close?:boolean,closeHandl
         <div className={classes.container}>
             <div className={classes.titleContainer}>
                 <h1 className={classes.mainText}>History results</h1>
-                {props.close && props.close && <img src={close} onClick={props.closeHandler} alt={'close'}/>}
+                {props.close  && <img src={close} onClick={props.closeHandler} alt={'close'}/>}
             </div>
             <div className={classes.subContainer}>
                 {props.history.map((ticketHistory) => {

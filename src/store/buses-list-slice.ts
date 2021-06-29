@@ -45,6 +45,13 @@ const busesListSlice = createSlice({
         },
         addBusResults(state,action){
             state.results = action.payload.results
+        },
+        clearAll (state) {
+            state.isAddOpen = false;
+            state.isEditOpen = false;
+            state.isDeleteOpen = false;
+            state.selectedBusId = '';
+            state.results = [];
         }
     }
 });

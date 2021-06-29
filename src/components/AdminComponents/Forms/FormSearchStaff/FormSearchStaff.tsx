@@ -5,22 +5,41 @@ import NormalGradientButton from "../../../../UI/Buttons/NormalButtons/NormalGra
 import {useDispatch} from "react-redux";
 import {Dispatch} from "@reduxjs/toolkit";
 import {staffListAction} from "../../../../store/staff-list-slice";
+import fetch from "node-fetch";
 const FormSearchStaff:React.FC = () => {
     const dispatch:Dispatch = useDispatch();
     const staffEmailRef = useRef<HTMLInputElement>(document.createElement('input'));
     const onSubmitHandler = (event:React.FormEvent) => {
         event.preventDefault();
-        const staffEmail = staffEmailRef.current.value;
-        if (staffEmail.trim().length > 0) {
+        const enteredStaffEmail = staffEmailRef.current.value;
+        if (enteredStaffEmail.trim().length > 0) {
             //send fetch request to get staff details
-            dispatch(staffListAction.setResult(
-                {
-                    result:{
-                        mail:'test@test.com',
-                        id:'igudsfiug'
-                    }
+            fetch("http://localhost:8080/admin/searchStaffs",{
+                method:"POST",
+                headers:{
+                    'Content-type':'application/json'
+                },
+                body:JSON.stringify({
+                    staffEmail: enteredStaffEmail
                 })
-            )
+            })
+                .then(result => {
+                    return result.json();
+                })
+                .then(data => {
+                    dispatch(staffListAction.setResult(
+                        {
+                            result:{
+                                mail:data.staffEmail,
+                                id:data._id
+                            }
+                        })
+                    )
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+
         }
     }
     const onAddHandler = () => {

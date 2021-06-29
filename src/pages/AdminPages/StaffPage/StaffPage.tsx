@@ -11,46 +11,61 @@ import ConfirmationCard from "../../../UI/ConfirmationCard/ConfirmationCard";
 import FormChangeBus from "../../../components/AdminComponents/Forms/FormChangeBus/FormChangeBus";
 import {RootState} from "../../../store";
 import FormAddPeople from "../../../components/AdminComponents/Forms/FormAddPeople/FormAddPeople";
+import fetch from "node-fetch";
 
-const StaffPage:React.FC<{}> = () => {
-    const [staffEmail,setStaffEmail] = useState('');
-    const [busNumber,setBusNumber] = useState('')
+const StaffPage: React.FC<{}> = () => {
+    const [staffEmail, setStaffEmail] = useState('');
+    const [busNumber, setBusNumber] = useState('')
     const dispatch = useDispatch();
-    const isAddOpen = useSelector((state:RootState) => state.staffList.isAddOpen);
-    const isChangeBusOpen = useSelector((state:RootState) => state.staffList.isChangeBusOpen);
-    const isResetPasswordOpen = useSelector((state:RootState) => state.staffList.isResetOpen);
-    const isDeleteOpen = useSelector((state:RootState) => state.staffList.isDeleteOpen);
+    const isAddOpen = useSelector((state: RootState) => state.staffList.isAddOpen);
+    const isChangeBusOpen = useSelector((state: RootState) => state.staffList.isChangeBusOpen);
+    const isResetPasswordOpen = useSelector((state: RootState) => state.staffList.isResetOpen);
+    const isDeleteOpen = useSelector((state: RootState) => state.staffList.isDeleteOpen);
+    const selectedStaffId = useSelector((state: RootState) => state.staffList.selectedStaffId);
     useEffect(() => {
-        if(isResetPasswordOpen) {
+        if (isResetPasswordOpen) {
             //fetch email from server
             setStaffEmail('test@test.com')
         }
-    },[isResetPasswordOpen]);
+    }, [isResetPasswordOpen]);
     useEffect(() => {
-        if(isChangeBusOpen) {
+        if (isChangeBusOpen) {
             //fetch bus Number from server
             setBusNumber('TN 00 69 0000')
         }
-    },[isChangeBusOpen])
+    }, [isChangeBusOpen])
     const onCloseHandler = () => {
         console.log('close handler triggered')
         dispatch(staffListAction.closeAll());
     }
     const onDeleteHandler = () => {
-
+        fetch(`http://localhost:8080/admin/deleteStaff/${selectedStaffId}`,{
+            method:'DELETE'
+        })
+            .then(result => {
+                return result.json();
+            })
+            .then(data => {
+                console.log(data);
+                onCloseHandler();
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
-    return(
+    return (
         <Fragment>
-            <BackDrop visibility={`${isAddOpen ? 'show': 'hide'}`} onClick={onCloseHandler}>
+            <BackDrop visibility={`${isAddOpen ? 'show' : 'hide'}`} onClick={onCloseHandler}>
                 <FormAddPeople type={'Staff'} onCloseHandler={onCloseHandler}/>
             </BackDrop>
-            <BackDrop visibility={`${isChangeBusOpen ? 'show': 'hide'}`} onClick={onCloseHandler}>
-                <FormChangeBus onCloseHandler={onCloseHandler} busNumberSetter={setBusNumber} busNumber={busNumber}/>
+            <BackDrop visibility={`${isChangeBusOpen ? 'show' : 'hide'}`} onClick={onCloseHandler}>
+                <FormChangeBus staffId={selectedStaffId} onCloseHandler={onCloseHandler} busNumberSetter={setBusNumber}
+                               busNumber={busNumber}/>
             </BackDrop>
-            <BackDrop visibility={`${isResetPasswordOpen ? 'show': 'hide'}`} onClick={onCloseHandler}>
-                <FormResetPassword email={staffEmail} onClose={onCloseHandler}/>
+            <BackDrop visibility={`${isResetPasswordOpen ? 'show' : 'hide'}`} onClick={onCloseHandler}>
+                <FormResetPassword id={selectedStaffId} email={staffEmail} type={'staff'} onCloseHandler={onCloseHandler}/>
             </BackDrop>
-            <BackDrop visibility={`${isDeleteOpen ? 'show': 'hide'}`} onClick={onCloseHandler}>
+            <BackDrop visibility={`${isDeleteOpen ? 'show' : 'hide'}`} onClick={onCloseHandler}>
                 <ConfirmationCard title={'Delete Staff'} message={'Are you sure do you want to delete staff?'}
                                   leftButtonText={'No'} rightButtonText={'Yes'}
                                   leftButtonClickHandler={onCloseHandler} rightButtonClickHandler={onDeleteHandler}

@@ -5,30 +5,52 @@ import NormalGradientButton from "../../../../UI/Buttons/NormalButtons/NormalGra
 import {Dispatch} from "@reduxjs/toolkit";
 import {useDispatch} from "react-redux";
 import {userListAction} from "../../../../store/users-list-slice";
+import fetch from "node-fetch";
 
 const FormSearchUsers:React.FC = () => {
     const dispatch:Dispatch = useDispatch();
     const emailRef = useRef<HTMLInputElement>(document.createElement('input'));
     const phoneRef = useRef<HTMLInputElement>(document.createElement('input'));
+    const getUser = (body:{userEmail?:string,userPhone?:string}) => {
+        return fetch('http://localhost:8080/admin/searchUser',{
+            method:'POST',
+            headers: {
+                'Content-type':'application/json'
+            },
+            body:JSON.stringify(body)
+        })
+            .then(result => {
+                return result.json();
+            })
+    }
     const onSubmitHandler = (event:FormEvent) => {
         event.preventDefault();
-        const email = emailRef.current.value,
-            phone = phoneRef.current.value;
-        console.log(email,phone)
-        if(email.trim().length > 0) {
+        const enteredEmail = emailRef.current.value,
+            enteredPhone = phoneRef.current.value;
+        if(enteredEmail.trim().length > 0) {
             //send Request to fetch user id with email
-            dispatch(userListAction.setResultWithEmail({
-                userId:'sdfsdfs',
-                email:'test@test.com'
-            }));
+            getUser({
+                userEmail:enteredEmail
+            }).then(data => {
+                dispatch(userListAction.setResultWithEmail({
+                    userId:data.userId,
+                    email:data.userEmail
+                }));
+            })
+
             return
         }
-        if(phone.trim().length > 0) {
+        if(enteredPhone.trim().length > 0) {
             //send Request to fetch user id with phone
-            dispatch(userListAction.setResultWithPhone({
-                userId:'sdfsdfs',
-                phone:'123456780'
-            }));
+            getUser({
+                userPhone:enteredPhone
+            }).then(data => {
+                dispatch(userListAction.setResultWithPhone({
+                    userId:data.userId,
+                    phone:data.userPhone
+                }));
+            })
+
             return;
         }
         return;

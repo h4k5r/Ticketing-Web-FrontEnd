@@ -73,6 +73,18 @@ const userListSlice = createSlice({
                 email: '',
                 phone: action.payload.phone,
             }
+        },
+        clearAll (state) {
+            state.isAddOpen = false;
+            state.isResetOpen = false;
+            state.isDeleteOpen = false;
+            state.isHistoryOpen = false;
+            state.selectedUserId = '';
+            state.result = {
+                userId:'',
+                email:'',
+                phone:'',
+            };
         }
     }
 });
