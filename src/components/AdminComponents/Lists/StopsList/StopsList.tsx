@@ -4,8 +4,8 @@ import StopsListItem from "./StopsListItem";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../store";
 export type stop = {
-    stopName:string,
-    stopId:string
+    name:string,
+    _id:string
 }
 const StopsList:React.FC<{}> = () => {
     const results = useSelector((state:RootState) => state.stopsList.results);
@@ -15,7 +15,7 @@ const StopsList:React.FC<{}> = () => {
             <div className={classes.subContainer}> {
                 results.map((stop) => {
                     console.log(stop)
-                    return(<StopsListItem key={stop.stopId} stopName={stop.stopName} stopId={stop.stopId}/>);
+                    return(<StopsListItem key={stop._id} stopName={stop.name} stopId={stop._id}/>);
                 })
             }
 
