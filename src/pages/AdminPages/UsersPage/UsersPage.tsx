@@ -15,7 +15,6 @@ import {RootState} from "../../../store";
 import fetch from "node-fetch";
 
 const UsersPage: React.FC<{}> = () => {
-    const [email, setEmail] = useState('');
     const [history, setHistory] = useState<ticketHistory[]>([]);
     const dispatch = useDispatch();
     const isAddOpen = useSelector((state: RootState) => state.usersList.isAddOpen);
@@ -23,12 +22,6 @@ const UsersPage: React.FC<{}> = () => {
     const isResetOpen = useSelector((state: RootState) => state.usersList.isResetOpen);
     const isDeleteOpen = useSelector((state: RootState) => state.usersList.isDeleteOpen);
     const selectedUserId = useSelector((state: RootState) => state.usersList.selectedUserId);
-    useEffect(() => {
-        if (isResetOpen) {
-            //fetch email
-            setEmail('test@test.com')
-        }
-    }, [isResetOpen])
     useEffect(() => {
         if (isHistoryOpen) {
             //fetch history
@@ -57,6 +50,7 @@ const UsersPage: React.FC<{}> = () => {
             .then(data => {
                 console.log(data);
                 onCloseHandler();
+                dispatch(userListAction.clearAll());
             })
             .catch(err => {
                 console.log(err)
@@ -71,7 +65,7 @@ const UsersPage: React.FC<{}> = () => {
                 <HistoryResults history={history} close={true} closeHandler={onCloseHandler}/>
             </BackDrop>
             <BackDrop visibility={`${isResetOpen ? 'show' : 'hide'}`} onClick={onCloseHandler}>
-                <FormResetPassword id={selectedUserId} email={email} type={'staff'} onCloseHandler={onCloseHandler}/>
+                <FormResetPassword type={'user'} onCloseHandler={onCloseHandler}/>
             </BackDrop>
             <BackDrop visibility={`${isDeleteOpen ? 'show' : 'hide'}`} onClick={onCloseHandler}>
                 <ConfirmationCard title={'Delete User'} message={'Are you sure do you want to delete user'}

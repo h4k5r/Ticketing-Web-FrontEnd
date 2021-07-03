@@ -46,6 +46,16 @@ const busesListSlice = createSlice({
         addBusResults(state,action){
             state.results = action.payload.results
         },
+        removeSingleResult (state,action) {
+            state.isAddOpen = false;
+            state.isEditOpen = false;
+            state.isDeleteOpen = false;
+            state.results = state.results.filter((result:busItem) => {
+                return !(result._id === action.payload.busId)
+            });
+            state.selectedBusId = '';
+
+        },
         clearAll (state) {
             state.isAddOpen = false;
             state.isEditOpen = false;

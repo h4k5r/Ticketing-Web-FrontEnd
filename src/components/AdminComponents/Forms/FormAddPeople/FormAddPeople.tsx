@@ -71,6 +71,13 @@ const FormAddPeople: React.FC<{ type: 'User' | 'Staff', onCloseHandler: () => vo
             .then(result => {
                 return result.json()
             })
+            .then(data => {
+                console.log(data)
+                props.onCloseHandler();
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
     const onSubmitHandler = (event: React.FormEvent) => {
         event.preventDefault();

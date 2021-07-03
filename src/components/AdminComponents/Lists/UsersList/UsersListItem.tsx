@@ -38,7 +38,7 @@ const UsersListItem:React.FC<{
             </div>
             <div className={classes.buttonContainer}>
                 <NormalGradientButton text={'View History'} buttonColor={'green'} onClick={onHistoryHandler}/>
-                <NormalGradientButton text={'Reset Password'} buttonColor={'violet'} onClick={onResetHandler}/>
+                {props.phone? '' : <NormalGradientButton text={'Reset Password'} buttonColor={'violet'} onClick={onResetHandler}/>}
                 <NormalGradientButton text={'Delete User'} buttonColor={'pink'} onClick={onDeleteHandler}/>
             </div>
         </div>

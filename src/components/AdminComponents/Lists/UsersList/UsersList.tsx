@@ -10,8 +10,7 @@ export type user = {
     phone?:string
 }
 const UsersList:React.FC<{}> = () => {
-    const user = useSelector((state:RootState) => state.usersList.result)
-    console.log(user)
+    const user = useSelector((state:RootState) => state.usersList.result);
     return (
         <div className={classes.container}>
             <h1 className={classes.mainText}>Stops</h1>

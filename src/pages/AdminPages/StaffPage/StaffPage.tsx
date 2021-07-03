@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment} from "react";
 import classes from './StaffPage.module.css'
 import GrayCard from "../../../UI/GrayCard/GrayCard";
 import FormSearchStaff from "../../../components/AdminComponents/Forms/FormSearchStaff/FormSearchStaff";
@@ -14,26 +14,13 @@ import FormAddPeople from "../../../components/AdminComponents/Forms/FormAddPeop
 import fetch from "node-fetch";
 
 const StaffPage: React.FC<{}> = () => {
-    const [staffEmail, setStaffEmail] = useState('');
-    const [busNumber, setBusNumber] = useState('')
     const dispatch = useDispatch();
     const isAddOpen = useSelector((state: RootState) => state.staffList.isAddOpen);
     const isChangeBusOpen = useSelector((state: RootState) => state.staffList.isChangeBusOpen);
     const isResetPasswordOpen = useSelector((state: RootState) => state.staffList.isResetOpen);
     const isDeleteOpen = useSelector((state: RootState) => state.staffList.isDeleteOpen);
     const selectedStaffId = useSelector((state: RootState) => state.staffList.selectedStaffId);
-    useEffect(() => {
-        if (isResetPasswordOpen) {
-            //fetch email from server
-            setStaffEmail('test@test.com')
-        }
-    }, [isResetPasswordOpen]);
-    useEffect(() => {
-        if (isChangeBusOpen) {
-            //fetch bus Number from server
-            setBusNumber('TN 00 69 0000')
-        }
-    }, [isChangeBusOpen])
+
     const onCloseHandler = () => {
         console.log('close handler triggered')
         dispatch(staffListAction.closeAll());
@@ -48,6 +35,7 @@ const StaffPage: React.FC<{}> = () => {
             .then(data => {
                 console.log(data);
                 onCloseHandler();
+                dispatch(staffListAction.clearAll());
             })
             .catch(err => {
                 console.log(err)
@@ -59,11 +47,10 @@ const StaffPage: React.FC<{}> = () => {
                 <FormAddPeople type={'Staff'} onCloseHandler={onCloseHandler}/>
             </BackDrop>
             <BackDrop visibility={`${isChangeBusOpen ? 'show' : 'hide'}`} onClick={onCloseHandler}>
-                <FormChangeBus staffId={selectedStaffId} onCloseHandler={onCloseHandler} busNumberSetter={setBusNumber}
-                               busNumber={busNumber}/>
+                <FormChangeBus onCloseHandler={onCloseHandler}/>
             </BackDrop>
             <BackDrop visibility={`${isResetPasswordOpen ? 'show' : 'hide'}`} onClick={onCloseHandler}>
-                <FormResetPassword id={selectedStaffId} email={staffEmail} type={'staff'} onCloseHandler={onCloseHandler}/>
+                <FormResetPassword type={'staff'} onCloseHandler={onCloseHandler}/>
             </BackDrop>
             <BackDrop visibility={`${isDeleteOpen ? 'show' : 'hide'}`} onClick={onCloseHandler}>
                 <ConfirmationCard title={'Delete Staff'} message={'Are you sure do you want to delete staff?'}

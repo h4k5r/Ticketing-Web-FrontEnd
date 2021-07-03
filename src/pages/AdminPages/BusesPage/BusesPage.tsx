@@ -34,6 +34,7 @@ const BusesPage: React.FC<{}> = () => {
             .then(data => {
                 console.log(data)
                 onCloseHandler();
+                dispatch(busesListAction.removeSingleResult({busId:busId}))
             })
             .catch(err => {
                 console.log(err)

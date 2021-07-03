@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import classes from './FormChangeBus.module.css';
 import close from '../../../../images/close.svg'
 import GrayCard from "../../../../UI/GrayCard/GrayCard";
@@ -7,18 +7,31 @@ import NormalGradientImageButton
 import GradientInput from "../../../../UI/GradientInput/GradientInput";
 import NormalGradientButton from "../../../../UI/Buttons/NormalButtons/NormalGradientButton/NormalGradientButton";
 import fetch from "node-fetch";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../../store";
 
 export type stop = {
     name: string,
     id: string
 }
 const FormAddOrEditBus: React.FC<{
-    staffId: string,
-    busNumber?: string,
-    onCloseHandler: () => void,
-    busNumberSetter?: React.Dispatch<React.SetStateAction<string>>
+    onCloseHandler: () => void
 }> = props => {
+    const [busNumber, setBusNumber] = useState<string>();
+    const selectedStaffId = useSelector((state: RootState) => state.staffList.selectedStaffId);
     const busNumberInputRef = useRef(document.createElement('input'));
+    useEffect(() => {
+        //fetch bus Number from server
+        if (selectedStaffId.length > 0) {
+            fetch(`http://localhost:8080/admin/getAssignedBus/${selectedStaffId}`)
+                .then(result => {
+                    return result.json();
+                })
+                .then(data => {
+                    setBusNumber(data.staff.assignedBus)
+                })
+        }
+    }, [selectedStaffId])
     const saveData = (body: {
         staffId: string,
         mode: 'change' | 'remove',
@@ -37,7 +50,7 @@ const FormAddOrEditBus: React.FC<{
     }
     const onSaveHandler = () => {
         const enteredBusNumber = busNumberInputRef.current.value;
-        saveData({staffId: props.staffId, mode: 'change', busNumber: enteredBusNumber})
+        saveData({staffId: selectedStaffId, mode: 'change', busNumber: enteredBusNumber})
             .then(data => {
                 console.log(data)
                 props.onCloseHandler();
@@ -47,7 +60,7 @@ const FormAddOrEditBus: React.FC<{
             })
     }
     const onRemoveBusHandler = () => {
-        saveData({staffId: props.staffId, mode: 'remove'})
+        saveData({staffId: selectedStaffId, mode: 'remove'})
             .then(data => {
                 console.log(data)
                 props.onCloseHandler();
@@ -57,9 +70,7 @@ const FormAddOrEditBus: React.FC<{
             })
     }
     const busNumberChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (props.busNumberSetter) {
-            props.busNumberSetter(event.target.value);
-        }
+        setBusNumber(event.target.value);
     }
     return (
         <GrayCard cssClasses={[classes.overAllContainer]}>
@@ -67,7 +78,7 @@ const FormAddOrEditBus: React.FC<{
                 <h1>Change Bus</h1>
                 <NormalGradientImageButton buttonColor={''} imageLocation={close} onClick={props.onCloseHandler}/>
             </div>
-            <GradientInput type={'text'} value={props.busNumber} color={'red'} placeHolder={'Enter Bus Number'}
+            <GradientInput type={'text'} value={busNumber} color={'red'} placeHolder={'Enter Bus Number'}
                            label={'Bus Number'} cssClasses={[classes.overAllInput]} ref={busNumberInputRef}
                            onChangeHandler={busNumberChangeHandler}/>
             <NormalGradientButton text={'Remove Bus'} buttonColor={'pink'} onClick={onRemoveBusHandler}

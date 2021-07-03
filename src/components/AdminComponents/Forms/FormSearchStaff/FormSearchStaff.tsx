@@ -24,6 +24,9 @@ const FormSearchStaff:React.FC = () => {
                 })
             })
                 .then(result => {
+                    if(result.status === 404) {
+                        return Promise.reject('No Staff Found')
+                    }
                     return result.json();
                 })
                 .then(data => {

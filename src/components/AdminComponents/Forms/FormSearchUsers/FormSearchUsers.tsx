@@ -47,7 +47,7 @@ const FormSearchUsers:React.FC = () => {
             }).then(data => {
                 dispatch(userListAction.setResultWithPhone({
                     userId:data.userId,
-                    phone:data.userPhone
+                    phone:data.phone
                 }));
             })
 

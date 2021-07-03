@@ -51,6 +51,7 @@ const Stops: React.FC<{}> = () => {
             })
             .then(data => {
                 console.log(data);
+                dispatch(stopsListAction.clearAll());
                 onCloseHandler();
             })
         //send delete request to serve with busId

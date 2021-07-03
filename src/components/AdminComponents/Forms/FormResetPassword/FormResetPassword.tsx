@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import classes from './FormResetPassword.module.css'
 import close from '../../../../images/close.svg'
 import GrayCard from "../../../../UI/GrayCard/GrayCard";
@@ -7,28 +7,61 @@ import NormalGradientImageButton
 import GradientInput from "../../../../UI/GradientInput/GradientInput";
 import NormalGradientButton from "../../../../UI/Buttons/NormalButtons/NormalGradientButton/NormalGradientButton";
 import fetch from "node-fetch";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../../store";
 
-const FormResetPassword:React.FC<{
-    id:string,
-    email:string,
-    type:'user' | 'staff'
-    onCloseHandler:() => void}> = (props) => {
+const FormResetPassword: React.FC<{
+    type: 'user' | 'staff'
+    onCloseHandler: () => void
+}> = (props) => {
+    const {type} = props;
+    const selectedStaffId = useSelector((state: RootState) => state.staffList.selectedStaffId);
+    const selectedUserId = useSelector((state: RootState) => state.usersList.selectedUserId);
+    const [email, setEmail] = useState('');
+    useEffect(() => {
+        //fetchPerson with the email
+        if(type === 'user' && selectedUserId.length > 0) {
+            fetch(`http://localhost:8080/admin/searchUser/${selectedUserId}`)
+                .then(result => {
+                    return result.json();
+                })
+                .then(data => {
+                    console.log(data)
+                    setEmail(data.email)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+        if(type === 'staff' && selectedStaffId.length > 0) {
+            fetch(`http://localhost:8080/admin/searchStaff/${selectedStaffId}`)
+                .then(result => {
+                    return result.json();
+                })
+                .then(data => {
+                    setEmail(data.email)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+    }, [type,selectedStaffId,selectedUserId])
     const passwordInputRef = useRef(document.createElement('input'));
     const confirmPasswordInputRef = useRef(document.createElement('input'));
-    const resetRequest = (link:string) => {
+    const resetRequest = (link: string) => {
         const enteredPassword = passwordInputRef.current.value
         const enteredConfirmPassword = confirmPasswordInputRef.current.value
-        if(enteredPassword !== enteredConfirmPassword) {
+        if (enteredPassword !== enteredConfirmPassword) {
             return Promise.reject('Passwords Do not Match')
         }
-        return fetch(link,{
-            method:'PUT',
+        return fetch(link, {
+            method: 'PUT',
             headers: {
-                'Content-type':'application/json'
+                'Content-type': 'application/json'
             },
-            body:JSON.stringify({
-                email:props.email,
-                password:enteredPassword,
+            body: JSON.stringify({
+                email: email,
+                password: enteredPassword,
                 confirmPassword: enteredConfirmPassword
             })
         })
@@ -36,12 +69,12 @@ const FormResetPassword:React.FC<{
                 return result.json()
             })
     }
-    const onResetSubmit = (event:React.FormEvent) => {
+    const onResetSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        if(props.type === 'user') {
+        if (type === 'user') {
             resetRequest('http://localhost:8080/admin/resetUser')
                 .then(data => {
-                    console.log(data);
+                    console.log(data)
                     passwordInputRef.current.value = ''
                     confirmPasswordInputRef.current.value = ''
                     props.onCloseHandler()
@@ -50,10 +83,10 @@ const FormResetPassword:React.FC<{
                     console.log(err);
                 })
         }
-        if(props.type === 'staff') {
+        if (type === 'staff') {
             resetRequest('http://localhost:8080/admin/resetStaff')
                 .then(data => {
-                    console.log(data);
+                    console.log(data)
                     passwordInputRef.current.value = ''
                     confirmPasswordInputRef.current.value = ''
                     props.onCloseHandler();
@@ -70,8 +103,8 @@ const FormResetPassword:React.FC<{
                 <NormalGradientImageButton buttonColor={''} imageLocation={close} onClick={props.onCloseHandler}/>
             </div>
             <div className={classes.forContainer}>
-                <p>Reset Password for: </p>
-                <p>{props.email}</p>
+                <p>Reset Password for :</p>
+                <p>{email}</p>
             </div>
             <form className={classes.inputsContainer} onSubmit={onResetSubmit}>
                 <GradientInput type={'password'} color={'red'} placeHolder={'Enter Password'}
