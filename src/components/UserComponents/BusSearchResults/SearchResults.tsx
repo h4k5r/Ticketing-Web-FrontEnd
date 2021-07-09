@@ -16,7 +16,7 @@ const SearchResults:React.FC<{buses:bus[]}> = (props) => {
             <h1 className={classes.headingText}>Results</h1>
             <div className={classes.results}>
                 {props.buses.map((bus) => {
-                    return <SearchResult key={bus.id} busId={bus.id} busNumber={bus.number} approxTime={bus.approxTime}/>
+                    return <SearchResult key={bus.id} busId={bus.id} busNumber={bus.number}/>
                 })}
             </div>
         </GrayCard>

@@ -25,7 +25,11 @@ const UsersPage: React.FC<{}> = () => {
     useEffect(() => {
         if (isHistoryOpen) {
             //fetch history
-            fetch(`http://localhost:8080/admin/userHistory/${selectedUserId}`)
+            fetch(`http://localhost:8080/admin/userHistory/${selectedUserId}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                }
+            })
                 .then(result => {
                     return result.json()
                 })
@@ -36,13 +40,16 @@ const UsersPage: React.FC<{}> = () => {
                     console.log(err)
                 })
         }
-    }, [isHistoryOpen,selectedUserId])
+    }, [isHistoryOpen, selectedUserId])
     const onCloseHandler = () => {
         dispatch(userListAction.closeAll());
     }
     const onDeleteHandler = () => {
-        fetch(`http://localhost:8080/admin/deleteUser/${selectedUserId}`,{
-            method:'DELETE'
+        fetch(`http://localhost:8080/admin/deleteUser/${selectedUserId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+            }
         })
             .then(result => {
                 return result.json();

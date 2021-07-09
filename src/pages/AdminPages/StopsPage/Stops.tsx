@@ -22,7 +22,11 @@ const Stops: React.FC<{}> = () => {
     useEffect(() => {
         if (isEditOpen) {
             //fetch stop Name
-            fetch(`http://localhost:8080/admin/searchStop/${stopId}`)
+            fetch(`http://localhost:8080/admin/searchStop/${stopId}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                }
+            })
                 .then(result => {
                     return result.json();
                 })
@@ -43,7 +47,8 @@ const Stops: React.FC<{}> = () => {
         fetch(`http://localhost:8080/admin/deleteStop/${stopId}`, {
             method: 'DELETE',
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('authToken')
             }
         })
             .then(result => {

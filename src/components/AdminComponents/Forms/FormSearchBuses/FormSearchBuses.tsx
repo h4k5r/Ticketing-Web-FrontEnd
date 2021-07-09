@@ -17,7 +17,8 @@ const FormSearchBuses: React.FC = () => {
         fetch('http://localhost:8080/admin/searchBuses', {
             method: 'POST',
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
             },
             body: JSON.stringify(body)
         })

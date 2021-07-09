@@ -19,15 +19,20 @@ const FormAddOrEditBus: React.FC<{
     onCloseHandler: () => void,
 }> = props => {
     const selectedBusId = useSelector((state: RootState) => state.busesList.selectedBusId);
-    const [busNumber,setBusNumber] = useState<string>('')
+    const [busNumber, setBusNumber] = useState<string>('')
     const [stops, setStops] = useState<stop[]>([])
     const busNumberInputRef = useRef(document.createElement('input'))
     const {mode} = props;
     useEffect(() => {
-        if (mode === 'Edit') {
+        if (mode === 'Edit' && selectedBusId) {
             //send request to fetch Data
+            console.log(selectedBusId)
             console.log(`sending request with busId ${selectedBusId}`);
-            fetch(`http://localhost:8080/admin/searchBus/${selectedBusId}`)
+            fetch(`http://localhost:8080/admin/searchBus/${selectedBusId}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                }
+            })
                 .then(result => {
                     return result.json();
                 })
@@ -46,7 +51,8 @@ const FormAddOrEditBus: React.FC<{
         return fetch(link, {
             method: method,
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('authToken')
             },
             body: JSON.stringify(body)
         })
@@ -83,7 +89,11 @@ const FormAddOrEditBus: React.FC<{
     const onAddStopHandler = (event: React.FormEvent) => {
         event.preventDefault();
         const enteredStopId = stopIdInputRef.current.value;
-        fetch(`http://localhost:8080/admin/searchStop/${enteredStopId}`)
+        fetch(`http://localhost:8080/admin/searchStop/${enteredStopId}`, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+            }
+        })
             .then(result => {
                 return result.json();
             })
@@ -105,14 +115,14 @@ const FormAddOrEditBus: React.FC<{
 
     }
     const onStopsClickHandler = (id: string) => {
-            setStops((prevState: stop[]) => {
-                return prevState.filter((stop) => {
-                    return id !== stop._id;
-                });
-            })
+        setStops((prevState: stop[]) => {
+            return prevState.filter((stop) => {
+                return id !== stop._id;
+            });
+        })
     }
     const onBusNumberChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-            setBusNumber(event.target.value);
+        setBusNumber(event.target.value);
     }
     return (
         <GrayCard cssClasses={[classes.overAllContainer]}>

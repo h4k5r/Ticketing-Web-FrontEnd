@@ -52,7 +52,7 @@ const NavBar: React.FC = () => {
             imgLocation: logout,
             text: 'Logout',
             onClickHandler: () => {
-                console.log('customer logout triggered')
+                localStorage.removeItem('authToken');
                 dispatch(authActions.logout());
                 pathHistory.replace('/')
             }
@@ -64,6 +64,8 @@ const NavBar: React.FC = () => {
             imgLocation: logout,
             text: 'Logout',
             onClickHandler: () => {
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('isAdmin');
                 dispatch(authActions.logout());
                 dispatch(busesListAction.clearAll());
                 dispatch(staffListAction.clearAll());

@@ -26,8 +26,11 @@ const StaffPage: React.FC<{}> = () => {
         dispatch(staffListAction.closeAll());
     }
     const onDeleteHandler = () => {
-        fetch(`http://localhost:8080/admin/deleteStaff/${selectedStaffId}`,{
-            method:'DELETE'
+        fetch(`http://localhost:8080/admin/deleteStaff/${selectedStaffId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+            }
         })
             .then(result => {
                 return result.json();

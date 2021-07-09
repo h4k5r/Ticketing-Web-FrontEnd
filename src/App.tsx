@@ -1,11 +1,11 @@
-import React from 'react';
-import {Route, Switch,Redirect} from 'react-router-dom'
-import {useSelector} from "react-redux";
+import React, {useEffect} from 'react';
+import {Route, Switch, Redirect} from 'react-router-dom'
+import {useDispatch, useSelector} from "react-redux";
 
 import './App.css';
 import backImg from './images/image_1.svg'
 
-import {authObjectType} from "./store/auth-slice";
+import {authActions, authObjectType} from "./store/auth-slice";
 
 import NavBar from "./components/NavBar/NavBar";
 import CustomerLandingPage from "./pages/CustomerPages/CustomerLandingPage/CustomerLandingPage";
@@ -23,11 +23,37 @@ import {
     searchLink, loginLink, trackLink, profileLink, historyLink,
     busesLink, stopsLink, staffLink, usersLink
 } from './LinkPaths'
+import fetch from "node-fetch";
 
 
 function App() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        fetch('http://localhost:8080/validateToken', {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+            }
+        })
+            .then(result => {
+                return result.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    dispatch(authActions.logout());
+                    return;
+                }
+                if (data.isAdmin) {
+                    dispatch(authActions.adminIn());
+                }
+                dispatch(authActions.login())
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }, [dispatch])
     const isAdmin: boolean = useSelector<{ auth: authObjectType }, boolean>(state => state.auth.isAdmin);
-    const isLoggedIn: boolean = useSelector<{ auth: authObjectType }, boolean>(state => state.auth.isLoggedIn)
+    const isLoggedIn: boolean = useSelector<{ auth: authObjectType }, boolean>(state => state.auth.isLoggedIn);
     return (
         <div className="App">
             <NavBar/>

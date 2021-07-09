@@ -9,11 +9,12 @@ const FormSearchStops:React.FC = () => {
     const dispatch:Dispatch = useDispatch();
     const stopNameRef = useRef<HTMLInputElement>(document.createElement('input'));
     const stopIdRef = useRef<HTMLInputElement>(document.createElement('input'));
-    const fetchStops = (body:{}) => {
+    const fetchStop = (body:{}) => {
         fetch('http://localhost:8080/admin/searchStops', {
             method:'POST',
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer '+localStorage.getItem('authToken')
             },
             body:JSON.stringify(body)
         })
@@ -35,14 +36,14 @@ const FormSearchStops:React.FC = () => {
             enteredStopId = stopIdRef.current.value;
         if(enteredStopName.length > 0){
             //fetch Request with stopName
-            fetchStops({
+            fetchStop({
                 stopName:enteredStopName
             })
             return;
         }
         if(enteredStopId.length > 0) {
             //fetch request with stop id
-            fetchStops({
+            fetchStop({
                 stopId:enteredStopId
             })
             return;

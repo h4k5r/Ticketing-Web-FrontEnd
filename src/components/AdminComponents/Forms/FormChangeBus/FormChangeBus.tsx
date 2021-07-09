@@ -23,7 +23,11 @@ const FormAddOrEditBus: React.FC<{
     useEffect(() => {
         //fetch bus Number from server
         if (selectedStaffId.length > 0) {
-            fetch(`http://localhost:8080/admin/getAssignedBus/${selectedStaffId}`)
+            fetch(`http://localhost:8080/admin/getAssignedBus/${selectedStaffId}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                }
+            })
                 .then(result => {
                     return result.json();
                 })
@@ -40,7 +44,8 @@ const FormAddOrEditBus: React.FC<{
         return fetch('http://localhost:8080/admin/changeBus', {
             method: 'PUT',
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer '+localStorage.getItem('authToken')
             },
             body: JSON.stringify(body)
         })

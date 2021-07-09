@@ -33,13 +33,39 @@ type fun = () => void ;
 type funParam = (checkIsAdmin:boolean) => void;
 export const emailLogin =  (email:string,password:string,successHandler:funParam,failureHandler:fun) => {
     return (dispatch:Dispatch) => {
-        console.log('in action creator');
-        fetch('')
-            .then((response) => {
-                console.log(response)
-                dispatch(authActions.login());
-                dispatch(authActions.adminIn());
-                successHandler(true);
+        fetch('http://localhost:8080/emailAuth',{
+            method:'POST',
+            headers:{
+                'Content-type':'application/json'
+            },
+            body:JSON.stringify({
+                email:email,
+                password:password
+            })
+        })
+            .then((result) => {
+                return result.json()
+            })
+            .then(data => {
+                if(data.token) {
+                    if(data.isAdmin) {
+                        dispatch(authActions.login());
+                        dispatch(authActions.adminIn());
+                        localStorage.setItem('authToken',data.token);
+                        localStorage.setItem('isAdmin',''+true);
+                        setTimeout(() => {
+                            localStorage.removeItem('authToken');
+                        },3600000)
+                        successHandler(true);
+                        return;
+                    }
+                    dispatch(authActions.login());
+                    localStorage.setItem('authToken',data.token);
+                    setTimeout(() => {
+                        localStorage.removeItem('authToken');
+                    },3600000)
+                    successHandler(false);
+                }
             })
             .catch((error) => {
                 console.log(error)

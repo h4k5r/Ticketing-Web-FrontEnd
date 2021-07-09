@@ -5,9 +5,12 @@ import GradientInput from "../../../../UI/GradientInput/GradientInput";
 import NormalGradientButton from "../../../../UI/Buttons/NormalButtons/NormalGradientButton/NormalGradientButton";
 import GrayCard from "../../../../UI/GrayCard/GrayCard";
 import {bus} from "../../BusSearchResults/SearchResults";
+import {useDispatch} from "react-redux";
+import {userSearchSliceActions} from "../../../../store/userSearch-slice";
 
 
 const FormSearchBus: React.FC<{ setBuses: React.Dispatch<React.SetStateAction<bus[]>>}> = ( props) => {
+    const dispatch = useDispatch();
     const sourceRef = useRef<HTMLInputElement>(document.createElement('input'));
     const destinationRef = useRef<HTMLInputElement>(document.createElement('input'));
     const onSubmitHandler = (event: React.FormEvent) => {
@@ -28,13 +31,18 @@ const FormSearchBus: React.FC<{ setBuses: React.Dispatch<React.SetStateAction<bu
                 return result.json();
             })
             .then(data => {
-                props.setBuses(data)
-
+                dispatch(userSearchSliceActions.setSearchData({source:enteredSource,destination:enteredDestination}));
+                const newData = data.map((bus: { _id: string, busNumber: string }) => {
+                    return {
+                        id: bus._id,
+                        number: bus.busNumber
+                    }
+                });
+                props.setBuses([...newData]);
             })
             .catch(err => {
                 console.log(err)
-            })
-        console.log(enteredSource, enteredDestination);
+            });
     }
     return (
         <GrayCard cssClasses={[classes.searchCard]}>

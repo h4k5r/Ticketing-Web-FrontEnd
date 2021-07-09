@@ -15,9 +15,10 @@ const FormSearchUsers:React.FC = () => {
         return fetch('http://localhost:8080/admin/searchUser',{
             method:'POST',
             headers: {
-                'Content-type':'application/json'
+                'Content-type':'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('authToken')
             },
-            body:JSON.stringify(body)
+            body:JSON.stringify(body),
         })
             .then(result => {
                 return result.json();

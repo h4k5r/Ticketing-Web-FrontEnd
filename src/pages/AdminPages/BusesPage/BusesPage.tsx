@@ -25,7 +25,8 @@ const BusesPage: React.FC<{}> = () => {
         fetch(`http://localhost:8080/admin/deleteBus/${busId}`,{
             method:'DELETE',
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer '+localStorage.getItem('authToken')
             }
         })
             .then(result => {

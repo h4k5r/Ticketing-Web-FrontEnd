@@ -4,6 +4,7 @@ import busesListSlice from "./buses-list-slice";
 import stopsListSlice from "./stops-list-slice";
 import staffListSlice from "./staff-list-slice";
 import userListSlice from "./users-list-slice";
+import userSearchSlice from "./userSearch-slice";
 
 const store = configureStore({
     reducer:{
@@ -11,7 +12,8 @@ const store = configureStore({
         busesList:busesListSlice.reducer,
         stopsList:stopsListSlice.reducer,
         staffList:staffListSlice.reducer,
-        usersList:userListSlice.reducer
+        usersList:userListSlice.reducer,
+        userSearch:userSearchSlice.reducer
     }
 });
 export type RootState = ReturnType<typeof store.getState>

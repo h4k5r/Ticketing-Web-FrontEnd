@@ -60,7 +60,8 @@ const FormAddPeople: React.FC<{ type: 'User' | 'Staff', onCloseHandler: () => vo
         return fetch(link, {
             method: 'POST',
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer '+localStorage.getItem('authToken')
             },
             body: JSON.stringify({
                 email: state.email,

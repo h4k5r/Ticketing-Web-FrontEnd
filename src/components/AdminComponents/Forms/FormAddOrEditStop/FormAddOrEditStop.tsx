@@ -24,7 +24,8 @@ const FormAddOrEditBus: React.FC<{
         fetch(link, {
             method: method,
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer '+localStorage.getItem('authToken')
             },
             body: JSON.stringify(body)
         })

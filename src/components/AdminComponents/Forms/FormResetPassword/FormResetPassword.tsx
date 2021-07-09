@@ -20,8 +20,12 @@ const FormResetPassword: React.FC<{
     const [email, setEmail] = useState('');
     useEffect(() => {
         //fetchPerson with the email
-        if(type === 'user' && selectedUserId.length > 0) {
-            fetch(`http://localhost:8080/admin/searchUser/${selectedUserId}`)
+        if (type === 'user' && selectedUserId.length > 0) {
+            fetch(`http://localhost:8080/admin/searchUser/${selectedUserId}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                }
+            })
                 .then(result => {
                     return result.json();
                 })
@@ -33,8 +37,12 @@ const FormResetPassword: React.FC<{
                     console.log(err)
                 })
         }
-        if(type === 'staff' && selectedStaffId.length > 0) {
-            fetch(`http://localhost:8080/admin/searchStaff/${selectedStaffId}`)
+        if (type === 'staff' && selectedStaffId.length > 0) {
+            fetch(`http://localhost:8080/admin/searchStaff/${selectedStaffId}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                }
+            })
                 .then(result => {
                     return result.json();
                 })
@@ -45,7 +53,7 @@ const FormResetPassword: React.FC<{
                     console.log(err)
                 })
         }
-    }, [type,selectedStaffId,selectedUserId])
+    }, [type, selectedStaffId, selectedUserId])
     const passwordInputRef = useRef(document.createElement('input'));
     const confirmPasswordInputRef = useRef(document.createElement('input'));
     const resetRequest = (link: string) => {

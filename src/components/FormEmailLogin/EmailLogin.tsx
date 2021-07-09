@@ -49,7 +49,6 @@ const EmailLogin:React.FC<{}> = () => {
                 else {
                     history.replace('/search');
                 }
-
             },
                 () => {
                 console.log('login Failed');
