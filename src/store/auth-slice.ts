@@ -3,10 +3,12 @@ import {createSlice, Dispatch} from "@reduxjs/toolkit";
 export type authObjectType = {
     isLoggedIn: boolean,
     isAdmin: boolean,
+    otpToken:string
 }
 const initAuth:authObjectType = {
     isLoggedIn:false,
     isAdmin:false,
+    otpToken:''
 }
 
 export const authSlice = createSlice({
@@ -19,12 +21,16 @@ export const authSlice = createSlice({
         adminOut (state) {
             state.isAdmin = false
         },
+        setToken (state,action) {
+            state.otpToken = action.payload.otpToken
+        },
         login (state){
             state.isLoggedIn = true;
         },
         logout (state) {
             state.isLoggedIn = false;
-            state.isAdmin = false
+            state.isAdmin = false;
+            state.otpToken = '';
         }
     }
 });
@@ -73,12 +79,27 @@ export const emailLogin =  (email:string,password:string,successHandler:funParam
             })
     }
 }
-export const otpVerify = (otp:number,successHandler:fun,failureHandler:fun) => {
+export const otpVerify = (otp:number,token:string,successHandler:fun,failureHandler:fun) => {
     return (dispatch:Dispatch) => {
         dispatch({type: "AuthSlice/login", payload: undefined});
-        fetch('')
-            .then((response) => {
-                console.log(response)
+        fetch('http://localhost:8080/otpVerify',{
+            method:'POST',
+            headers: {
+                'Content-type':'application/json'
+            },
+            body:JSON.stringify({
+                otp:otp,
+                token:token
+            })
+        })
+            .then(result => {
+                return result.json()
+            })
+            .then(data => {
+                if(data.error) {
+                    return;
+                }
+                localStorage.setItem('authToken',data.token);
                 dispatch(authActions.login());
                 dispatch(authActions.adminOut());
                 successHandler();
@@ -87,7 +108,6 @@ export const otpVerify = (otp:number,successHandler:fun,failureHandler:fun) => {
                 console.log(error)
                 failureHandler();
             })
-        console.log(otp)
     }
 }
 export const googleLogin = (successHandler:fun,failureHandler:fun) => {

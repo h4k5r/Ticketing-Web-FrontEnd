@@ -7,24 +7,36 @@ import {loginLink, phoneOtpLink} from "../../../../LinkPaths";
 import NormalGradientButton from "../../../../UI/Buttons/NormalButtons/NormalGradientButton/NormalGradientButton";
 import {phoneNumberValidator} from "../../../../utils/validators";
 import {initialPhoneFormState, phoneFormReducer} from "../../../../reducers/phone-form-reducer";
+import {useDispatch} from "react-redux";
+import {authActions} from "../../../../store/auth-slice";
 
 const color:string = 'red';
 const FormPhoneRegister:React.FC<{}> = () => {
+    const authDispatch = useDispatch();
     const history = useHistory();
     const codeRef = useRef<HTMLSelectElement>(document.createElement('select'));
     const [state,dispatch] = useReducer(phoneFormReducer,initialPhoneFormState);
-
 
     const onSubmitHandler = (event:React.FormEvent) => {
         event.preventDefault();
         const code = codeRef.current.value;
         const numberString = code + state.phoneNumber.toString();
-        fetch('',{
+        console.log(numberString);
+        fetch('http://localhost:8080/phoneAuth',{
             method:'POST',
-            body:JSON.stringify(+numberString)
+            body:JSON.stringify({
+                phone:numberString
+            }),
+            headers:{
+                'Content-type':'application/json'
+            }
         })
-            .then((response) => {
-                console.log(response)
+            .then((result) => {
+                return result.json();
+            })
+            .then(data => {
+                console.log(data);
+                authDispatch(authActions.setToken({otpToken:data.verificationToken}));
             })
             .catch((error) => {
                 console.log(error)
