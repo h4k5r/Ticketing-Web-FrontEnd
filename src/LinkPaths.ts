@@ -1,15 +1,15 @@
 export const searchLink = `/search`;
 export const trackLink = `/track`;
 export const loginLink = `/login`;
-export const phoneRegisterLink:string = `${loginLink}/phoneRegister`;
-export const phoneOtpLink:string = `${loginLink}/phoneOTP`;
-export const googleLoginLink:string = ``;
-export const emailLoginLink:string = `${loginLink}/emailLogin`;
-export const emailRegisterLink:string = `${loginLink}/emailRegister`;
-export const emailPasswordResetLink:string = `${loginLink}/emailPasswordReset`;
+export const phoneRegisterLink: string = `${loginLink}/phoneRegister`;
+export const phoneOtpLink: string = `${loginLink}/phoneOTP`;
+export const googleLoginLink: string = ``;
+export const emailLoginLink: string = `${loginLink}/emailLogin`;
+export const emailRegisterLink: string = `${loginLink}/emailRegister`;
+export const emailPasswordResetLink: string = `${loginLink}/emailPasswordReset`;
 export const profileLink = `/profile`;
 export const historyLink = `/history`;
-
+export const resetLink = `${loginLink}/reset/:token`;
 
 
 export const busesLink = `/buses`;

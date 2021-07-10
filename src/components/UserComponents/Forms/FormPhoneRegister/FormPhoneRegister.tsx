@@ -36,6 +36,9 @@ const FormPhoneRegister:React.FC<{}> = () => {
             })
             .then(data => {
                 console.log(data);
+                if(data.error) {
+                    return Promise.reject(data.errorMessage);
+                }
                 authDispatch(authActions.setToken({otpToken:data.verificationToken}));
             })
             .catch((error) => {

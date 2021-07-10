@@ -1,5 +1,5 @@
 import React, {useEffect, useReducer} from "react";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import classes from './FormEmailRegister.module.css'
 
 import {emailFormReducer, initialEmailFormState} from "../../../../reducers/email-form-reducer";
@@ -7,6 +7,7 @@ import GradientInput from "../../../../UI/GradientInput/GradientInput";
 import {emailLoginLink, emailPasswordResetLink, loginLink} from "../../../../LinkPaths";
 import NormalGradientButton from "../../../../UI/Buttons/NormalButtons/NormalGradientButton/NormalGradientButton";
 import {confirmPasswordValidator, emailValidator, passwordValidator} from "../../../../utils/validators";
+import fetch from "node-fetch";
 
 
 const color: string = 'red';
@@ -15,9 +16,12 @@ const FormEmailRegister: React.FC<{}> = () => {
 
     const [state, dispatch] = useReducer(emailFormReducer, initialEmailFormState);
     const {isEmailValid, isPasswordValid, isConfirmPasswordValid, isFormValid} = state;
+    const history = useHistory();
     useEffect(() => {
         if (isEmailValid && isPasswordValid && isConfirmPasswordValid) {
             dispatch({type: 'setFormIsValid', payload: true})
+        } else {
+            dispatch({type: 'setFormIsValid', payload: false})
         }
     }, [isEmailValid, isPasswordValid, isConfirmPasswordValid])
     const onEmailChangeHandler = () => {
@@ -35,9 +39,7 @@ const FormEmailRegister: React.FC<{}> = () => {
     const onPasswordBlurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
         const enteredPassword = event.target.value;
         passwordValidator(enteredPassword, dispatch);
-        confirmPasswordValidator(enteredPassword, state.confirmPassword, dispatch);
-        console.log(enteredPassword === state.confirmPassword)
-
+        confirmPasswordValidator(enteredPassword, state.confirmPassword.trim(), dispatch);
     }
     const onConfirmPasswordChangeHandler = () => {
         dispatch({type: 'setConfirmPasswordIsValid', payload: true});
@@ -45,20 +47,37 @@ const FormEmailRegister: React.FC<{}> = () => {
     }
     const onConfirmPasswordBlurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
         const enteredConfirmPassword = event.target.value;
-        confirmPasswordValidator(state.password, enteredConfirmPassword, dispatch)
+        confirmPasswordValidator(state.password, enteredConfirmPassword.trim(), dispatch)
+        console.log(state);
     }
     const onsubmitHandler = (event: React.FormEvent) => {
         event.preventDefault();
         if (!isFormValid) {
             return;
         }
-        // authContext.emailRegister(state.email,state.password,
-        //     () => {
-        //         console.log('registration Successful')
-        //     },
-        //     () => {
-        //         console.log('registration Failed')
-        //     });
+        fetch('http://localhost:8080/createUser',{
+            method:'POST',
+            headers: {
+                'Content-type':'application/json'
+            },
+            body:JSON.stringify({
+                email:state.email,
+                password:state.password,
+                confirmPassword:state.confirmPassword
+            })
+        })
+            .then(result => {
+                return result.json();
+            })
+            .then(data => {
+                if(data.error) {
+                    return Promise.reject(data.errorMessage);
+                }
+                history.replace(emailLoginLink);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
     return (
         <div className={'formContainer'}>

@@ -8,11 +8,12 @@ import GrayCard from "../../../UI/GrayCard/GrayCard";
 import FormImage from "../../../UI/FormImage/FormImage";
 import LoginUI from "../../../components/LoginUI/LoginUI";
 import EmailLogin from "../../../components/FormEmailLogin/EmailLogin";
-import FormEmailPasswordReset from "../../../components/UserComponents/Forms/FormEmailPasswordReset/FormEmailPasswordReset";
+import FormEmailPasswordReset
+    from "../../../components/UserComponents/Forms/FormEmailPasswordReset/FormEmailPasswordReset";
 import FormEmailRegister from "../../../components/UserComponents/Forms/FormEmailRegister/FormEmailRegister";
 import FormPhoneRegister from "../../../components/UserComponents/Forms/FormPhoneRegister/FormPhoneRegister";
 import FormPhoneOTP from "../../../components/UserComponents/Forms/FormPhoneOTP/FormPhoneOTP";
-
+import FormUserResetPassword from "../../../components/UserComponents/Forms/FormResetPassword/FormUserResetPassword";
 
 import {
     emailLoginLink,
@@ -20,11 +21,12 @@ import {
     emailRegisterLink,
     loginLink,
     phoneOtpLink,
-    phoneRegisterLink
+    phoneRegisterLink,
+    resetLink
 } from "../../../LinkPaths";
 
 
-const LoginPage:React.FC<{}> = () => {
+const LoginPage: React.FC<{}> = () => {
     return (
         <section className={classes.loginSection}>
             <GrayCard cssClasses={[classes.card]}>
@@ -38,6 +40,7 @@ const LoginPage:React.FC<{}> = () => {
                         <Route path={emailRegisterLink}><FormEmailRegister/></Route>
                         <Route path={phoneRegisterLink}><FormPhoneRegister/></Route>
                         <Route path={phoneOtpLink}><FormPhoneOTP/></Route>
+                        <Route path={resetLink}><FormUserResetPassword/></Route>
                     </div>
                 </div>
             </GrayCard>

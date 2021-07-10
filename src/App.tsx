@@ -41,6 +41,7 @@ function App() {
             .then(data => {
                 if (data.error) {
                     dispatch(authActions.logout());
+                    localStorage.removeItem('authToken')
                     return;
                 }
                 if (data.isAdmin) {
