@@ -78,7 +78,7 @@ const FormSearchBuses: React.FC = () => {
                                    ref={busNumberRef} label={'Bus Number'} cssClasses={[classes.grow]}/>
 
                     <NormalGradientButton text={'Search'} buttonColor={'red'} type={'submit'}
-                                          cssClassesOnContainer={[classes.grow, classes.searchBtn]}/>
+                                          cssClassesOnContainer={[classes.grow,classes.searchBtn]}/>
                 </div>
             </form>
             <NormalGradientButton text={'Add New Bus'} buttonColor={'green'} onClick={onAddBusHandler}/>

@@ -13,6 +13,7 @@ import HistoryResults, {ticketHistory} from "../../../components/HistoryResults/
 import FormAddPeople from "../../../components/AdminComponents/Forms/FormAddPeople/FormAddPeople";
 import {RootState} from "../../../store";
 import fetch from "node-fetch";
+import {uiAction} from "../../../store/ui-slice";
 
 const UsersPage: React.FC<{}> = () => {
     const [history, setHistory] = useState<ticketHistory[]>([]);
@@ -22,6 +23,9 @@ const UsersPage: React.FC<{}> = () => {
     const isResetOpen = useSelector((state: RootState) => state.usersList.isResetOpen);
     const isDeleteOpen = useSelector((state: RootState) => state.usersList.isDeleteOpen);
     const selectedUserId = useSelector((state: RootState) => state.usersList.selectedUserId);
+    useEffect(() => {
+        dispatch(uiAction.closeMobileMenu());
+    },[dispatch]);
     useEffect(() => {
         if (isHistoryOpen) {
             //fetch history

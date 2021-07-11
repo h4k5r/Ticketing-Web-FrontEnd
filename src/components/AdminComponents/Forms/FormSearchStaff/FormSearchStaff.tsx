@@ -17,7 +17,8 @@ const FormSearchStaff:React.FC = () => {
             fetch("http://localhost:8080/admin/searchStaffs",{
                 method:"POST",
                 headers:{
-                    'Content-type':'application/json'
+                    'Content-type':'application/json',
+                    'Authorization': 'Bearer '+localStorage.getItem('authToken')
                 },
                 body:JSON.stringify({
                     staffEmail: enteredStaffEmail
@@ -30,6 +31,10 @@ const FormSearchStaff:React.FC = () => {
                     return result.json();
                 })
                 .then(data => {
+                    console.log(data)
+                    if(data.error) {
+                        return Promise.reject(data.errorMessage);
+                    }
                     dispatch(staffListAction.setResult(
                         {
                             result:{
@@ -37,7 +42,7 @@ const FormSearchStaff:React.FC = () => {
                                 id:data._id
                             }
                         })
-                    )
+                    );
                 })
                 .catch(err => {
                     console.log(err)

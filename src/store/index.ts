@@ -5,6 +5,7 @@ import stopsListSlice from "./stops-list-slice";
 import staffListSlice from "./staff-list-slice";
 import userListSlice from "./users-list-slice";
 import userSearchSlice from "./userSearch-slice";
+import UiSlice from "./ui-slice";
 
 const store = configureStore({
     reducer:{
@@ -13,7 +14,8 @@ const store = configureStore({
         stopsList:stopsListSlice.reducer,
         staffList:staffListSlice.reducer,
         usersList:userListSlice.reducer,
-        userSearch:userSearchSlice.reducer
+        userSearch:userSearchSlice.reducer,
+        uiReducer:UiSlice.reducer
     }
 });
 export type RootState = ReturnType<typeof store.getState>

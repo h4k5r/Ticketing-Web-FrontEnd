@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Route} from "react-router-dom";
 
 import classes from './Login.module.css'
@@ -24,9 +24,15 @@ import {
     phoneRegisterLink,
     resetLink
 } from "../../../LinkPaths";
+import {useDispatch} from "react-redux";
+import {uiAction} from "../../../store/ui-slice";
 
 
 const LoginPage: React.FC<{}> = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(uiAction.closeMobileMenu());
+    },[dispatch]);
     return (
         <section className={classes.loginSection}>
             <GrayCard cssClasses={[classes.card]}>

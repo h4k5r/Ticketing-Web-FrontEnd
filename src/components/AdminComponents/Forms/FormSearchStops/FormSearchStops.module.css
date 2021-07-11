@@ -22,7 +22,26 @@
 .inputs {
     margin-bottom: 15px;
     flex-grow: 1;
+    width: 100%;
 }
 .searchBtn {
     margin-top: 15px;
+}
+@media (min-width: 0) and (max-width:768px) {
+    .overAllContainer {
+        padding: 2vh 5vw;
+    }
+    .formSubContainer {
+        flex-direction: column;
+    }
+    .mainText {
+        margin: 0;
+    }
+    .orText {
+        padding-top: 0;
+        text-align: center;
+        display: inline;
+        margin:10px 0;
+    }
+
 }

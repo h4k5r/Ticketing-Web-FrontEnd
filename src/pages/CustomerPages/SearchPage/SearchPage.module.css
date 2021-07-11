@@ -5,3 +5,9 @@
     height: 100%;
     padding:60px 0 ;
 }
+@media (min-width: 0px)and (max-width: 1024px){
+    .searchSection {
+        margin: 5vh 5vw;
+        padding: 0;
+    }
+}

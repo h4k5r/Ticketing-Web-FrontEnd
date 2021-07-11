@@ -1,25 +1,27 @@
-import React from "react";
+import React, {useEffect} from "react";
 import classes from './BusesPage.module.css'
 import FormSearchBuses from "../../../components/AdminComponents/Forms/FormSearchBuses/FormSearchBuses";
 import GrayCard from "../../../UI/GrayCard/GrayCard";
 import BusesList from "../../../components/AdminComponents/Lists/BusesList/BusesList";
 import BackDrop from "../../../UI/BackDrop/BackDrop";
 import {busesListAction} from "../../../store/buses-list-slice";
-import {Dispatch} from "@reduxjs/toolkit";
 import {useDispatch, useSelector} from "react-redux";
 import {Fragment} from "react";
 import ConfirmationCard from "../../../UI/ConfirmationCard/ConfirmationCard";
 import FormAddOrEditBus from "../../../components/AdminComponents/Forms/FormAddOrEditBus/FormAddOrEditBus";
 import {RootState} from "../../../store";
 import fetch from "node-fetch";
+import {uiAction} from "../../../store/ui-slice";
 
 const BusesPage: React.FC<{}> = () => {
-    const dispatch: Dispatch = useDispatch();
+    const dispatch = useDispatch();
     const isAddOpen = useSelector((state: RootState) => state.busesList.isAddOpen);
     const isEditOpen = useSelector((state: RootState) => state.busesList.isEditOpen);
     const isDeleteOpen = useSelector((state: RootState) => state.busesList.isDeleteOpen);
     const busId = useSelector((state: RootState) => state.busesList.selectedBusId);
-
+    useEffect(() => {
+        dispatch(uiAction.closeMobileMenu());
+    },[dispatch]);
     const deleteBusHandler = () => {
         //send delete request to serve with busId
         fetch(`http://localhost:8080/admin/deleteBus/${busId}`,{

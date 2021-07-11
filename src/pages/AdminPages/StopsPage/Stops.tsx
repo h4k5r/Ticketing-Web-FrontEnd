@@ -11,6 +11,7 @@ import {stopsListAction} from "../../../store/stops-list-slice";
 import ConfirmationCard from "../../../UI/ConfirmationCard/ConfirmationCard";
 import {RootState} from "../../../store";
 import fetch from "node-fetch";
+import {uiAction} from "../../../store/ui-slice";
 
 const Stops: React.FC<{}> = () => {
     const [stopName, setStopName] = useState('')
@@ -19,6 +20,9 @@ const Stops: React.FC<{}> = () => {
     const isEditOpen = useSelector((state: RootState) => state.stopsList.isEditOpen);
     const isDeleteOpen = useSelector((state: RootState) => state.stopsList.isDeleteOpen);
     const stopId = useSelector((state: RootState) => state.stopsList.selectedStopId);
+    useEffect(() => {
+        dispatch(uiAction.closeMobileMenu());
+    },[dispatch]);
     useEffect(() => {
         if (isEditOpen) {
             //fetch stop Name

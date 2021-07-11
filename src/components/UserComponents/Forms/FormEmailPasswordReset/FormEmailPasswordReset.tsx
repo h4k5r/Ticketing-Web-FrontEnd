@@ -1,5 +1,6 @@
 import React, {useReducer, useRef} from "react";
 import {Link} from "react-router-dom";
+import classes from './FormEmailPasswordReset.module.css'
 import {emailFormReducer, initialEmailFormState} from "../../../../reducers/email-form-reducer";
 import {emailValidator} from "../../../../utils/validators";
 import GradientInput from "../../../../UI/GradientInput/GradientInput";
@@ -36,7 +37,7 @@ const FormEmailPasswordReset: React.FC<{}> = () => {
                     return result.json()
                 })
                 .then(data => {
-                    if (data.error) {
+                    if (data.error === false) {
                         console.log(data.errorMessage);
                         return;
                     }
@@ -52,7 +53,7 @@ const FormEmailPasswordReset: React.FC<{}> = () => {
             <form className={'formStyle'} onSubmit={onSubmitHandler}>
                 <GradientInput label={'Email'} type={'email'} color={color} placeHolder={'Enter Email'}
                                onBlurHandler={emailOnBlurHandler} onChangeHandler={emailOnChangeHandler} ref={emailRef}/>
-                <NormalGradientButton text={'Send Reset Link'} buttonColor={color} disabled={!state.isEmailValid}/>
+                <NormalGradientButton text={'Send Reset Link'} buttonColor={color} disabled={!state.isEmailValid} cssClassesOnContainer={[classes.btn]}/>
                 <Link className={'link'} to={emailLoginLink}>Click Here to Login.</Link>
             </form>
         </div>

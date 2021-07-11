@@ -5,7 +5,7 @@ const GradientInput = React.forwardRef<HTMLInputElement,{type:string,
     placeHolder:string,
     label:string,
     value?:any,
-    cssClasses?: string[] | undefined,
+    cssClasses?: string[],
     onBlurHandler?:(e:React.FocusEvent<HTMLInputElement>) => void,
     onChangeHandler?: (e:React.ChangeEvent<HTMLInputElement>) => void }>((props,
                                                                           ref) => {

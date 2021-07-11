@@ -67,7 +67,8 @@ const FormPhoneRegister:React.FC<{}> = () => {
                                    onChangeHandler={onNumberChangeHandler} onBlurHandler={onBlurHandler}/>
                 </div>
                 {!state.isPhoneNumberValid && <p className={'error'}>{state.phoneNumberErrorMessage}</p>}
-                <NormalGradientButton text={'Get OTP'} buttonColor={'red'} type={'submit'} disabled={!state.isPhoneNumberValid}/>
+                <NormalGradientButton text={'Get OTP'} buttonColor={'red'} type={'submit'}
+                                      disabled={!state.isPhoneNumberValid} cssClassesOnContainer={[classes.btn]}/>
                 <Link className={'link'} to={loginLink}>Get in With Other Methods</Link>
             </form>
         </div>

@@ -1,0 +1,23 @@
+.menuItems {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 30px;
+    list-style: none;
+    z-index: 20;
+}
+
+@media (min-width: 0px)and (max-width: 1024px){
+    .menuItems {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top:72px;
+        background: #141414;
+        margin: 0;
+        width: 100vw;
+        padding: 0;
+    }
+    .show {
+        display: inline-flex;
+    }
+}

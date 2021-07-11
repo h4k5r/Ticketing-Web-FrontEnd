@@ -1,23 +1,40 @@
 .overAllContainer {
     padding: 30px;
 }
+
 .mainText {
-    color:white;
+    color: white;
 }
+
 .formContainer {
     display: flex;
     margin-bottom: 30px;
     align-items: flex-end;
 }
+
 .middleSpace {
     width: 10%;
     color: transparent;
     text-align: center;
 }
+
 .grow {
     width: 100%;
     display: flex;
 }
-.searchBtn{
+
+.searchBtn {
     margin-left: 30px;
+}
+
+@media (min-width: 0px) and (max-width: 768px) {
+    .overAllContainer {
+        padding: 2vh 5vw;
+    }
+    .mainText {
+        margin: 0;
+    }
+    .formContainer {
+        flex-direction: column;
+    }
 }

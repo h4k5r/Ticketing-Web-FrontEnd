@@ -3,6 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-height: 72px;
 
 }
 .menuItems {
@@ -19,5 +20,33 @@
     color: white;
     text-decoration: none;
     white-space: nowrap
-
+}
+.show {
+    display: inline-flex;
+}
+@media (min-width: 0px)and (max-width: 1024px){
+    /*.menuItems {*/
+    /*    flex-direction: column;*/
+    /*    position: absolute;*/
+    /*    top:72px;*/
+    /*    background: #141414;*/
+    /*    margin: 0;*/
+    /*    width: 100vw;*/
+    /*    padding: 0;*/
+    /*}*/
+    .menuItems {
+        display: none;
+    }
+    .brand {
+        margin-left: 5%;
+    }
+    .burger {
+        margin-right: 5%;
+    }
+    .burgerLines {
+        width: 35px;
+        height: 5px;
+        background-color: white;
+        margin: 6px 0;
+    }
 }

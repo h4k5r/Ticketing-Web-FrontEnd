@@ -4,6 +4,7 @@
     border-radius: 15px;
     margin: 10px 0;
 }
+
 .image {
 
 }
@@ -11,10 +12,12 @@
 .text {
     margin: 0;
 }
+
 .propText {
     font-weight: bold;
     margin-left: 10px;
 }
+
 .detailsContainer {
     display: flex;
     flex-direction: column;
@@ -22,14 +25,37 @@
     justify-content: space-around;
     align-items: center;
 }
+
 .detailsSubContainer {
     display: inline-flex;
     flex-grow: 1;
 }
+
 .buttonContainer {
     display: flex;
     flex-grow: 0.5;
     padding: 10px 0;
     justify-content: space-evenly;
 
+}
+
+@media (min-width: 0px) and (max-width: 768px) {
+    .image {
+        max-height: 50px;
+    }
+    .container {
+        flex-basis: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+
+    }
+    .detailsContainer {
+        flex-basis: 100%;
+        flex-wrap: wrap;
+    }
+    .detailsSubContainer {
+        flex-basis: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }

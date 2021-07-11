@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect} from "react";
 import classes from './StaffPage.module.css'
 import GrayCard from "../../../UI/GrayCard/GrayCard";
 import FormSearchStaff from "../../../components/AdminComponents/Forms/FormSearchStaff/FormSearchStaff";
@@ -12,6 +12,7 @@ import FormChangeBus from "../../../components/AdminComponents/Forms/FormChangeB
 import {RootState} from "../../../store";
 import FormAddPeople from "../../../components/AdminComponents/Forms/FormAddPeople/FormAddPeople";
 import fetch from "node-fetch";
+import {uiAction} from "../../../store/ui-slice";
 
 const StaffPage: React.FC<{}> = () => {
     const dispatch = useDispatch();
@@ -20,7 +21,9 @@ const StaffPage: React.FC<{}> = () => {
     const isResetPasswordOpen = useSelector((state: RootState) => state.staffList.isResetOpen);
     const isDeleteOpen = useSelector((state: RootState) => state.staffList.isDeleteOpen);
     const selectedStaffId = useSelector((state: RootState) => state.staffList.selectedStaffId);
-
+    useEffect(() => {
+        dispatch(uiAction.closeMobileMenu());
+    },[dispatch]);
     const onCloseHandler = () => {
         console.log('close handler triggered')
         dispatch(staffListAction.closeAll());

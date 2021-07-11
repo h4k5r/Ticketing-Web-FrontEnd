@@ -20,3 +20,24 @@
     flex-grow: 1;
     margin: 10px 0 ;
 }
+@media (min-width: 0px) and (max-width: 615px) {
+    .subContainer {
+        padding: 5vh 5vw;
+    }
+}
+@media (min-width: 0px) and (max-width: 1024px) {
+    .container {
+        padding: 5vh 5vw;
+    }
+    .formContainer {
+        flex-direction: column;
+    }
+    .nameInput {
+        width: 100%;
+        margin-right: 0;
+    }
+    .updateButton {
+        width: 100%;
+
+    }
+}

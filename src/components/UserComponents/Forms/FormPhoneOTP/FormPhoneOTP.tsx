@@ -1,5 +1,6 @@
 import React, {useReducer} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import classes from './FormPhoneOTP.module.css'
 import GradientInput from "../../../../UI/GradientInput/GradientInput";
 import NormalGradientButton from "../../../../UI/Buttons/NormalButtons/NormalGradientButton/NormalGradientButton";
 import {initialPhoneFormState, phoneFormReducer} from "../../../../reducers/phone-form-reducer";
@@ -42,7 +43,7 @@ const FormPhoneOTP:React.FC<{}>= () => {
                 {!state.isOTPValid &&
                 state.OTPErrorMessage.length > 0 &&
                 <p className={'error'}>{state.OTPErrorMessage}</p>}
-                <NormalGradientButton text={'Verify OTP'} buttonColor={color} disabled={!state.isOTPValid}/>
+                <NormalGradientButton text={'Verify OTP'} buttonColor={color} disabled={!state.isOTPValid} cssClassesOnContainer={[classes.btn]}/>
             </form>
         </div>
     );

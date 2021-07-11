@@ -28,3 +28,8 @@
     color: red;
     margin:0;
 }
+@media (min-width: 0px)and (max-width: 900px){
+    .formStyle {
+        padding: 0 5vw;
+    }
+}

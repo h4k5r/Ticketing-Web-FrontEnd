@@ -29,3 +29,8 @@
 .subText {
     margin: 0;
 }
+@media (min-width: 0px)and (max-width: 900px){
+    .common {
+        display: none;
+    }
+}

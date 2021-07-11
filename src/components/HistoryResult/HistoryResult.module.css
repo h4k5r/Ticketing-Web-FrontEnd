@@ -5,11 +5,12 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
+    width: available;
 }
 .subContainer1 {
     display: flex;
     justify-content: space-around;
-
+    flex-grow: 1;
 }
 .subContainer2 {
     display: flex;
@@ -17,9 +18,13 @@
     justify-content: space-around;
     margin: 0 10px;
 }
+.hintText {
+    margin: 0;
+}
 .text {
     margin: 0;
     font-weight: bold;
+    max-width: 100%;
 }
 .qrBtn {
     padding: 10px;
@@ -38,4 +43,14 @@
     border-radius: 10px;
     z-index: -10;
 
+}
+
+@media (min-width: 0px)and (max-width: 1299px){
+    .subContainer1 {
+        flex-basis: 100%;
+        flex-wrap: wrap;
+    }
+    .subContainer2 {
+        flex-grow: 1;
+    }
 }

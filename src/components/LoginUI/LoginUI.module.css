@@ -21,3 +21,8 @@
     margin-top: 50px;
     color: white;
 }
+@media (min-width: 0px)and (max-width: 1024px){
+    .loginContainer {
+        padding: 0 5vw;
+    }
+}

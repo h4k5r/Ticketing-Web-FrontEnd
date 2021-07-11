@@ -24,4 +24,27 @@
 .textInputs {
     flex-grow: 1;
 }
+@media (min-width: 0px) and (max-width: 768px){
+    .overAllContainer {
+        padding: 2vh 5vw;
+    }
+    .fomContainer {
+        flex-direction: column;
+    }
+    .textInputs {
+        width: 100%;
+    }
+    .mainText {
+        margin: 0;
+    }
+    .orText {
+        margin: 1vh 0;
+        width: 100%;
+        text-align: center;
+    }
+    .searchBtnContainer {
+        width: 100%;
+        margin-top: 2vh;
+    }
+}
 

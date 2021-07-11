@@ -21,8 +21,32 @@
     margin-right: 30px;
 }
 .searchBtn {
-    height: 60%;
+    height: 0;
 }
 .mainText {
     color: white;
+}
+@media (min-width: 0px) and (max-width: 768px){
+    .overAllContainer {
+        padding: 2vh 5vw;
+    }
+    .formContainer {
+        flex-direction: column;
+    }
+    .formSubContainer {
+        margin: 0;
+    }
+    .orText {
+        padding-top: 0;
+        text-align: center;
+        display: inline;
+        margin:10px 0;
+    }
+    .searchBtn {
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
+    .mainText {
+        margin: 0;
+    }
 }

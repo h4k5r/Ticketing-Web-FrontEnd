@@ -1,8 +1,14 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import classes from './CustomerLandingPage.module.css'
+import {useDispatch} from "react-redux";
+import {uiAction} from "../../../store/ui-slice";
 
 const CustomerLandingPage:React.FC<{}> = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(uiAction.closeMobileMenu());
+    },[dispatch]);
     return (
         <section className={classes.entire}>
             <div className={`${classes.common}`}>
