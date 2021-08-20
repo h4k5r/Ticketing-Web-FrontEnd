@@ -1,3 +1,20 @@
+# Ticketing System 
+A FullStack Web Application that can be used to buy tickets for the public bus through internet and can be
+used to track the location of buses.
+The FrontEnd was built using Create React app with typescript.
+
+![Logo](https://dev00.io/static/media/TicketingWeb.c4b9e32b.jpg)
+
+# Before Getting Started
+create a file  named ApiKeys.ts in the src Folder with GoogleMapAPIKey exported.
+```typescript
+export const GoogleMapAPIKey:string = 'YourGoogleMapsApiKey'
+```
+Also Make sure to download the backend of the application.
+
+[Here is link of the Backend of this application](https://github.com/h4k5r/Ticketing-Web-BackEnd "Ticketing Backend")
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
